@@ -1266,7 +1266,7 @@
   {
     "old_name": "Tickets",
     "new_name": "tickets",
-    "create_mapped_view": false,
+    "create_mapped_view": true,
     "field_map": [
       {
         "old_name": "id",
