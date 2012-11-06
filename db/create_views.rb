@@ -13,12 +13,20 @@ require 'pp'
 table_maps = JSON.load($stdin.read)
 
 template = %q{
-CREATE OR REPLACE VIEW <%= view_name %>
+CREATE OR REPLACE VIEW <%= view_name %> AS
 SELECT 
-% field_maps[0..-2].each do |map| 
+% field_maps[0..-2].each do |map|
+%   if map['old_name'] != map['new_name'] then  
   <%= map['old_name'] %> AS <%= map['new_name'] %>,
+%   else
+  <%= map['old_name'] %>,
+%   end  
 % end  
-  <%= field_maps.last['old_name'] %> AS <%= field_maps.last['new_name'] %> 
+% if field_maps.last['old_name'] != field_maps.last['new_name'] then  
+  <%= field_maps.last['old_name'] %> AS <%= field_maps.last['new_name'] %>
+% else
+  <%= field_maps.last['old_name'] %>
+% end  
 FROM <%= table_name %>;
 }
 
