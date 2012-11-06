@@ -991,7 +991,7 @@
   {
     "old_name": "Queues",
     "new_name": "queues",
-    "create_mapped_view": false,
+    "create_mapped_view": true,
     "field_map": [
       {
         "old_name": "id",
@@ -1278,7 +1278,7 @@
       },
       {
         "old_name": "Queue",
-        "new_name": "queue"
+        "new_name": "queue_id"
       },
       {
         "old_name": "Type",

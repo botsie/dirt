@@ -10,7 +10,5 @@ class Queue
   property :name,         String
   property :description,  String
 
-  has n,  :tickets,
-    :parent_key => [ :id ],
-    :child_key  => [ :queue ]
+  has n,  :tickets
 end

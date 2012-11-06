@@ -8,9 +8,5 @@ class Ticket
   property :id,         Serial
   property :subject,    String
 
-  belongs_to :queue, 
-    :parent_key => [ :id ],
-    :child_key  => [ :queue ],
-    :lazy       => false
-
+  belongs_to :queue
 end
