@@ -18,7 +18,7 @@ DROP VIEW IF EXISTS
 % maps[0..-2].each do |map| 
   <%= map['new_name'] %>,
 % end  
-  <%= maps.last['new_name'] %> 
+  <%= maps.last['new_name'] %> ;
 }
 
 puts ERB.new(template, 0, "%<>").result binding

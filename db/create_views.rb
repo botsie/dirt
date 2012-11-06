@@ -19,7 +19,7 @@ SELECT
   <%= map['old_name'] %> AS <%= map['new_name'] %>,
 % end  
   <%= field_maps.last['old_name'] %> AS <%= field_maps.last['new_name'] %> 
-FROM <%= table_name %>
+FROM <%= table_name %>;
 }
 
 sql = ERB.new(template, 0, "%<>")
