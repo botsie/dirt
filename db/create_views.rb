@@ -31,10 +31,6 @@ table_maps.each do |table_map|
     view_name = table_map["new_name"]
     table_name = table_map["old_name"]
     field_maps = table_map["field_map"]
-#    p table_map
-#    p view_name
-#    p table_name
-    pp field_maps
     puts sql.result binding
   end
 end
