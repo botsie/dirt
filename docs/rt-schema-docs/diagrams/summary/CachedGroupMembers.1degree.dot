@@ -1,0 +1,35 @@
+// dot 2.28.0 on Linux 3.2.21-1.32.6.amzn1.x86_64
+// SchemaSpy rev 590
+digraph "CachedGroupMembers" {
+  graph [
+    rankdir="RL"
+    bgcolor="#f7f7f7"
+    nodesep="0.18"
+    ranksep="0.46"
+    fontname="Helvetica"
+    fontsize="11"
+  ];
+  node [
+    fontname="Helvetica"
+    fontsize="11"
+    shape="plaintext"
+  ];
+  edge [
+    arrowsize="0.8"
+  ];
+  "CachedGroupMembers" [
+    label=<
+    <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
+      <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">CachedGroupMembers</TD></TR>
+      <TR><TD PORT="id" COLSPAN="3" BGCOLOR="#bed1b8" ALIGN="LEFT">id</TD></TR>
+      <TR><TD PORT="GroupId" COLSPAN="3" BGCOLOR="#f4f7da" ALIGN="LEFT">GroupId</TD></TR>
+      <TR><TD PORT="MemberId" COLSPAN="3" BGCOLOR="#f4f7da" ALIGN="LEFT">MemberId</TD></TR>
+      <TR><TD PORT="Via" COLSPAN="3" ALIGN="LEFT">Via</TD></TR>
+      <TR><TD PORT="ImmediateParentId" COLSPAN="3" BGCOLOR="#f4f7da" ALIGN="LEFT">ImmediateParentId</TD></TR>
+      <TR><TD PORT="Disabled" COLSPAN="3" BGCOLOR="#f4f7da" ALIGN="LEFT">Disabled</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">3,078,435 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">  </TD></TR>
+    </TABLE>>
+    URL="tables/CachedGroupMembers.html"
+    tooltip="CachedGroupMembers"
+  ];
+}

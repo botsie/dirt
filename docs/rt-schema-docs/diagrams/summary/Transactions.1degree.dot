@@ -1,0 +1,43 @@
+// dot 2.28.0 on Linux 3.2.21-1.32.6.amzn1.x86_64
+// SchemaSpy rev 590
+digraph "Transactions" {
+  graph [
+    rankdir="RL"
+    bgcolor="#f7f7f7"
+    nodesep="0.18"
+    ranksep="0.46"
+    fontname="Helvetica"
+    fontsize="11"
+  ];
+  node [
+    fontname="Helvetica"
+    fontsize="11"
+    shape="plaintext"
+  ];
+  edge [
+    arrowsize="0.8"
+  ];
+  "Transactions" [
+    label=<
+    <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
+      <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">Transactions</TD></TR>
+      <TR><TD PORT="id" COLSPAN="3" BGCOLOR="#bed1b8" ALIGN="LEFT">id</TD></TR>
+      <TR><TD PORT="ObjectType" COLSPAN="3" BGCOLOR="#f4f7da" ALIGN="LEFT">ObjectType</TD></TR>
+      <TR><TD PORT="ObjectId" COLSPAN="3" BGCOLOR="#f4f7da" ALIGN="LEFT">ObjectId</TD></TR>
+      <TR><TD PORT="TimeTaken" COLSPAN="3" ALIGN="LEFT">TimeTaken</TD></TR>
+      <TR><TD PORT="Type" COLSPAN="3" ALIGN="LEFT">Type</TD></TR>
+      <TR><TD PORT="Field" COLSPAN="3" ALIGN="LEFT">Field</TD></TR>
+      <TR><TD PORT="OldValue" COLSPAN="3" ALIGN="LEFT">OldValue</TD></TR>
+      <TR><TD PORT="NewValue" COLSPAN="3" ALIGN="LEFT">NewValue</TD></TR>
+      <TR><TD PORT="ReferenceType" COLSPAN="3" ALIGN="LEFT">ReferenceType</TD></TR>
+      <TR><TD PORT="OldReference" COLSPAN="3" ALIGN="LEFT">OldReference</TD></TR>
+      <TR><TD PORT="NewReference" COLSPAN="3" ALIGN="LEFT">NewReference</TD></TR>
+      <TR><TD PORT="Data" COLSPAN="3" ALIGN="LEFT">Data</TD></TR>
+      <TR><TD PORT="Creator" COLSPAN="3" ALIGN="LEFT">Creator</TD></TR>
+      <TR><TD PORT="Created" COLSPAN="3" ALIGN="LEFT">Created</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">4,630,028 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">  </TD></TR>
+    </TABLE>>
+    URL="tables/Transactions.html"
+    tooltip="Transactions"
+  ];
+}

@@ -1,0 +1,45 @@
+// dot 2.28.0 on Linux 3.2.21-1.32.6.amzn1.x86_64
+// SchemaSpy rev 590
+digraph "AT_Scrips" {
+  graph [
+    rankdir="RL"
+    bgcolor="#f7f7f7"
+    nodesep="0.18"
+    ranksep="0.46"
+    fontname="Helvetica"
+    fontsize="11"
+  ];
+  node [
+    fontname="Helvetica"
+    fontsize="11"
+    shape="plaintext"
+  ];
+  edge [
+    arrowsize="0.8"
+  ];
+  "AT_Scrips" [
+    label=<
+    <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
+      <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">AT_Scrips</TD></TR>
+      <TR><TD PORT="id" COLSPAN="3" BGCOLOR="#bed1b8" ALIGN="LEFT">id</TD></TR>
+      <TR><TD PORT="Description" COLSPAN="3" ALIGN="LEFT">Description</TD></TR>
+      <TR><TD PORT="ScripCondition" COLSPAN="3" ALIGN="LEFT">ScripCondition</TD></TR>
+      <TR><TD PORT="ScripAction" COLSPAN="3" ALIGN="LEFT">ScripAction</TD></TR>
+      <TR><TD PORT="ConditionRules" COLSPAN="3" ALIGN="LEFT">ConditionRules</TD></TR>
+      <TR><TD PORT="ActionRules" COLSPAN="3" ALIGN="LEFT">ActionRules</TD></TR>
+      <TR><TD PORT="CustomIsApplicableCode" COLSPAN="3" ALIGN="LEFT">CustomIsApplicableCode</TD></TR>
+      <TR><TD PORT="CustomPrepareCode" COLSPAN="3" ALIGN="LEFT">CustomPrepareCode</TD></TR>
+      <TR><TD PORT="CustomCommitCode" COLSPAN="3" ALIGN="LEFT">CustomCommitCode</TD></TR>
+      <TR><TD PORT="Stage" COLSPAN="3" ALIGN="LEFT">Stage</TD></TR>
+      <TR><TD PORT="AssetType" COLSPAN="3" ALIGN="LEFT">AssetType</TD></TR>
+      <TR><TD PORT="Template" COLSPAN="3" ALIGN="LEFT">Template</TD></TR>
+      <TR><TD PORT="Creator" COLSPAN="3" ALIGN="LEFT">Creator</TD></TR>
+      <TR><TD PORT="Created" COLSPAN="3" ALIGN="LEFT">Created</TD></TR>
+      <TR><TD PORT="LastUpdatedBy" COLSPAN="3" ALIGN="LEFT">LastUpdatedBy</TD></TR>
+      <TR><TD PORT="LastUpdated" COLSPAN="3" ALIGN="LEFT">LastUpdated</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">0 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">  </TD></TR>
+    </TABLE>>
+    URL="tables/AT_Scrips.html"
+    tooltip="AT_Scrips"
+  ];
+}

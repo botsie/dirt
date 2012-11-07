@@ -1,0 +1,63 @@
+// dot 2.28.0 on Linux 3.2.21-1.32.6.amzn1.x86_64
+// SchemaSpy rev 590
+digraph "Users" {
+  graph [
+    rankdir="RL"
+    bgcolor="#f7f7f7"
+    nodesep="0.18"
+    ranksep="0.46"
+    fontname="Helvetica"
+    fontsize="11"
+  ];
+  node [
+    fontname="Helvetica"
+    fontsize="11"
+    shape="plaintext"
+  ];
+  edge [
+    arrowsize="0.8"
+  ];
+  "Users" [
+    label=<
+    <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
+      <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">Users</TD></TR>
+      <TR><TD PORT="id" COLSPAN="3" BGCOLOR="#bed1b8" ALIGN="LEFT">id</TD></TR>
+      <TR><TD PORT="Name" COLSPAN="3" BGCOLOR="#f4f7da" ALIGN="LEFT">Name</TD></TR>
+      <TR><TD PORT="Password" COLSPAN="3" ALIGN="LEFT">Password</TD></TR>
+      <TR><TD PORT="Comments" COLSPAN="3" ALIGN="LEFT">Comments</TD></TR>
+      <TR><TD PORT="Signature" COLSPAN="3" ALIGN="LEFT">Signature</TD></TR>
+      <TR><TD PORT="EmailAddress" COLSPAN="3" BGCOLOR="#f4f7da" ALIGN="LEFT">EmailAddress</TD></TR>
+      <TR><TD PORT="FreeformContactInfo" COLSPAN="3" ALIGN="LEFT">FreeformContactInfo</TD></TR>
+      <TR><TD PORT="Organization" COLSPAN="3" ALIGN="LEFT">Organization</TD></TR>
+      <TR><TD PORT="RealName" COLSPAN="3" ALIGN="LEFT">RealName</TD></TR>
+      <TR><TD PORT="NickName" COLSPAN="3" ALIGN="LEFT">NickName</TD></TR>
+      <TR><TD PORT="Lang" COLSPAN="3" ALIGN="LEFT">Lang</TD></TR>
+      <TR><TD PORT="EmailEncoding" COLSPAN="3" ALIGN="LEFT">EmailEncoding</TD></TR>
+      <TR><TD PORT="WebEncoding" COLSPAN="3" ALIGN="LEFT">WebEncoding</TD></TR>
+      <TR><TD PORT="ExternalContactInfoId" COLSPAN="3" ALIGN="LEFT">ExternalContactInfoId</TD></TR>
+      <TR><TD PORT="ContactInfoSystem" COLSPAN="3" ALIGN="LEFT">ContactInfoSystem</TD></TR>
+      <TR><TD PORT="ExternalAuthId" COLSPAN="3" ALIGN="LEFT">ExternalAuthId</TD></TR>
+      <TR><TD PORT="AuthSystem" COLSPAN="3" ALIGN="LEFT">AuthSystem</TD></TR>
+      <TR><TD PORT="Gecos" COLSPAN="3" ALIGN="LEFT">Gecos</TD></TR>
+      <TR><TD PORT="HomePhone" COLSPAN="3" ALIGN="LEFT">HomePhone</TD></TR>
+      <TR><TD PORT="WorkPhone" COLSPAN="3" ALIGN="LEFT">WorkPhone</TD></TR>
+      <TR><TD PORT="MobilePhone" COLSPAN="3" ALIGN="LEFT">MobilePhone</TD></TR>
+      <TR><TD PORT="PagerPhone" COLSPAN="3" ALIGN="LEFT">PagerPhone</TD></TR>
+      <TR><TD PORT="Address1" COLSPAN="3" ALIGN="LEFT">Address1</TD></TR>
+      <TR><TD PORT="Address2" COLSPAN="3" ALIGN="LEFT">Address2</TD></TR>
+      <TR><TD PORT="City" COLSPAN="3" ALIGN="LEFT">City</TD></TR>
+      <TR><TD PORT="State" COLSPAN="3" ALIGN="LEFT">State</TD></TR>
+      <TR><TD PORT="Zip" COLSPAN="3" ALIGN="LEFT">Zip</TD></TR>
+      <TR><TD PORT="Country" COLSPAN="3" ALIGN="LEFT">Country</TD></TR>
+      <TR><TD PORT="Timezone" COLSPAN="3" ALIGN="LEFT">Timezone</TD></TR>
+      <TR><TD PORT="PGPKey" COLSPAN="3" ALIGN="LEFT">PGPKey</TD></TR>
+      <TR><TD PORT="Creator" COLSPAN="3" ALIGN="LEFT">Creator</TD></TR>
+      <TR><TD PORT="Created" COLSPAN="3" ALIGN="LEFT">Created</TD></TR>
+      <TR><TD PORT="LastUpdatedBy" COLSPAN="3" ALIGN="LEFT">LastUpdatedBy</TD></TR>
+      <TR><TD PORT="LastUpdated" COLSPAN="3" ALIGN="LEFT">LastUpdated</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">1,187 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">  </TD></TR>
+    </TABLE>>
+    URL="tables/Users.html"
+    tooltip="Users"
+  ];
+}

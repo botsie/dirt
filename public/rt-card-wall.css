@@ -1,0 +1,40 @@
+body {
+    padding-top: 40px;
+}
+
+
+.card {
+    border: 1px solid #ddd;
+    font-size: 7px;
+    padding: 3px;
+    margin-bottom: 5px;
+    -webkit-border-radius: 4px 4px 4px 4px;
+    -moz-border-radius: 4px 4px 4px 4px;
+    border-radius: 4px 4px 4px 4px;
+    background: #ffffe0
+}
+
+.card p {
+    font-size: 10px;
+}
+
+.col {
+    border-left: 1px solid #dddddd;
+    border-right: 1px solid #dddddd;
+}
+
+.cardwall-sidebar {
+    background: #cccccc;
+    padding: 3px;
+    -webkit-border-radius: 0px 0px 4px 4px;
+    -moz-border-radius: 0px 0px 4px 4px;
+}
+
+.sidebar-form legend {
+    font-size: 14px;
+}
+
+.fieldset-header {
+    padding: 2px;
+    border-bottom: 1px solid #bbb;
+}

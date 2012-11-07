@@ -1,0 +1,39 @@
+// dot 2.28.0 on Linux 3.2.21-1.32.6.amzn1.x86_64
+// SchemaSpy rev 590
+digraph "Links" {
+  graph [
+    rankdir="RL"
+    bgcolor="#f7f7f7"
+    nodesep="0.18"
+    ranksep="0.46"
+    fontname="Helvetica"
+    fontsize="11"
+  ];
+  node [
+    fontname="Helvetica"
+    fontsize="11"
+    shape="plaintext"
+  ];
+  edge [
+    arrowsize="0.8"
+  ];
+  "Links" [
+    label=<
+    <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
+      <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">Links</TD></TR>
+      <TR><TD PORT="id" COLSPAN="3" BGCOLOR="#bed1b8" ALIGN="LEFT">id</TD></TR>
+      <TR><TD PORT="Base" COLSPAN="3" BGCOLOR="#f4f7da" ALIGN="LEFT">Base</TD></TR>
+      <TR><TD PORT="Target" COLSPAN="3" BGCOLOR="#f4f7da" ALIGN="LEFT">Target</TD></TR>
+      <TR><TD PORT="Type" COLSPAN="3" BGCOLOR="#f4f7da" ALIGN="LEFT">Type</TD></TR>
+      <TR><TD PORT="LocalTarget" COLSPAN="3" ALIGN="LEFT">LocalTarget</TD></TR>
+      <TR><TD PORT="LocalBase" COLSPAN="3" BGCOLOR="#f4f7da" ALIGN="LEFT">LocalBase</TD></TR>
+      <TR><TD PORT="LastUpdatedBy" COLSPAN="3" ALIGN="LEFT">LastUpdatedBy</TD></TR>
+      <TR><TD PORT="LastUpdated" COLSPAN="3" ALIGN="LEFT">LastUpdated</TD></TR>
+      <TR><TD PORT="Creator" COLSPAN="3" ALIGN="LEFT">Creator</TD></TR>
+      <TR><TD PORT="Created" COLSPAN="3" ALIGN="LEFT">Created</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">269,972 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">  </TD></TR>
+    </TABLE>>
+    URL="tables/Links.html"
+    tooltip="Links"
+  ];
+}

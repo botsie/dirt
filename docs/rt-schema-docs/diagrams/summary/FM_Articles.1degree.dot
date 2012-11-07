@@ -1,0 +1,40 @@
+// dot 2.28.0 on Linux 3.2.21-1.32.6.amzn1.x86_64
+// SchemaSpy rev 590
+digraph "FM_Articles" {
+  graph [
+    rankdir="RL"
+    bgcolor="#f7f7f7"
+    nodesep="0.18"
+    ranksep="0.46"
+    fontname="Helvetica"
+    fontsize="11"
+  ];
+  node [
+    fontname="Helvetica"
+    fontsize="11"
+    shape="plaintext"
+  ];
+  edge [
+    arrowsize="0.8"
+  ];
+  "FM_Articles" [
+    label=<
+    <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
+      <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">FM_Articles</TD></TR>
+      <TR><TD PORT="id" COLSPAN="3" BGCOLOR="#bed1b8" ALIGN="LEFT">id</TD></TR>
+      <TR><TD PORT="Name" COLSPAN="3" ALIGN="LEFT">Name</TD></TR>
+      <TR><TD PORT="Summary" COLSPAN="3" ALIGN="LEFT">Summary</TD></TR>
+      <TR><TD PORT="SortOrder" COLSPAN="3" ALIGN="LEFT">SortOrder</TD></TR>
+      <TR><TD PORT="Class" COLSPAN="3" ALIGN="LEFT">Class</TD></TR>
+      <TR><TD PORT="Parent" COLSPAN="3" ALIGN="LEFT">Parent</TD></TR>
+      <TR><TD PORT="URI" COLSPAN="3" ALIGN="LEFT">URI</TD></TR>
+      <TR><TD PORT="Creator" COLSPAN="3" ALIGN="LEFT">Creator</TD></TR>
+      <TR><TD PORT="Created" COLSPAN="3" ALIGN="LEFT">Created</TD></TR>
+      <TR><TD PORT="LastUpdatedBy" COLSPAN="3" ALIGN="LEFT">LastUpdatedBy</TD></TR>
+      <TR><TD PORT="LastUpdated" COLSPAN="3" ALIGN="LEFT">LastUpdated</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">56 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">  </TD></TR>
+    </TABLE>>
+    URL="tables/FM_Articles.html"
+    tooltip="FM_Articles"
+  ];
+}

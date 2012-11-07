@@ -1,0 +1,662 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<database name="rt" type="MySQL - 5.5.27">
+   <tables>
+      <table name="ACL" numRows="1453" remarks="" type="TABLE">
+         <column autoUpdated="true" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="1" name="PrincipalType" nullable="false" remarks="" size="25" type="VARCHAR"/>
+         <column autoUpdated="false" digits="0" id="2" name="PrincipalId" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="3" name="RightName" nullable="false" remarks="" size="25" type="VARCHAR"/>
+         <column autoUpdated="false" digits="0" id="4" name="ObjectType" nullable="false" remarks="" size="25" type="VARCHAR"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="5" name="ObjectId" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="6" name="DelegatedBy" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="7" name="DelegatedFrom" nullable="false" remarks="" size="10" type="INT"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="ACL1" unique="false">
+            <column ascending="true" name="RightName"/>
+            <column ascending="true" name="ObjectType"/>
+            <column ascending="true" name="ObjectId"/>
+            <column ascending="true" name="PrincipalType"/>
+            <column ascending="true" name="PrincipalId"/>
+         </index>
+      </table>
+      <table name="AT_Assets" numRows="0" remarks="" type="TABLE">
+         <column autoUpdated="true" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="1" name="Type" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="2" name="Name" nullable="false" remarks="" size="200" type="VARCHAR"/>
+         <column autoUpdated="false" digits="0" id="3" name="Description" nullable="true" remarks="" size="255" type="VARCHAR"/>
+         <column autoUpdated="false" digits="0" id="4" name="Status" nullable="true" remarks="" size="20" type="VARCHAR"/>
+         <column autoUpdated="false" digits="0" id="5" name="URI" nullable="true" remarks="" size="255" type="VARCHAR"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="6" name="LastUpdatedBy" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="7" name="LastUpdated" nullable="true" remarks="" size="19" type="DATETIME"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="8" name="Creator" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="9" name="Created" nullable="true" remarks="" size="19" type="DATETIME"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="AT_Assets1" unique="false">
+            <column ascending="true" name="Type"/>
+            <column ascending="true" name="Status"/>
+         </index>
+         <index name="AT_Assets2" unique="false">
+            <column ascending="true" name="Name"/>
+            <column ascending="true" name="Type"/>
+            <column ascending="true" name="Status"/>
+         </index>
+      </table>
+      <table name="AT_IPs" numRows="0" remarks="" type="TABLE">
+         <column autoUpdated="true" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="1" name="IP" nullable="false" remarks="" size="15" type="CHAR"/>
+         <column autoUpdated="false" digits="0" id="2" name="MAC" nullable="true" remarks="" size="12" type="CHAR"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="3" name="Interface" nullable="true" remarks="" size="25" type="VARCHAR"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="4" name="Asset" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="5" name="Creator" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="6" name="Created" nullable="true" remarks="" size="19" type="DATETIME"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="7" name="LastUpdatedBy" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="8" name="LastUpdated" nullable="true" remarks="" size="19" type="DATETIME"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="AT_IPs1" unique="true">
+            <column ascending="true" name="IP"/>
+         </index>
+         <index name="AT_IPs2" unique="false">
+            <column ascending="true" name="Asset"/>
+         </index>
+      </table>
+      <table name="AT_Ports" numRows="0" remarks="" type="TABLE">
+         <column autoUpdated="true" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="1" name="Transport" nullable="false" remarks="" size="15" type="CHAR"/>
+         <column autoUpdated="false" digits="0" id="2" name="Port" nullable="true" remarks="" size="12" type="CHAR"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="3" name="IP" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="4" name="Creator" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="5" name="Created" nullable="true" remarks="" size="19" type="DATETIME"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="6" name="LastUpdatedBy" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="7" name="LastUpdated" nullable="true" remarks="" size="19" type="DATETIME"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="AT_Ports1" unique="false">
+            <column ascending="true" name="Port"/>
+         </index>
+         <index name="AT_Ports2" unique="true">
+            <column ascending="true" name="Transport"/>
+            <column ascending="true" name="Port"/>
+            <column ascending="true" name="IP"/>
+         </index>
+         <index name="AT_Ports3" unique="false">
+            <column ascending="true" name="IP"/>
+         </index>
+      </table>
+      <table name="AT_ScripActions" numRows="1" remarks="" type="TABLE">
+         <column autoUpdated="true" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="1" name="Name" nullable="true" remarks="" size="200" type="VARCHAR"/>
+         <column autoUpdated="false" digits="0" id="2" name="Description" nullable="true" remarks="" size="255" type="VARCHAR"/>
+         <column autoUpdated="false" digits="0" id="3" name="ExecModule" nullable="true" remarks="" size="60" type="VARCHAR"/>
+         <column autoUpdated="false" digits="0" id="4" name="Argument" nullable="true" remarks="" size="255" type="VARBINARY"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="5" name="Creator" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="6" name="Created" nullable="true" remarks="" size="19" type="DATETIME"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="7" name="LastUpdatedBy" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="8" name="LastUpdated" nullable="true" remarks="" size="19" type="DATETIME"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="AT_ScripConditions" numRows="1" remarks="" type="TABLE">
+         <column autoUpdated="true" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="1" name="Name" nullable="true" remarks="" size="200" type="VARCHAR"/>
+         <column autoUpdated="false" digits="0" id="2" name="Description" nullable="true" remarks="" size="255" type="VARCHAR"/>
+         <column autoUpdated="false" digits="0" id="3" name="ExecModule" nullable="true" remarks="" size="60" type="VARCHAR"/>
+         <column autoUpdated="false" digits="0" id="4" name="Argument" nullable="true" remarks="" size="255" type="VARBINARY"/>
+         <column autoUpdated="false" digits="0" id="5" name="ApplicableTransTypes" nullable="true" remarks="" size="60" type="VARCHAR"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="6" name="Creator" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="7" name="Created" nullable="true" remarks="" size="19" type="DATETIME"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="8" name="LastUpdatedBy" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="9" name="LastUpdated" nullable="true" remarks="" size="19" type="DATETIME"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="AT_Scrips" numRows="0" remarks="" type="TABLE">
+         <column autoUpdated="true" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="1" name="Description" nullable="true" remarks="" size="255" type="VARCHAR"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="2" name="ScripCondition" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="3" name="ScripAction" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="4" name="ConditionRules" nullable="true" remarks="" size="65535" type="TEXT"/>
+         <column autoUpdated="false" digits="0" id="5" name="ActionRules" nullable="true" remarks="" size="65535" type="TEXT"/>
+         <column autoUpdated="false" digits="0" id="6" name="CustomIsApplicableCode" nullable="true" remarks="" size="65535" type="TEXT"/>
+         <column autoUpdated="false" digits="0" id="7" name="CustomPrepareCode" nullable="true" remarks="" size="65535" type="TEXT"/>
+         <column autoUpdated="false" digits="0" id="8" name="CustomCommitCode" nullable="true" remarks="" size="65535" type="TEXT"/>
+         <column autoUpdated="false" digits="0" id="9" name="Stage" nullable="true" remarks="" size="32" type="VARCHAR"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="10" name="AssetType" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="11" name="Template" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="12" name="Creator" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="13" name="Created" nullable="true" remarks="" size="19" type="DATETIME"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="14" name="LastUpdatedBy" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="15" name="LastUpdated" nullable="true" remarks="" size="19" type="DATETIME"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="AT_Templates" numRows="1" remarks="" type="TABLE">
+         <column autoUpdated="true" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="1" name="AssetType" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="2" name="Name" nullable="false" remarks="" size="200" type="VARCHAR"/>
+         <column autoUpdated="false" digits="0" id="3" name="Description" nullable="true" remarks="" size="255" type="VARCHAR"/>
+         <column autoUpdated="false" digits="0" id="4" name="Type" nullable="true" remarks="" size="16" type="VARCHAR"/>
+         <column autoUpdated="false" digits="0" id="5" name="Language" nullable="true" remarks="" size="16" type="VARCHAR"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="6" name="TranslationOf" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="7" name="Content" nullable="true" remarks="" size="65535" type="TEXT"/>
+         <column autoUpdated="false" digits="0" id="8" name="LastUpdated" nullable="true" remarks="" size="19" type="DATETIME"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="9" name="LastUpdatedBy" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="10" name="Creator" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="11" name="Created" nullable="true" remarks="" size="19" type="DATETIME"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="AT_Types" numRows="1" remarks="" type="TABLE">
+         <column autoUpdated="true" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="1" name="Name" nullable="false" remarks="" size="200" type="VARCHAR"/>
+         <column autoUpdated="false" digits="0" id="2" name="Description" nullable="true" remarks="" size="255" type="VARCHAR"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="3" name="DefaultAdmin" nullable="true" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="4" name="Creator" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="5" name="Created" nullable="true" remarks="" size="19" type="DATETIME"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="6" name="LastUpdatedBy" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="7" name="LastUpdated" nullable="true" remarks="" size="19" type="DATETIME"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="8" name="Disabled" nullable="false" remarks="" size="5" type="SMALLINT"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="AT_Types1" unique="true">
+            <column ascending="true" name="Name"/>
+         </index>
+         <index name="AT_Types2" unique="false">
+            <column ascending="true" name="Disabled"/>
+         </index>
+      </table>
+      <table name="Attributes" numRows="112224" remarks="" type="TABLE">
+         <column autoUpdated="true" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="1" name="Name" nullable="true" remarks="" size="255" type="VARCHAR"/>
+         <column autoUpdated="false" digits="0" id="2" name="Description" nullable="true" remarks="" size="255" type="VARCHAR"/>
+         <column autoUpdated="false" digits="0" id="3" name="Content" nullable="true" remarks="" size="65535" type="BLOB"/>
+         <column autoUpdated="false" digits="0" id="4" name="ContentType" nullable="true" remarks="" size="16" type="VARCHAR"/>
+         <column autoUpdated="false" digits="0" id="5" name="ObjectType" nullable="true" remarks="" size="64" type="VARCHAR"/>
+         <column autoUpdated="false" digits="0" id="6" name="ObjectId" nullable="true" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="7" name="Creator" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="8" name="Created" nullable="true" remarks="" size="19" type="DATETIME"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="9" name="LastUpdatedBy" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="10" name="LastUpdated" nullable="true" remarks="" size="19" type="DATETIME"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="Attributes1" unique="false">
+            <column ascending="true" name="Name"/>
+         </index>
+         <index name="Attributes2" unique="false">
+            <column ascending="true" name="ObjectType"/>
+            <column ascending="true" name="ObjectId"/>
+         </index>
+      </table>
+      <table name="CachedGroupMembers" numRows="3078435" remarks="" type="TABLE">
+         <column autoUpdated="true" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="1" name="GroupId" nullable="true" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="2" name="MemberId" nullable="true" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="3" name="Via" nullable="true" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="4" name="ImmediateParentId" nullable="true" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="5" name="Disabled" nullable="false" remarks="" size="5" type="SMALLINT"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="CachedGroupMembers3" unique="false">
+            <column ascending="true" name="MemberId"/>
+            <column ascending="true" name="ImmediateParentId"/>
+         </index>
+         <index name="DisGrouMem" unique="false">
+            <column ascending="true" name="GroupId"/>
+            <column ascending="true" name="MemberId"/>
+            <column ascending="true" name="Disabled"/>
+         </index>
+      </table>
+      <table name="CustomFields" numRows="41" remarks="" type="TABLE">
+         <column autoUpdated="true" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="1" name="Name" nullable="true" remarks="" size="200" type="VARCHAR"/>
+         <column autoUpdated="false" digits="0" id="2" name="Type" nullable="true" remarks="" size="200" type="VARCHAR"/>
+         <column autoUpdated="false" digits="0" id="3" name="MaxValues" nullable="true" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="4" name="Pattern" nullable="true" remarks="" size="65535" type="TEXT"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="5" name="Repeated" nullable="false" remarks="" size="5" type="SMALLINT"/>
+         <column autoUpdated="false" digits="0" id="6" name="Description" nullable="true" remarks="" size="255" type="VARCHAR"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="7" name="SortOrder" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="8" name="LookupType" nullable="false" remarks="" size="255" type="VARCHAR"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="9" name="Creator" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="10" name="Created" nullable="true" remarks="" size="19" type="DATETIME"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="11" name="LastUpdatedBy" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="12" name="LastUpdated" nullable="true" remarks="" size="19" type="DATETIME"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="13" name="Disabled" nullable="false" remarks="" size="5" type="SMALLINT"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="CustomFieldValues" numRows="89" remarks="" type="TABLE">
+         <column autoUpdated="true" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="1" name="CustomField" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="2" name="Name" nullable="true" remarks="" size="200" type="VARCHAR"/>
+         <column autoUpdated="false" digits="0" id="3" name="Description" nullable="true" remarks="" size="255" type="VARCHAR"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="4" name="SortOrder" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="5" name="Creator" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="6" name="Created" nullable="true" remarks="" size="19" type="DATETIME"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="7" name="LastUpdatedBy" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="8" name="LastUpdated" nullable="true" remarks="" size="19" type="DATETIME"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="CustomFieldValues1" unique="false">
+            <column ascending="true" name="CustomField"/>
+         </index>
+      </table>
+      <table name="FM_Articles" numRows="56" remarks="" type="TABLE">
+         <column autoUpdated="true" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" defaultValue="" digits="0" id="1" name="Name" nullable="false" remarks="" size="255" type="VARCHAR"/>
+         <column autoUpdated="false" defaultValue="" digits="0" id="2" name="Summary" nullable="false" remarks="" size="255" type="VARCHAR"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="3" name="SortOrder" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="4" name="Class" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="5" name="Parent" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="6" name="URI" nullable="true" remarks="" size="255" type="VARCHAR"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="7" name="Creator" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="8" name="Created" nullable="true" remarks="" size="19" type="DATETIME"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="9" name="LastUpdatedBy" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="10" name="LastUpdated" nullable="true" remarks="" size="19" type="DATETIME"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="FM_Classes" numRows="3" remarks="" type="TABLE">
+         <column autoUpdated="true" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" defaultValue="" digits="0" id="1" name="Name" nullable="false" remarks="" size="255" type="VARCHAR"/>
+         <column autoUpdated="false" defaultValue="" digits="0" id="2" name="Description" nullable="false" remarks="" size="255" type="VARCHAR"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="3" name="SortOrder" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="4" name="Disabled" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="5" name="Creator" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="6" name="Created" nullable="true" remarks="" size="19" type="DATETIME"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="7" name="LastUpdatedBy" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="8" name="LastUpdated" nullable="true" remarks="" size="19" type="DATETIME"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="9" name="HotList" nullable="false" remarks="" size="10" type="INT"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="FM_ObjectTopics" numRows="29" remarks="" type="TABLE">
+         <column autoUpdated="true" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="1" name="Topic" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" defaultValue="" digits="0" id="2" name="ObjectType" nullable="false" remarks="" size="64" type="VARCHAR"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="3" name="ObjectId" nullable="false" remarks="" size="10" type="INT"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="FM_Topics" numRows="2" remarks="" type="TABLE">
+         <column autoUpdated="true" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="1" name="Parent" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" defaultValue="" digits="0" id="2" name="Name" nullable="false" remarks="" size="255" type="VARCHAR"/>
+         <column autoUpdated="false" defaultValue="" digits="0" id="3" name="Description" nullable="false" remarks="" size="255" type="VARCHAR"/>
+         <column autoUpdated="false" defaultValue="" digits="0" id="4" name="ObjectType" nullable="false" remarks="" size="64" type="VARCHAR"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="5" name="ObjectId" nullable="false" remarks="" size="10" type="INT"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="GroupMembers" numRows="1151224" remarks="" type="TABLE">
+         <column autoUpdated="true" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="1" name="GroupId" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="2" name="MemberId" nullable="false" remarks="" size="10" type="INT"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="GroupMembers1" unique="true">
+            <column ascending="true" name="GroupId"/>
+            <column ascending="true" name="MemberId"/>
+         </index>
+      </table>
+      <table name="Groups" numRows="2047026" remarks="" type="TABLE">
+         <column autoUpdated="true" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="1" name="Name" nullable="true" remarks="" size="200" type="VARCHAR"/>
+         <column autoUpdated="false" digits="0" id="2" name="Description" nullable="true" remarks="" size="255" type="VARCHAR"/>
+         <column autoUpdated="false" digits="0" id="3" name="Domain" nullable="true" remarks="" size="64" type="VARCHAR"/>
+         <column autoUpdated="false" digits="0" id="4" name="Type" nullable="true" remarks="" size="64" type="VARCHAR"/>
+         <column autoUpdated="false" digits="0" id="5" name="Instance" nullable="true" remarks="" size="10" type="INT"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="Groups1" unique="false">
+            <column ascending="true" name="Domain"/>
+            <column ascending="true" name="Instance"/>
+            <column ascending="true" name="Type"/>
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="Groups2" unique="false">
+            <column ascending="true" name="Type"/>
+            <column ascending="true" name="Instance"/>
+         </index>
+      </table>
+      <table name="Links" numRows="269972" remarks="" type="TABLE">
+         <column autoUpdated="true" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="1" name="Base" nullable="true" remarks="" size="240" type="VARCHAR"/>
+         <column autoUpdated="false" digits="0" id="2" name="Target" nullable="true" remarks="" size="240" type="VARCHAR"/>
+         <column autoUpdated="false" digits="0" id="3" name="Type" nullable="false" remarks="" size="20" type="VARCHAR"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="4" name="LocalTarget" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="5" name="LocalBase" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="6" name="LastUpdatedBy" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="7" name="LastUpdated" nullable="true" remarks="" size="19" type="DATETIME"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="8" name="Creator" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="9" name="Created" nullable="true" remarks="" size="19" type="DATETIME"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="Links2" unique="false">
+            <column ascending="true" name="Base"/>
+            <column ascending="true" name="Type"/>
+         </index>
+         <index name="Links3" unique="false">
+            <column ascending="true" name="Target"/>
+            <column ascending="true" name="Type"/>
+         </index>
+         <index name="Links4" unique="false">
+            <column ascending="true" name="Type"/>
+            <column ascending="true" name="LocalBase"/>
+         </index>
+      </table>
+      <table name="ObjectCustomFields" numRows="80" remarks="" type="TABLE">
+         <column autoUpdated="true" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="1" name="CustomField" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="2" name="ObjectId" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="3" name="SortOrder" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="4" name="Creator" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="5" name="Created" nullable="true" remarks="" size="19" type="DATETIME"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="6" name="LastUpdatedBy" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="7" name="LastUpdated" nullable="true" remarks="" size="19" type="DATETIME"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="ObjectCustomFieldValues" numRows="127327" remarks="" type="TABLE">
+         <column autoUpdated="true" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="1" name="CustomField" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="2" name="ObjectType" nullable="false" remarks="" size="255" type="VARCHAR"/>
+         <column autoUpdated="false" digits="0" id="3" name="ObjectId" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="4" name="SortOrder" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="5" name="Content" nullable="true" remarks="" size="255" type="VARCHAR"/>
+         <column autoUpdated="false" digits="0" id="6" name="LargeContent" nullable="true" remarks="" size="2147483647" type="LONGBLOB"/>
+         <column autoUpdated="false" digits="0" id="7" name="ContentType" nullable="true" remarks="" size="80" type="VARCHAR"/>
+         <column autoUpdated="false" digits="0" id="8" name="ContentEncoding" nullable="true" remarks="" size="80" type="VARCHAR"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="9" name="Creator" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="10" name="Created" nullable="true" remarks="" size="19" type="DATETIME"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="11" name="LastUpdatedBy" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="12" name="LastUpdated" nullable="true" remarks="" size="19" type="DATETIME"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="13" name="Disabled" nullable="false" remarks="" size="5" type="SMALLINT"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="ObjectCustomFieldValues1" unique="false">
+            <column ascending="true" name="Content"/>
+         </index>
+         <index name="ObjectCustomFieldValues2" unique="false">
+            <column ascending="true" name="CustomField"/>
+            <column ascending="true" name="ObjectType"/>
+            <column ascending="true" name="ObjectId"/>
+         </index>
+      </table>
+      <table name="Principals" numRows="2048845" remarks="" type="TABLE">
+         <column autoUpdated="true" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="1" name="PrincipalType" nullable="false" remarks="" size="16" type="VARCHAR"/>
+         <column autoUpdated="false" digits="0" id="2" name="ObjectId" nullable="true" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="3" name="Disabled" nullable="false" remarks="" size="5" type="SMALLINT"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="Principals2" unique="false">
+            <column ascending="true" name="ObjectId"/>
+         </index>
+      </table>
+      <table name="Queues" numRows="65" remarks="" type="TABLE">
+         <column autoUpdated="true" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="1" name="Name" nullable="false" remarks="" size="200" type="VARCHAR"/>
+         <column autoUpdated="false" digits="0" id="2" name="Description" nullable="true" remarks="" size="255" type="VARCHAR"/>
+         <column autoUpdated="false" digits="0" id="3" name="CorrespondAddress" nullable="true" remarks="" size="120" type="VARCHAR"/>
+         <column autoUpdated="false" digits="0" id="4" name="CommentAddress" nullable="true" remarks="" size="120" type="VARCHAR"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="5" name="InitialPriority" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="6" name="FinalPriority" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="7" name="DefaultDueIn" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="8" name="Creator" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="9" name="Created" nullable="true" remarks="" size="19" type="DATETIME"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="10" name="LastUpdatedBy" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="11" name="LastUpdated" nullable="true" remarks="" size="19" type="DATETIME"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="12" name="Disabled" nullable="false" remarks="" size="5" type="SMALLINT"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="Queues1" unique="true">
+            <column ascending="true" name="Name"/>
+         </index>
+         <index name="Queues2" unique="false">
+            <column ascending="true" name="Disabled"/>
+         </index>
+      </table>
+      <table name="ScripActions" numRows="27" remarks="" type="TABLE">
+         <column autoUpdated="true" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="1" name="Name" nullable="true" remarks="" size="200" type="VARCHAR"/>
+         <column autoUpdated="false" digits="0" id="2" name="Description" nullable="true" remarks="" size="255" type="VARCHAR"/>
+         <column autoUpdated="false" digits="0" id="3" name="ExecModule" nullable="true" remarks="" size="60" type="VARCHAR"/>
+         <column autoUpdated="false" digits="0" id="4" name="Argument" nullable="true" remarks="" size="255" type="VARBINARY"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="5" name="Creator" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="6" name="Created" nullable="true" remarks="" size="19" type="DATETIME"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="7" name="LastUpdatedBy" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="8" name="LastUpdated" nullable="true" remarks="" size="19" type="DATETIME"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="ScripConditions" numRows="19" remarks="" type="TABLE">
+         <column autoUpdated="true" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="1" name="Name" nullable="true" remarks="" size="200" type="VARCHAR"/>
+         <column autoUpdated="false" digits="0" id="2" name="Description" nullable="true" remarks="" size="255" type="VARCHAR"/>
+         <column autoUpdated="false" digits="0" id="3" name="ExecModule" nullable="true" remarks="" size="60" type="VARCHAR"/>
+         <column autoUpdated="false" digits="0" id="4" name="Argument" nullable="true" remarks="" size="255" type="VARBINARY"/>
+         <column autoUpdated="false" digits="0" id="5" name="ApplicableTransTypes" nullable="true" remarks="" size="60" type="VARCHAR"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="6" name="Creator" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="7" name="Created" nullable="true" remarks="" size="19" type="DATETIME"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="8" name="LastUpdatedBy" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="9" name="LastUpdated" nullable="true" remarks="" size="19" type="DATETIME"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="Scrips" numRows="24" remarks="" type="TABLE">
+         <column autoUpdated="true" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="1" name="Description" nullable="true" remarks="" size="255" type="VARCHAR"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="2" name="ScripCondition" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="3" name="ScripAction" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="4" name="ConditionRules" nullable="true" remarks="" size="65535" type="TEXT"/>
+         <column autoUpdated="false" digits="0" id="5" name="ActionRules" nullable="true" remarks="" size="65535" type="TEXT"/>
+         <column autoUpdated="false" digits="0" id="6" name="CustomIsApplicableCode" nullable="true" remarks="" size="65535" type="TEXT"/>
+         <column autoUpdated="false" digits="0" id="7" name="CustomPrepareCode" nullable="true" remarks="" size="65535" type="TEXT"/>
+         <column autoUpdated="false" digits="0" id="8" name="CustomCommitCode" nullable="true" remarks="" size="65535" type="TEXT"/>
+         <column autoUpdated="false" digits="0" id="9" name="Stage" nullable="true" remarks="" size="32" type="VARCHAR"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="10" name="Queue" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="11" name="Template" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="12" name="Creator" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="13" name="Created" nullable="true" remarks="" size="19" type="DATETIME"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="14" name="LastUpdatedBy" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="15" name="LastUpdated" nullable="true" remarks="" size="19" type="DATETIME"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="sessions" numRows="253418" remarks="" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="id" nullable="false" remarks="" size="32" type="CHAR"/>
+         <column autoUpdated="false" digits="0" id="1" name="a_session" nullable="true" remarks="" size="2147483647" type="LONGBLOB"/>
+         <column autoUpdated="false" defaultValue="CURRENT_TIMESTAMP" digits="0" id="2" name="LastUpdated" nullable="false" remarks="" size="19" type="TIMESTAMP"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="Templates" numRows="27" remarks="" type="TABLE">
+         <column autoUpdated="true" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="1" name="Queue" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="2" name="Name" nullable="false" remarks="" size="200" type="VARCHAR"/>
+         <column autoUpdated="false" digits="0" id="3" name="Description" nullable="true" remarks="" size="255" type="VARCHAR"/>
+         <column autoUpdated="false" digits="0" id="4" name="Type" nullable="true" remarks="" size="16" type="VARCHAR"/>
+         <column autoUpdated="false" digits="0" id="5" name="Language" nullable="true" remarks="" size="16" type="VARCHAR"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="6" name="TranslationOf" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="7" name="Content" nullable="true" remarks="" size="65535" type="TEXT"/>
+         <column autoUpdated="false" digits="0" id="8" name="LastUpdated" nullable="true" remarks="" size="19" type="DATETIME"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="9" name="LastUpdatedBy" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="10" name="Creator" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="11" name="Created" nullable="true" remarks="" size="19" type="DATETIME"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="Tickets" numRows="510723" remarks="" type="TABLE">
+         <column autoUpdated="true" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="1" name="EffectiveId" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="2" name="Queue" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="3" name="Type" nullable="true" remarks="" size="16" type="VARCHAR"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="4" name="IssueStatement" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="5" name="Resolution" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="6" name="Owner" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" defaultValue="[no subject]" digits="0" id="7" name="Subject" nullable="true" remarks="" size="200" type="VARCHAR"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="8" name="InitialPriority" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="9" name="FinalPriority" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="10" name="Priority" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="11" name="TimeEstimated" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="12" name="TimeWorked" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="13" name="Status" nullable="true" remarks="" size="10" type="VARCHAR"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="14" name="TimeLeft" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="15" name="Told" nullable="true" remarks="" size="19" type="DATETIME"/>
+         <column autoUpdated="false" digits="0" id="16" name="Starts" nullable="true" remarks="" size="19" type="DATETIME"/>
+         <column autoUpdated="false" digits="0" id="17" name="Started" nullable="true" remarks="" size="19" type="DATETIME"/>
+         <column autoUpdated="false" digits="0" id="18" name="Due" nullable="true" remarks="" size="19" type="DATETIME"/>
+         <column autoUpdated="false" digits="0" id="19" name="Resolved" nullable="true" remarks="" size="19" type="DATETIME"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="20" name="LastUpdatedBy" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="21" name="LastUpdated" nullable="true" remarks="" size="19" type="DATETIME"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="22" name="Creator" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="23" name="Created" nullable="true" remarks="" size="19" type="DATETIME"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="24" name="Disabled" nullable="false" remarks="" size="5" type="SMALLINT"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="Tickets1" unique="false">
+            <column ascending="true" name="Queue"/>
+            <column ascending="true" name="Status"/>
+         </index>
+         <index name="Tickets2" unique="false">
+            <column ascending="true" name="Owner"/>
+         </index>
+         <index name="Tickets6" unique="false">
+            <column ascending="true" name="EffectiveId"/>
+            <column ascending="true" name="Type"/>
+         </index>
+      </table>
+      <table name="Transactions" numRows="4630028" remarks="" type="TABLE">
+         <column autoUpdated="true" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="1" name="ObjectType" nullable="false" remarks="" size="64" type="VARCHAR"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="2" name="ObjectId" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="3" name="TimeTaken" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="4" name="Type" nullable="true" remarks="" size="20" type="VARCHAR"/>
+         <column autoUpdated="false" digits="0" id="5" name="Field" nullable="true" remarks="" size="40" type="VARCHAR"/>
+         <column autoUpdated="false" digits="0" id="6" name="OldValue" nullable="true" remarks="" size="255" type="VARCHAR"/>
+         <column autoUpdated="false" digits="0" id="7" name="NewValue" nullable="true" remarks="" size="255" type="VARCHAR"/>
+         <column autoUpdated="false" digits="0" id="8" name="ReferenceType" nullable="true" remarks="" size="255" type="VARCHAR"/>
+         <column autoUpdated="false" digits="0" id="9" name="OldReference" nullable="true" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="10" name="NewReference" nullable="true" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="11" name="Data" nullable="true" remarks="" size="255" type="VARCHAR"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="12" name="Creator" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="13" name="Created" nullable="true" remarks="" size="19" type="DATETIME"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="Transactions1" unique="false">
+            <column ascending="true" name="ObjectType"/>
+            <column ascending="true" name="ObjectId"/>
+         </index>
+      </table>
+      <table name="Users" numRows="1187" remarks="" type="TABLE">
+         <column autoUpdated="true" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="1" name="Name" nullable="false" remarks="" size="200" type="VARCHAR"/>
+         <column autoUpdated="false" digits="0" id="2" name="Password" nullable="true" remarks="" size="40" type="VARBINARY"/>
+         <column autoUpdated="false" digits="0" id="3" name="Comments" nullable="true" remarks="" size="65535" type="TEXT"/>
+         <column autoUpdated="false" digits="0" id="4" name="Signature" nullable="true" remarks="" size="65535" type="TEXT"/>
+         <column autoUpdated="false" digits="0" id="5" name="EmailAddress" nullable="true" remarks="" size="120" type="VARCHAR"/>
+         <column autoUpdated="false" digits="0" id="6" name="FreeformContactInfo" nullable="true" remarks="" size="65535" type="TEXT"/>
+         <column autoUpdated="false" digits="0" id="7" name="Organization" nullable="true" remarks="" size="200" type="VARCHAR"/>
+         <column autoUpdated="false" digits="0" id="8" name="RealName" nullable="true" remarks="" size="120" type="VARCHAR"/>
+         <column autoUpdated="false" digits="0" id="9" name="NickName" nullable="true" remarks="" size="16" type="VARCHAR"/>
+         <column autoUpdated="false" digits="0" id="10" name="Lang" nullable="true" remarks="" size="16" type="VARCHAR"/>
+         <column autoUpdated="false" digits="0" id="11" name="EmailEncoding" nullable="true" remarks="" size="16" type="VARCHAR"/>
+         <column autoUpdated="false" digits="0" id="12" name="WebEncoding" nullable="true" remarks="" size="16" type="VARCHAR"/>
+         <column autoUpdated="false" digits="0" id="13" name="ExternalContactInfoId" nullable="true" remarks="" size="100" type="VARCHAR"/>
+         <column autoUpdated="false" digits="0" id="14" name="ContactInfoSystem" nullable="true" remarks="" size="30" type="VARCHAR"/>
+         <column autoUpdated="false" digits="0" id="15" name="ExternalAuthId" nullable="true" remarks="" size="100" type="VARCHAR"/>
+         <column autoUpdated="false" digits="0" id="16" name="AuthSystem" nullable="true" remarks="" size="30" type="VARCHAR"/>
+         <column autoUpdated="false" digits="0" id="17" name="Gecos" nullable="true" remarks="" size="16" type="VARCHAR"/>
+         <column autoUpdated="false" digits="0" id="18" name="HomePhone" nullable="true" remarks="" size="30" type="VARCHAR"/>
+         <column autoUpdated="false" digits="0" id="19" name="WorkPhone" nullable="true" remarks="" size="30" type="VARCHAR"/>
+         <column autoUpdated="false" digits="0" id="20" name="MobilePhone" nullable="true" remarks="" size="30" type="VARCHAR"/>
+         <column autoUpdated="false" digits="0" id="21" name="PagerPhone" nullable="true" remarks="" size="30" type="VARCHAR"/>
+         <column autoUpdated="false" digits="0" id="22" name="Address1" nullable="true" remarks="" size="200" type="VARCHAR"/>
+         <column autoUpdated="false" digits="0" id="23" name="Address2" nullable="true" remarks="" size="200" type="VARCHAR"/>
+         <column autoUpdated="false" digits="0" id="24" name="City" nullable="true" remarks="" size="100" type="VARCHAR"/>
+         <column autoUpdated="false" digits="0" id="25" name="State" nullable="true" remarks="" size="100" type="VARCHAR"/>
+         <column autoUpdated="false" digits="0" id="26" name="Zip" nullable="true" remarks="" size="16" type="VARCHAR"/>
+         <column autoUpdated="false" digits="0" id="27" name="Country" nullable="true" remarks="" size="50" type="VARCHAR"/>
+         <column autoUpdated="false" digits="0" id="28" name="Timezone" nullable="true" remarks="" size="50" type="VARCHAR"/>
+         <column autoUpdated="false" digits="0" id="29" name="PGPKey" nullable="true" remarks="" size="65535" type="TEXT"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="30" name="Creator" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="31" name="Created" nullable="true" remarks="" size="19" type="DATETIME"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="32" name="LastUpdatedBy" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="33" name="LastUpdated" nullable="true" remarks="" size="19" type="DATETIME"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="Users1" unique="true">
+            <column ascending="true" name="Name"/>
+         </index>
+         <index name="Users4" unique="false">
+            <column ascending="true" name="EmailAddress"/>
+         </index>
+      </table>
+   </tables>
+</database>

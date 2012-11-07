@@ -1,0 +1,54 @@
+// dot 2.28.0 on Linux 3.2.21-1.32.6.amzn1.x86_64
+// SchemaSpy rev 590
+digraph "Tickets" {
+  graph [
+    rankdir="RL"
+    bgcolor="#f7f7f7"
+    nodesep="0.18"
+    ranksep="0.46"
+    fontname="Helvetica"
+    fontsize="11"
+  ];
+  node [
+    fontname="Helvetica"
+    fontsize="11"
+    shape="plaintext"
+  ];
+  edge [
+    arrowsize="0.8"
+  ];
+  "Tickets" [
+    label=<
+    <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
+      <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">Tickets</TD></TR>
+      <TR><TD PORT="id" COLSPAN="3" BGCOLOR="#bed1b8" ALIGN="LEFT">id</TD></TR>
+      <TR><TD PORT="EffectiveId" COLSPAN="3" BGCOLOR="#f4f7da" ALIGN="LEFT">EffectiveId</TD></TR>
+      <TR><TD PORT="Queue" COLSPAN="3" BGCOLOR="#f4f7da" ALIGN="LEFT">Queue</TD></TR>
+      <TR><TD PORT="Type" COLSPAN="3" BGCOLOR="#f4f7da" ALIGN="LEFT">Type</TD></TR>
+      <TR><TD PORT="IssueStatement" COLSPAN="3" ALIGN="LEFT">IssueStatement</TD></TR>
+      <TR><TD PORT="Resolution" COLSPAN="3" ALIGN="LEFT">Resolution</TD></TR>
+      <TR><TD PORT="Owner" COLSPAN="3" BGCOLOR="#f4f7da" ALIGN="LEFT">Owner</TD></TR>
+      <TR><TD PORT="Subject" COLSPAN="3" ALIGN="LEFT">Subject</TD></TR>
+      <TR><TD PORT="InitialPriority" COLSPAN="3" ALIGN="LEFT">InitialPriority</TD></TR>
+      <TR><TD PORT="FinalPriority" COLSPAN="3" ALIGN="LEFT">FinalPriority</TD></TR>
+      <TR><TD PORT="Priority" COLSPAN="3" ALIGN="LEFT">Priority</TD></TR>
+      <TR><TD PORT="TimeEstimated" COLSPAN="3" ALIGN="LEFT">TimeEstimated</TD></TR>
+      <TR><TD PORT="TimeWorked" COLSPAN="3" ALIGN="LEFT">TimeWorked</TD></TR>
+      <TR><TD PORT="Status" COLSPAN="3" BGCOLOR="#f4f7da" ALIGN="LEFT">Status</TD></TR>
+      <TR><TD PORT="TimeLeft" COLSPAN="3" ALIGN="LEFT">TimeLeft</TD></TR>
+      <TR><TD PORT="Told" COLSPAN="3" ALIGN="LEFT">Told</TD></TR>
+      <TR><TD PORT="Starts" COLSPAN="3" ALIGN="LEFT">Starts</TD></TR>
+      <TR><TD PORT="Started" COLSPAN="3" ALIGN="LEFT">Started</TD></TR>
+      <TR><TD PORT="Due" COLSPAN="3" ALIGN="LEFT">Due</TD></TR>
+      <TR><TD PORT="Resolved" COLSPAN="3" ALIGN="LEFT">Resolved</TD></TR>
+      <TR><TD PORT="LastUpdatedBy" COLSPAN="3" ALIGN="LEFT">LastUpdatedBy</TD></TR>
+      <TR><TD PORT="LastUpdated" COLSPAN="3" ALIGN="LEFT">LastUpdated</TD></TR>
+      <TR><TD PORT="Creator" COLSPAN="3" ALIGN="LEFT">Creator</TD></TR>
+      <TR><TD PORT="Created" COLSPAN="3" ALIGN="LEFT">Created</TD></TR>
+      <TR><TD PORT="Disabled" COLSPAN="3" ALIGN="LEFT">Disabled</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">510,723 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">  </TD></TR>
+    </TABLE>>
+    URL="tables/Tickets.html"
+    tooltip="Tickets"
+  ];
+}
