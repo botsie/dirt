@@ -1,6 +1,9 @@
 #!/usr/bin/env ruby
 
 require 'data_mapper'
+require 'sinatra'
+require 'haml'
+require 'pp'
 
 db_user = 'db_admin'
 db_password = 'qwedsa123'
@@ -14,13 +17,34 @@ Dir['models/*.rb'].each { |model| require File.join(File.dirname(__FILE__), mode
 
 DataMapper.finalize
 
-tickets = Ticket.all(:queue => { :name => 'dcbox' })
-# tickets = Ticket.all(:queue => 71)
-# tickets = Ticket.count(:queue => Queue.all(:name => 'dcbox'))
+get '/:queue' do
+  card_wall_controller = CardWallController.new
+  card_wall_controller.show(params)
+end
 
-# puts tickets
+class CardWallController
+  def show(params)
+    @cards = Hash.new
+    @queue = params[:queue]
+    @statuses = [ 'new', 'open', 'stalled', 'resolved' ]
+    # @results = Ticket.all(:queue => @queue, :status => @statuses)
+    # queue = Queue.find(:name => @queue)
+    
+    @statuses.each do |status|
+      @cards[status] = Ticket.all(:queue => {:name => @queue}, :status => status)
+      # @cards[status] = queue.ticket(:status => status)
+    end
 
-tickets.each do |t|
-  puts "#{t.id} | {t.queue} | #{t.subject}"
-  # p t
+    haml :card_wall
+  end
+
+  def haml( template_id )
+    layout = File.read('views/layout.haml')
+    template = File.read('views/' + template_id.to_s + '.haml')
+    layout_engine = Haml::Engine.new(layout)
+    layout_engine.render(self) do
+      template_engine = Haml::Engine.new(template)
+      template_engine.render(self)
+    end
+  end
 end

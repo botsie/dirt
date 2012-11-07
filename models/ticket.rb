@@ -7,6 +7,7 @@ class Ticket
 
   property :id,         Serial
   property :subject,    String
+  property :status,    String
 
   belongs_to :queue
 end
