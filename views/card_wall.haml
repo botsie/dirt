@@ -1,0 +1,34 @@
+.sidebar.cardwall-sidebar
+  .sidebar-header
+    %h3 Card Wall Properties
+  .sidebar-form
+    %form.form-stacked
+      %fieldset
+        .fieldset-header
+          %legend Customize Data
+        %label(for="query") Query
+        .textarea
+          %textarea#query.span3
+      %fieldset
+        .fieldset-header
+          %legend Customize View
+        .clearfix
+          %label(for="group_by") Group By
+          .input
+            %input#group_by.span3
+        .clearfix
+          %label(for="group_seq") Group Sequence
+          .input
+            %input#group-seq.span3
+.content
+  .page-header
+    %h1=@queue
+  .row
+    - @statuses.each do |status|
+      %div.span3
+        %h3="#{status}"
+        - @cards[status].each do |card|
+          .card
+            %p=card.id
+            %p="card['Owner']"
+            %p=card.subject
