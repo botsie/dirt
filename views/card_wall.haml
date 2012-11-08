@@ -26,9 +26,9 @@
   .row
     - @statuses.each do |status|
       %div.span3
-        %h3="#{status}"
+        %h3="#{status} (#{@cards[status].length})"
         - @cards[status].each do |card|
           .card
             %p=card.id
-            %p="card['Owner']"
+            %p=card.owner.name
             %p=card.subject

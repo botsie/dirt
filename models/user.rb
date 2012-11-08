@@ -1,11 +1,11 @@
 #!/usr/bin/env ruby
 
-require "data_mapper"
+require "sequel"
 
-class Ticket
-  include DataMapper::Resource
-
-  property :id,         Serial
-  property :name,       String
-
+module Dirt
+  class User < Sequel::Model
+    set_primary_key :id 
+    one_to_one :ticket_owner, :class => "Dirt::Ticket", :key => :owner_id
+    one_to_one :ticket_creator, :class => "Dirt::Ticket", :key => :creator_id
+  end
 end

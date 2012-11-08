@@ -1,5 +1,4 @@
 source :rubygems
-gem "data_mapper"
-gem "dm-mysql-adapter"
+gem "sequel"
 gem "sinatra"
 gem "haml"

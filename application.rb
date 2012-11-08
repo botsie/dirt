@@ -1,21 +1,20 @@
 #!/usr/bin/env ruby
 
-require 'data_mapper'
+require 'sequel'
 require 'sinatra'
 require 'haml'
 require 'pp'
+require 'logger'
 
 db_user = 'db_admin'
 db_password = 'qwedsa123'
 db_host = 'smspike.ccaxw0t5omeg.us-east-1.rds.amazonaws.com'
 db = 'rt'
 
-DataMapper::Logger.new($stderr, :debug)
-DataMapper.setup(:default, "mysql://#{db_user}:#{db_password}@#{db_host}/#{db}")
+DB = Sequel.connect("mysql2://#{db_user}:#{db_password}@#{db_host}/#{db}")
+DB.loggers << Logger.new($stdout)
 
 Dir['models/*.rb'].each { |model| require File.join(File.dirname(__FILE__), model) }
-
-DataMapper.finalize
 
 get '/:queue' do
   card_wall_controller = CardWallController.new
@@ -28,10 +27,10 @@ class CardWallController
     @queue = params[:queue]
     @statuses = [ 'new', 'open', 'stalled', 'resolved' ]
     # @results = Ticket.all(:queue => @queue, :status => @statuses)
-    # queue = Queue.find(:name => @queue)
-    
+    queue = Dirt::Queue[:name => @queue]
+
     @statuses.each do |status|
-      @cards[status] = Ticket.all(:queue => {:name => @queue}, :status => status)
+      @cards[status] = Dirt::Ticket.where(:status => status, :queue => queue)
       # @cards[status] = queue.ticket(:status => status)
     end
 
