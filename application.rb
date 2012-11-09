@@ -1,49 +1,65 @@
 #!/usr/bin/env ruby
 
+require 'mysql2'
 require 'sequel'
 require 'sinatra'
 require 'haml'
 require 'pp'
 require 'logger'
+require 'yaml'
+use Rack::Logger 
 
-db_user = 'db_admin'
-db_password = 'qwedsa123'
-db_host = 'smspike.ccaxw0t5omeg.us-east-1.rds.amazonaws.com'
-db = 'rt'
+module Dirt
 
-DB = Sequel.connect("mysql2://#{db_user}:#{db_password}@#{db_host}/#{db}")
-DB.loggers << Logger.new($stdout)
+  class CardWallController
+    def show(params)
+      @cards = Hash.new
+      @queue = params[:queue]
+      @statuses = [ 'new', 'open', 'stalled', 'resolved' ]
+      # @results = Ticket.all(:queue => @queue, :status => @statuses)
+      queue = Dirt::Queue[:name => @queue]
 
-Dir['models/*.rb'].each { |model| require File.join(File.dirname(__FILE__), model) }
+      @statuses.each do |status|
+        @cards[status] = Dirt::Ticket.where(:status => status, :queue => queue)
+        # @cards[status] = queue.ticket(:status => status)
+      end
 
-get '/:queue' do
-  card_wall_controller = CardWallController.new
-  card_wall_controller.show(params)
-end
-
-class CardWallController
-  def show(params)
-    @cards = Hash.new
-    @queue = params[:queue]
-    @statuses = [ 'new', 'open', 'stalled', 'resolved' ]
-    # @results = Ticket.all(:queue => @queue, :status => @statuses)
-    queue = Dirt::Queue[:name => @queue]
-
-    @statuses.each do |status|
-      @cards[status] = Dirt::Ticket.where(:status => status, :queue => queue)
-      # @cards[status] = queue.ticket(:status => status)
+      haml :card_wall
     end
 
-    haml :card_wall
-  end
-
-  def haml( template_id )
-    layout = File.read('views/layout.haml')
-    template = File.read('views/' + template_id.to_s + '.haml')
-    layout_engine = Haml::Engine.new(layout)
-    layout_engine.render(self) do
-      template_engine = Haml::Engine.new(template)
-      template_engine.render(self)
+    def haml( template_id )
+      layout = File.read('views/layout.haml')
+      template = File.read('views/' + template_id.to_s + '.haml')
+      layout_engine = Haml::Engine.new(layout)
+      layout_engine.render(self) do
+        template_engine = Haml::Engine.new(template)
+        template_engine.render(self)
+      end
     end
   end
+
+  class Application < Sinatra::Application
+    CONFIG_FILE = File.join(File.dirname(__FILE__), 'config/config.yml')
+    DB_CONFIG_FILE = File.join(File.dirname(__FILE__), 'config/database.yml')
+
+    configure do
+      @config = YAML.load_file(CONFIG_FILE)[ENV["RACK_ENV"]]
+      db_config = YAML.load_file(DB_CONFIG_FILE)[ENV["RACK_ENV"]]
+
+      Dirt::RT_DB = Sequel.connect(db_config[:rt])
+      Dirt::RT_DB.loggers << Logger.new($stdout)
+
+      Dir['models/*.rb'].each { |model| require File.join(File.dirname(__FILE__), model) }
+    end
+
+
+    get '/:queue' do
+      card_wall_controller = Dirt::CardWallController.new
+      card_wall_controller.show(params)
+    end
+
+    run! if app_file == $0
+  end
+
 end
+

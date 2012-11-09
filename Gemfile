@@ -1,4 +1,7 @@
 source :rubygems
+gem "mysql2"
 gem "sequel"
 gem "sinatra"
 gem "haml"
+gem "redcarpet"
+gem "sqlite3"

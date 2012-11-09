@@ -26,7 +26,7 @@
   .row
     - @statuses.each do |status|
       %div.span3
-        %h3="#{status} (#{@cards[status].length})"
+        %h3="#{status}"
         - @cards[status].each do |card|
           .card
             %p=card.id
