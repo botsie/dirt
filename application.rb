@@ -11,21 +11,11 @@ use Rack::Logger
 
 module Dirt
 
-  class CardWallController
-    def show(params)
-      @cards = Hash.new
-      @queue = params[:queue]
-      @statuses = [ 'new', 'open', 'stalled', 'resolved' ]
-      # @results = Ticket.all(:queue => @queue, :status => @statuses)
-      queue = Dirt::Queue[:name => @queue]
-
-      @statuses.each do |status|
-        @cards[status] = Dirt::Ticket.where(:status => status, :queue => queue)
-        # @cards[status] = queue.ticket(:status => status)
-      end
-
-      haml :card_wall
-    end
+  class Controller
+    def self.show(params)
+      controller = self.new
+      controller.show(params)
+    end 
 
     def haml( template_id )
       layout = File.read('views/layout.haml')
@@ -35,6 +25,29 @@ module Dirt
         template_engine = Haml::Engine.new(template)
         template_engine.render(self)
       end
+    end
+  end 
+
+  class PageController < Dirt::Controller
+    def show(params)
+      "Not Yet Implemented"
+    end
+  end
+
+  class CardWallController < Dirt::Controller
+    def show(params)
+      @cards = Hash.new
+      @queue = params[:queue]
+      @statuses = [ 'new', 'open', 'stalled', 'resolved' ]
+      # @results = Ticket.all(:queue => @queue, :status => @statuses)
+      queue = Dirt::Queue[:name => @queue]
+
+      @statuses.each do |status|
+        @cards[status] = Dirt::Ticket.eager_graph(:owner).where(:status => status, :queue => queue).all
+        # @cards[status] = queue.ticket(:status => status)
+      end
+
+      haml :card_wall
     end
   end
 
@@ -63,9 +76,16 @@ module Dirt
 
 
     get '/:queue' do
-      card_wall_controller = Dirt::CardWallController.new
-      card_wall_controller.show(params)
+      Dirt::CardWallController.show(params)
     end
+
+    get '/projects/:project/pages' do
+      Dirt::PageController.show(params)
+    end
+
+    get '/projects/:project/pages/page' do
+      "Not Implemented"
+    end    
 
     run! if app_file == $0
   end
