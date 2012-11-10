@@ -42,12 +42,21 @@ module Dirt
     CONFIG_FILE = File.join(File.dirname(__FILE__), 'config/config.yml')
     DB_CONFIG_FILE = File.join(File.dirname(__FILE__), 'config/database.yml')
 
+    def self.load_config(file_name)
+      env = ENV["RACK_ENV"]
+      data = YAML::load(File.open(file_name))[env]
+      data.inject({}) { |memo, (k,v)| memo[k.to_sym] = v; memo }
+    end
+
     configure do
-      @config = YAML.load_file(CONFIG_FILE)[ENV["RACK_ENV"]]
-      db_config = YAML.load_file(DB_CONFIG_FILE)[ENV["RACK_ENV"]]
+      # @config = load_config(CONFIG_FILE)
+      db_config = load_config(DB_CONFIG_FILE)
 
       Dirt::RT_DB = Sequel.connect(db_config[:rt])
       Dirt::RT_DB.loggers << Logger.new($stdout)
+
+      Dirt::DIRT_DB = Sequel.connect(db_config[:dirt])
+      Dirt::DIRT_DB.loggers << Logger.new($stdout)
 
       Dir['models/*.rb'].each { |model| require File.join(File.dirname(__FILE__), model) }
     end
