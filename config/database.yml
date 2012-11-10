@@ -7,6 +7,6 @@ development:
         password: 'qwedsa123'
     dirt:
         adapter: sqlite
-        database: './db/dirt.db'
+        database: './db/dirt.sqlite'
 test:
 production:
