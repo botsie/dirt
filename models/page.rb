@@ -1,8 +1,7 @@
 #!/usr/bin/env ruby
 
 require "sequel"
-require "redcarpet"
-require "redcarpet/compat"
+require "redcloth"
 
 module Haml::Filters::Markdown
   include Haml::Filters::Base
@@ -25,7 +24,7 @@ module Dirt
 
     def self.html(project, page_name)
     	page = self.source(project, page_name)
-	    page[:html] = Markdown.new(page[:content]).to_html
+	    page[:html] = RedCloth.new(page[:content]).to_html
 	    page
     end
   end	
