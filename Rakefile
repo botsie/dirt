@@ -30,7 +30,7 @@ namespace :code do
 
       system_with_status do |e| 
         e.message = "rsync-ing files to server #{server}"
-        e.command = "rsync -avz . #{server}:#{deploy_location}/ 2>&1" 
+        e.command = "rsync -avz --delete --exclude='dirt.sqlite' . #{server}:#{deploy_location}/ 2>&1" 
       end
     end 
   end 
@@ -40,7 +40,7 @@ namespace :code do
     servers.each do |server|
       system_with_status do |e| 
         e.message = "rsync-ing files to server #{server}"
-        e.command = "rsync -avz --delete . #{server}:#{deploy_location}/ 2>&1"
+        e.command = "rsync -avz --delete  --exclude='dirt.sqlite' . #{server}:#{deploy_location}/ 2>&1"
       end
     end 
   end
