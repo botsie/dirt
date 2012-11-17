@@ -1,0 +1,8 @@
+.content
+  .page-header
+    .pull-right
+      %form{action: "/projects/#{@project}/pages/#{@page_name}/edit", method: "get"}
+        %input.btn.btn-primary{type: "submit", value:"Edit"}
+    %h2="#{@project}/#{@page_name}"
+  .page-content
+    %div=@page[:html]

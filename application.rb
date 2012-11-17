@@ -17,6 +17,11 @@ module Dirt
       controller.show(params)
     end 
 
+    def self.edit(params)
+      controller = self.new
+      controller.edit(params)
+    end 
+
     def haml( template_id )
       layout = File.read('views/layout.haml')
       template = File.read('views/' + template_id.to_s + '.haml')
@@ -30,8 +35,22 @@ module Dirt
 
   class PageController < Dirt::Controller
     def show(params)
-      "Not Yet Implemented"
+      @project = params[:project]
+      @page_name = params[:page]
+      @page = Dirt::Page.html(@project, @page_name)
+      haml :page
     end
+
+    def edit(params)
+      @project = params[:project]
+      @page_name = params[:page]
+      @page = Dirt::Page.source(@project, @page_name)
+      haml :page_edit
+    end
+
+    def save(params)
+
+    end 
   end
 
   class CardWallController < Dirt::Controller
@@ -80,12 +99,22 @@ module Dirt
     end
 
     get '/projects/:project/pages' do
+      params[:page] = 'index'
       Dirt::PageController.show(params)
     end
 
-    get '/projects/:project/pages/page' do
-      "Not Implemented"
+    get '/projects/:project/pages/:page' do
+      Dirt::PageController.show(params)
     end    
+
+    get '/projects/:project/pages/:page/edit' do
+      Dirt::PageController.edit(params)
+    end    
+
+    post '/projects/:project/pages/:page/save' do
+      Dirt::PageController.save(params)
+    end    
+
 
     run! if app_file == $0
   end

@@ -1,0 +1,12 @@
+.content
+  .page-header
+    .pull-right
+    %h1="Edit: #{@project}/#{@page_name}"
+  .page-content
+    %form{action: "/projects/#{@project}/pages/#{@page_name}/save", method: "post"}
+      %input{type:"hidden", name: "id", value: "#{@page[:id]}"}
+      %input{type:"hidden", name: "project_id", value: "#{@page[:project_id]}"}
+      %textarea.span10{name: 'content', cols: 300, rows: 24}=@page[:content]
+      %input.btn.btn-primary{type: "submit", value:"Save"}
+    %form{action: "/projects/#{@project}/pages/#{@page}", method: "get"}
+      %input.btn{type: "submit", value:"Cancel"}
