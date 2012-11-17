@@ -17,7 +17,9 @@ module Dirt
     end
 
     def save(params)
-
+      # TODO: escape content to prevent SQL injection
+      Dirt::Page.where(:id => params[:id]).update(:content => params[:content])
+      show(params)
     end 
   end
 end

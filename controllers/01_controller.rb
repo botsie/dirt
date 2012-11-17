@@ -15,6 +15,11 @@ module Dirt
       controller.edit(params)
     end 
 
+    def self.save(params)
+      controller = self.new
+      controller.save(params)
+    end 
+
     def haml( template_id )
       layout = File.read('views/layout.haml')
       template = File.read('views/' + template_id.to_s + '.haml')
