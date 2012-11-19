@@ -3,14 +3,7 @@
 require "sequel"
 require "redcloth"
 
-module Haml::Filters::Markdown
-  include Haml::Filters::Base
-
-  def render(text)
-  end
-end
-
-
+require File.expand_path('../../lib/macro.rb', __FILE__)
 
 module Dirt
   class Page < Sequel::Model(Dirt::DIRT_DB)
@@ -24,8 +17,17 @@ module Dirt
 
     def self.html(project, page_name)
     	page = self.source(project, page_name)
-	    page[:html] = RedCloth.new(page[:content]).to_html
+
+      pre_processed_src = expand_macros(page[:content])
+
+	    page[:html] = RedCloth.new(pre_processed_src).to_html
 	    page
+    end
+
+    def self.expand_macros(text)
+      text.gsub(/<~(.*?)~>/m) do |match_string|
+        Dirt::Macro.to_html($1.chomp)
+      end
     end
   end	
 end
