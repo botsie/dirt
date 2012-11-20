@@ -36,8 +36,8 @@ module Dirt
       caption ||= ""
 
       template = %Q{
+%h5=caption
 %table.table.table-striped.table-bordered
-  %caption=caption
   %tr 
     - headers.each do |header|
       %th=header.to_s
