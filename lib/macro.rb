@@ -7,29 +7,32 @@ module Dirt
   class Macro
     def self.to_html(text)
       data = JSON.load(text)
-      type = data['type'].capitalize + 'Macro'
+      type = camel_case(data['type']) + 'Macro'
       Dirt.const_get(type).new(data).to_html
     end
-  end
 
-  class DumpMacro
+    def self.camel_case(str)
+      str.capitalize.gsub(/_(.)/) { |m| $1.upcase }
+    end
+
     def initialize(spec)
       @spec = spec
     end
+  end
 
+  class DumpMacro < Macro
     def to_html
       "<notextile> DUMP: " + JSON.dump(@spec) + " </notextile>"
     end
   end
 
-  class TableMacro
-    def initialize(spec)
-      @spec = spec
-    end
-
+  class TableMacro < Macro
     def to_html
       sql = @spec['sql']
       rows = Dirt::RT_DB[sql].all
+
+      # TODO: Handle the no results case
+
       headers = rows[1].keys
       
       caption = @spec['caption'] 
@@ -50,4 +53,5 @@ module Dirt
       Haml::Engine.new(template).render(binding)
     end    
   end
+
 end
