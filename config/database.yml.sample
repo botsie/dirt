@@ -1,0 +1,12 @@
+development:
+    rt:
+        adapter: mysql2
+        host: 'host_name'
+        database: 'database_name'
+        user: 'db_user_name'
+        password: 'db_password'
+    dirt:
+        adapter: sqlite
+        database: './db/dirt.sqlite'
+test:
+production:
