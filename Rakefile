@@ -45,6 +45,16 @@ namespace :code do
     end 
   end
 
+  desc 'Sync code & db'
+  task :sync_all do
+    servers.each do |server|
+      system_with_status do |e| 
+        e.message = "rsync-ing files to server #{server}"
+        e.command = "rsync -avz --delete . #{server}:#{deploy_location}/ 2>&1"
+      end
+    end 
+  end
+
   desc 'Sync code back from server'
   task :sync_back, [:host] do |t, args|
     args.with_defaults(:host => "scratch")

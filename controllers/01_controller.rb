@@ -3,10 +3,16 @@
 # This file needs to be loaded before the other controllers, hence the name 
 # 01_controller.rb
 
+require "json"
+
 module Dirt
   class Controller
+
+    attr_accessor :tab_spec
+
     def self.show(params)
       controller = self.new
+      controller.get_tab_spec(params[:project], params[:page])
       controller.show(params)
     end 
 
@@ -19,6 +25,11 @@ module Dirt
       controller = self.new
       controller.save(params)
     end 
+
+    def get_tab_spec(project_name, page_name)
+      @tab_spec = JSON.parse(Dirt::Project.where(:identifier => project_name).first.tab_spec, :symbolize_names=>true)
+      @tab_spec.each {|t| t[:page] == page_name ? t[:class] = "active" : t[:class] = ""}
+    end
 
     def haml( template_id )
       layout = File.read('views/layout.haml')
