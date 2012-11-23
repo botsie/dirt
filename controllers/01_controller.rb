@@ -18,11 +18,13 @@ module Dirt
 
     def self.edit(params)
       controller = self.new
+      controller.get_tab_spec(params[:project], params[:page])
       controller.edit(params)
     end 
 
     def self.save(params)
       controller = self.new
+      controller.get_tab_spec(params[:project], params[:page])
       controller.save(params)
     end 
 
