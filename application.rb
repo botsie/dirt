@@ -39,20 +39,20 @@ module Dirt
       Dirt::CardWallController.show(params)
     end
 
-    get '/projects/:project/pages' do
+    get '/projects/:project/' do
       params[:page] = 'index'
       Dirt::PageController.show(params)
     end
 
-    get '/projects/:project/pages/:page' do
+    get '/projects/:project/:page' do
       Dirt::PageController.show(params)
     end    
 
-    get '/projects/:project/pages/:page/edit' do
+    get '/projects/:project/:page/edit' do
       Dirt::PageController.edit(params)
     end    
 
-    post '/projects/:project/pages/:page/save' do
+    post '/projects/:project/:page/save' do
       Dirt::PageController.save(params)
     end    
 

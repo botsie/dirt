@@ -68,6 +68,7 @@ h3. TODO List
 # Edit Tickets
 # Reply/Comment on Tickets
 # FB macro
+# Handle errors better
 # Online Help
 # Default Queues for queries
 # User authentication

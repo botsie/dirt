@@ -2,7 +2,7 @@
   .wiki-page-header
     %h4="Edit: #{@project}/#{@page_name}"
   .wiki-page-content
-    %form{action: "/projects/#{@project}/pages/#{@page_name}/save", method: "post"}
+    %form{action: "/projects/#{@project}/#{@page_name}/save", method: "post"}
       %input{type:"hidden", name: "id", value: "#{@page[:id]}"}
       %input{type:"hidden", name: "project_id", value: "#{@page[:project_id]}"}
       %input{type:"hidden", name: "page_name", value: "#{@page_name}"}
@@ -10,12 +10,12 @@
         %a.btn{href:"http://redcloth.org/textile"}
           %i.icon-question-sign
           Help
-        %a.btn{href: "/projects/#{@project}/pages/#{@page_name}"}="Cancel"
+        %a.btn{href: "/projects/#{@project}/#{@page_name}"}="Cancel"
         %input.btn.btn-primary{type: "submit", value:"Save"}
       %textarea.span12{name: 'content', cols: 300, rows: 24}=@page[:content]
       .pull-right
         %a.btn{href:"http://redcloth.org/textile"}
           %i.icon-question-sign
           Help
-        %a.btn{href: "/projects/#{@project}/pages/#{@page_name}"}="Cancel"
+        %a.btn{href: "/projects/#{@project}/#{@page_name}"}="Cancel"
         %input.btn.btn-primary{type: "submit", value:"Save"}
