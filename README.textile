@@ -18,9 +18,8 @@ Installation is still pretty clunky:
 * Install Ruby 1.9.3 if you don't already have it. Using ["rvm":https://rvm.io] for this is highly recommended.
 * Run @bundle install@ to fetch dependencies. Using rvm's gemsets feature to isolate these dependencies is a good idea.
 * Copy @config/database.yml.sample@ to @config/database.yml@ and edit. Note that there are *two* database configurations:
-  - @rt@ := Your existing Request Tracker database. With the current featureset 
-            this can be read-only access. This will change with later releases.
-  - @dirt@ := A new empty database that you have created for dirt.
+** @rt@ : Your existing Request Tracker database. With the current featureset this can be read-only access. This will change with later releases.
+** @dirt@ : A new empty database that you have created for dirt.
 * Run @rake db:migrate@ to create the dirt schema.
 * Run @cd db; ruby create_views.rb < mapping.json > create-views.sql@
 * Review @create-views.sql@ -- TL;DR It create a few views so we have a schema that is ORM friendly and to make report queries more intuitive. 
