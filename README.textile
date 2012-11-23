@@ -1,0 +1,108 @@
+h1. Dirt Readme
+
+Dirt is a reporting frontend to Best Practical ["Request Tracker":http://bestpractical.com/rt/]. 
+It was written to facilitate my work at ["Directi":http://www.directi.com], who 
+kindly let me work on it during regular working hours.
+
+h3. Features
+
+* An arbitrary number of dashboards
+* A wiki for documentation
+* Tabular reports 
+* Prettier than RT (IMO)
+* ... more to come (see TODO list below)
+
+h3. Installation
+
+Installation is still pretty clunky:	
+
+* Clone the source
+* Install Ruby 1.9.3 if you don't already have it. Using ["rvm":https://rvm.io] 
+  for this is highly recommended.
+* Run @bundle install@ to fetch dependencies. Using rvm's gemsets feature to 
+  isolate these dependencies is a good idea.
+* Copy @config/database.yml.sample@ to @config/database.yml@ and edit. Note that
+  there are *two* database configurations:
+  - @rt@ := Your existing Request Tracker database. With the current featureset 
+            this can be read-only access. This will change with later releases.
+  - @dirt@ := A new empty database that you have created for dirt.
+* Run @rake db:migrate@ to create the dirt schema.
+* Run @cd db; ruby create_views.rb < mapping.json > create-views.sql@
+* Review @create-views.sql@ -- TL;DR It create a few views so we have a schema 
+  that is ORM friendly and to make report queries more intuitive.
+* Run @create-views.sql@ against your RT database. Consult your RDBMS documentation
+  to find out how to do this. *Note:* @create-views.sql@ uses MySQL's dialect of SQL.
+* Run: @RACK_ENV=<env> ruby application.rb@. Ruby rack integration is currently broken.
+
+h4. Really clunky bits
+
+* Add entries into in the projects table in the dirt db. See the default value 
+  of @tab_spec@ to configure the tabs of your project.
+
+h3. Using Dirt
+
+* Navigate to http://your.host.name/projects/yourproject/pages
+* Use ["textile":http://redcloth.org/textile] syntax to add text content to the page.
+* Add a query using the following syntax:
+
+bc..
+<~
+{
+  "type": "table",
+  "sql":"SELECT COUNT(id) AS Count, Owner AS Name FROM expanded_tickets WHERE Queue = 'linux-hosting' AND Status IN('new', 'open', 'stalled') GROUP BY Owner",
+  "caption": "Ticket Ownership"
+}
+~>
+
+p. Any arbitrary SQL statement querying the 'expanded_tickets' view can be used to report on tickets.
+
+h3. Bugs
+
+# When editing a new page, clicking 'Cancel' will return to the edit page.
+# Ruby Rack support is not working
+
+h3. TODO List
+
+# -Write Documentation-
+# Simpler markup for wikilinks
+# interpolate current and relative dates into SQL statements
+# Taskboard macro
+# View tickets
+# Make tickets clickable
+# Pie Chart macro
+# Bar/Line chart macro
+# Add/Edit Projects
+# Layout macros or tags
+# Edit Tickets
+# Reply/Comment on Tickets
+# FB macro
+# Online Help
+# Default Queues for queries
+# User authentication
+# User profile
+# Interpolate current logged in user into SQLs
+# Use ACE to edit wiki
+
+h3. Contributing
+
+Standard way: fork, modify and send pull request. User visible changes *must* have documentation patches.
+
+h3. License
+
+   Dirt - A reporting frontend to ["Best Practical":http://bestpractical.com] ["Request Tracker":http://bestpractical.com/rt/]
+   
+   Copyright (C) 2012  Biju Philip Chacko
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+
+   
