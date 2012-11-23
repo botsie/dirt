@@ -8,7 +8,7 @@ h3. Features
 * A wiki for documentation
 * Tabular reports 
 * Prettier than RT (IMO)
-* ... more to come (see TODO list below)
+* ... more to come (see ["TODO list below":"#todo-list")
 
 h3. Installation
 
@@ -82,20 +82,12 @@ Standard way: fork, modify and send pull request. User visible changes *must* ha
 
 h3. License
 
-   Dirt - A reporting frontend to ["Best Practical":http://bestpractical.com] ["Request Tracker":http://bestpractical.com/rt/]
+Dirt - A reporting frontend to ["Best Practical":http://bestpractical.com] ["Request Tracker":http://bestpractical.com/rt/]
    
-   Copyright (C) 2012  Biju Philip Chacko
+Copyright (C) 2012 Biju Philip Chacko
 
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
 
-       http://www.apache.org/licenses/LICENSE-2.0
+  http://www.apache.org/licenses/LICENSE-2.0
 
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
-
-   
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
