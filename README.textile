@@ -56,7 +56,7 @@ h3. Bugs
 h3. TODO List
 
 # -Write Documentation-
-# Simpler markup for wikilinks
+# -Simpler markup for wikilinks-
 # interpolate current and relative dates into SQL statements
 # Taskboard macro
 # View tickets

@@ -19,7 +19,7 @@ module Dirt
     def self.html(project, page_name)
     	page = self.source(project, page_name)
 
-      pre_processed_src = expand_macros(page[:content])
+      pre_processed_src = render_extensions(project, page_name, page[:content])
 
 	    page[:html] = RedCloth.new(pre_processed_src).to_html
 	    page
@@ -34,7 +34,10 @@ module Dirt
       end
     end
 
-    def self.expand_macros(text)
+    def self.render_extensions(project, page_name, text)
+      # expand wikilinks
+      text.gsub!(/\[\[(.*?)\]\]/) {|m| %Q(["#{$1}":/projects/#{project}/#{$1}]) }
+
       text.gsub(/<~(.*?)~>/m) do |match_string|
         Dirt::Macro.to_html($1.chomp)
       end
