@@ -1,8 +1,6 @@
 h1. Dirt Readme
 
-Dirt is a reporting frontend to Best Practical ["Request Tracker":http://bestpractical.com/rt/]. 
-It was written to facilitate my work at ["Directi":http://www.directi.com], who 
-kindly let me work on it during regular working hours.
+Dirt is a reporting frontend to Best Practical ["Request Tracker":http://bestpractical.com/rt/]. It was written to facilitate my work at ["Directi":http://www.directi.com], who kindly let me work on it during regular working hours.
 
 h3. Features
 
@@ -17,27 +15,21 @@ h3. Installation
 Installation is still pretty clunky:	
 
 * Clone the source
-* Install Ruby 1.9.3 if you don't already have it. Using ["rvm":https://rvm.io] 
-  for this is highly recommended.
-* Run @bundle install@ to fetch dependencies. Using rvm's gemsets feature to 
-  isolate these dependencies is a good idea.
-* Copy @config/database.yml.sample@ to @config/database.yml@ and edit. Note that
-  there are *two* database configurations:
+* Install Ruby 1.9.3 if you don't already have it. Using ["rvm":https://rvm.io] for this is highly recommended.
+* Run @bundle install@ to fetch dependencies. Using rvm's gemsets feature to isolate these dependencies is a good idea.
+* Copy @config/database.yml.sample@ to @config/database.yml@ and edit. Note that there are *two* database configurations:
   - @rt@ := Your existing Request Tracker database. With the current featureset 
             this can be read-only access. This will change with later releases.
   - @dirt@ := A new empty database that you have created for dirt.
 * Run @rake db:migrate@ to create the dirt schema.
 * Run @cd db; ruby create_views.rb < mapping.json > create-views.sql@
-* Review @create-views.sql@ -- TL;DR It create a few views so we have a schema 
-  that is ORM friendly and to make report queries more intuitive.
-* Run @create-views.sql@ against your RT database. Consult your RDBMS documentation
-  to find out how to do this. *Note:* @create-views.sql@ uses MySQL's dialect of SQL.
+* Review @create-views.sql@ -- TL;DR It create a few views so we have a schema that is ORM friendly and to make report queries more intuitive. 
+* Run @create-views.sql@ against your RT database. Consult your RDBMS documentation to find out how to do this. *Note:* @create-views.sql@ uses MySQL's dialect of SQL.
 * Run: @RACK_ENV=<env> ruby application.rb@. Ruby rack integration is currently broken.
 
 h4. Really clunky bits
 
-* Add entries into in the projects table in the dirt db. See the default value 
-  of @tab_spec@ to configure the tabs of your project.
+* Add entries into in the projects table in the dirt db. See the default value of @tab_spec@ to configure the tabs of your project.
 
 h3. Using Dirt
 
@@ -45,7 +37,7 @@ h3. Using Dirt
 * Use ["textile":http://redcloth.org/textile] syntax to add text content to the page.
 * Add a query using the following syntax:
 
-bc..
+<pre>
 <~
 {
   "type": "table",
@@ -53,6 +45,7 @@ bc..
   "caption": "Ticket Ownership"
 }
 ~>
+</pre>
 
 p. Any arbitrary SQL statement querying the 'expanded_tickets' view can be used to report on tickets.
 
