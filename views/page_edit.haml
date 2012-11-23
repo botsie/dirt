@@ -1,7 +1,7 @@
 .content
-  .page-header
-    %h1="Edit: #{@project}/#{@page_name}"
-  .page-content
+  .wiki-page-header
+    %h4="Edit: #{@project}/#{@page_name}"
+  .wiki-page-content
     %form{action: "/projects/#{@project}/pages/#{@page_name}/save", method: "post"}
       %input{type:"hidden", name: "id", value: "#{@page[:id]}"}
       %input{type:"hidden", name: "project_id", value: "#{@page[:project_id]}"}

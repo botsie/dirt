@@ -9,7 +9,8 @@
     .navbar-inner
       .container-fluid
         %a.brand(href='#') DiRT: DirectiRT
-  .container-fluid
+  .container
+    %h4=@project
     .tab-bar
       %ul.nav.nav-tabs
         - @tab_spec.each do |tab|
@@ -17,8 +18,8 @@
             %a{href: "./#{tab[:page]}"}=tab[:caption]
     =yield
   
-    %hr
-    #footer.span-24
+    #footer.span12
+      %hr
       %p.small
         DiRT: Direct RT &copy;2012 Directi Inc
   
