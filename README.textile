@@ -57,6 +57,7 @@ h3. TODO List
 
 # -Write Documentation-
 # -Simpler markup for wikilinks-
+# Add RT db changes to migrations
 # interpolate current and relative dates into SQL statements
 # Taskboard macro
 # View tickets
@@ -67,6 +68,7 @@ h3. TODO List
 # Layout macros or tags
 # Edit Tickets
 # Reply/Comment on Tickets
+# Project plan to ticket hierarchy
 # FB macro
 # Handle errors better
 # Online Help
