@@ -58,7 +58,8 @@ h3. TODO List
 # -Write Documentation-
 # -Simpler markup for wikilinks-
 # Add RT db changes to migrations
-# interpolate current and relative dates into SQL statements
+# -interpolate current and relative dates into SQL statements-
+# Value macro
 # Taskboard macro
 # View tickets
 # Make tickets clickable

@@ -2,6 +2,7 @@
 
 require 'json'
 require 'haml'
+require 'chronic'
 
 module Dirt
   class Macro
@@ -17,6 +18,26 @@ module Dirt
 
     def initialize(spec)
       @spec = spec
+      @spec = expand_sql(@spec)
+    end
+
+    def expand_sql(spec)
+      if spec.has_key? 'sql' then
+        spec['sql'].gsub!(/%([A-Z0-9_]+)\((.*?)\)/) do |match_string|
+          function_name = $1.downcase
+          params = $2
+          self.method(function_name.to_sym).call(params)
+        end
+      end
+      return spec
+    end
+
+    def date(date_string)
+      Chronic.parse(date_string).strftime(%q{'%Y-%m-%d'})
+    end
+
+    def avg_days_since(field_name)
+      "CAST(ROUND(AVG(DATEDIFF(CURRENT_DATE(),DATE(#{field_name}))),0) AS SIGNED) AS AVG_DAYS_SINCE_#{field_name.upcase}"
     end
   end
 
@@ -33,7 +54,7 @@ module Dirt
 
       # TODO: Handle the no results case
 
-      headers = rows[1].keys
+      headers = rows.first.keys
       
       caption = @spec['caption'] 
       caption ||= ""
