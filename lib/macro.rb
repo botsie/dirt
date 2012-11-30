@@ -64,7 +64,7 @@ module Dirt
 %table.table.table-striped.table-bordered
   %tr 
     - headers.each do |header|
-      %th=header.to_s
+      %th=header.to_s.gsub(/_/," ").capitalize
   - rows.each do |row|
     %tr
       - headers.each do |header|
