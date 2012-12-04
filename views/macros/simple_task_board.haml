@@ -9,11 +9,12 @@
     %div{class: "#{span} taskboard-label"}
       %h6=stream[:Subject]
     - lanes.each do |lane|
-      - cards(:stream => stream, :lane => lane).each do |card|  
-        .card
-          %p=card[:id]
-          %p=card[:Owner]
-          %p=card[:Subject]
+      %div{class: "#{span}"}
+        - cards(:stream => stream, :lane => lane).each do |card|  
+          .card
+            %p=card[:id]
+            %p=card[:Owner]
+            %p=card[:Subject]
 
 
     
