@@ -43,8 +43,13 @@ module Dirt
       where_clause = @spec['workstream_selector']
       raise "Need a Workstream selector to render this macro" if where_clause.nil?
 
-      sql = %Q{SELECT id, Subject FROM expanded_tickets WHERE ?}
-      @streams = Dirt::RT_DB.fetch(sql, where_clause)
+#      sql = %Q{SELECT id, Subject FROM expanded_tickets WHERE ?}
+#      @streams = Dirt::RT_DB.fetch(sql, where_clause)
+
+      @streams = Dirt::RT_DB[:expanded_tickets]
+                  .select(:id, :Subject)
+                  .where(Sequel.lit(where_clause))
+                  .all
 
       return @streams
     end 
