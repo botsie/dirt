@@ -17,6 +17,9 @@ module Dirt
     def self.load_config(file_name)
       env = ENV["RACK_ENV"]
       data = YAML::load(File.open(file_name))[env]
+
+      raise "No configration found in #{file_name} for RACK_ENV environment '#{env}'. Check #{file_name} for valid values of RACK_ENV" if data.nil?
+
       data.inject({}) { |memo, (k,v)| memo[k.to_sym] = v; memo }
     end
 
