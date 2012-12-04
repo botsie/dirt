@@ -65,7 +65,7 @@ module Dirt
       Dirt::RT_DB[:expanded_tickets]
         .select(:id, :Subject, :Owner)
         .where(:id => child_ids)
-        .where(lane_column.to_sym => lanes)
+        .where(lane_column.to_sym => args[:lane])
         .where(Sequel.lit(card_selector))
         .all
     end
