@@ -60,7 +60,7 @@ module Dirt
 
       child_ids = Dirt::RT_DB[:Links]
                     .select(:LocalBase)
-                    .where(:LocalTarget => args[:stream].id, :Type => 'MemberOf')
+                    .where(:LocalTarget => args[:stream][:id], :Type => 'MemberOf')
 
       Dirt::RT_DB[:expanded_tickets]
         .select(:id, :Subject, :Owner)
