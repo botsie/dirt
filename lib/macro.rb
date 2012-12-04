@@ -6,6 +6,9 @@ require 'chronic'
 
 module Dirt
   class Macro
+
+    # Class Methods
+
     def self.to_html(text)
       data = JSON.load(text)
       type = camel_case(data['type']) + 'Macro'
@@ -16,9 +19,17 @@ module Dirt
       str.capitalize.gsub(/_(.)/) { |m| $1.upcase }
     end
 
+    # Instance Methods
+
     def initialize(spec)
       @spec = spec
       @spec = expand_sql(@spec)
+    end
+
+    def haml(template_id, scope=self)
+      template_file = File.expand_path("../../views/macros/" + template_id.to_s + '.haml', __FILE__)
+      template = File.read template_file
+      Haml::Engine.new(template).render(scope)
     end
 
     def expand_sql(spec)

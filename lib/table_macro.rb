@@ -18,19 +18,7 @@ module Dirt
       caption = @spec['caption'] 
       caption ||= ""
 
-      template = %Q{
-%h5=caption
-%table.table.table-striped.table-bordered
-  %tr 
-    - headers.each do |header|
-      %th=header.to_s.gsub(/_/," ").capitalize
-  - rows.each do |row|
-    %tr
-      - headers.each do |header|
-        %td=row[header]
-      }
-
-      Haml::Engine.new(template).render(binding)
+      haml :table, binding
     end    
   end
 

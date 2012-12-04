@@ -34,27 +34,7 @@ module Dirt
 
       caption = @spec['caption']
 
-      template = %Q{
-%h5=caption
-%table.table.table-striped.table-bordered
-  %tr
-    %th="Age"
-    %th="Count"
-  %tr
-    %td="Less than 1 week"
-    %td=last_week
-  %tr
-    %td="Less than 1 month"
-    %td=last_month
-  %tr
-    %td="Less than 1 quarter"
-    %td=last_quarter
-  %tr
-    %td="More than 1 quarter"
-    %td=before_last_quarter
-      }
-
-      Haml::Engine.new(template).render(binding)
+      haml :aging, binding
     end
   end
 
