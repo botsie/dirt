@@ -8,7 +8,7 @@ h3. Features
 * A wiki for documentation
 * Tabular reports 
 * Prettier than RT (IMO)
-* ... more to come (see ["TODO list below":"#todo-list")
+* ... more to come (see ["TODO list below":#todo-list])
 
 h3. Installation
 
@@ -74,12 +74,12 @@ Example:
 <pre>
 <~
 {
-"type":"simple_task_board",
-"caption":"Taskboard",
-"group_by":"Status",
-"group_sequence":["new","open","stalled"],
-"workstream_selector":"Queue = 'linux-hosting-streams' AND Status IN ('new','open','stalled')",
-"ticket_selector":"Queue = 'linux-hosting'"
+  "type":"simple_task_board",
+  "caption":"Taskboard",
+  "group_by":"Status",
+  "group_sequence":["new","open","stalled"],
+  "workstream_selector":"Queue = 'linux-hosting-streams' AND Status IN ('new','open','stalled')",
+  "ticket_selector":"Queue = 'linux-hosting'"
 }
 ~>
 </pre>
@@ -105,8 +105,7 @@ You can write stuff like:
 * last week thursday
 * 4 o'clock last monday
 
-Dirt uses the ["Chronic":https://github.com/mojombo/chronic] gem to parse these description. See 
-["Chronic's examples":https://github.com/mojombo/chronic#examples] for a complete listing.
+Dirt uses the ["Chronic":https://github.com/mojombo/chronic] gem to parse these description. See ["Chronic's examples":https://github.com/mojombo/chronic#examples] for a complete listing.
 
 h5. %AVG_DAYS_SINCE()
 
@@ -121,7 +120,7 @@ h3. Bugs
 
 # When editing a new page, clicking 'Cancel' will return to the edit page.
 # Ruby Rack support is not working
-# Project Tabs aren't working well
+# -Project Tabs aren't working well-
 
 h3. TODO List
 
@@ -140,6 +139,7 @@ h3. TODO List
 # Value macro
 # Edit Tickets
 # Reply/Comment on Tickets
+# Simplify installation
 # FB macro
 # Handle errors better
 # Online Help

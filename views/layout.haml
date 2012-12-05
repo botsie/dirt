@@ -10,12 +10,6 @@
       .container-fluid
         %a.brand(href='#') DiRT: DirectiRT
   .container
-    %h4=@project
-    .tab-bar
-      %ul.nav.nav-tabs
-        - @tab_spec.each do |tab|
-          %li{:class => "#{tab[:class]} f"}
-            %a{href: "./#{tab[:page]}"}=tab[:caption]
     =yield
   
   #footer.span12
