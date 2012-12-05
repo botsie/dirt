@@ -79,6 +79,10 @@ module Dirt
       @column_class = (@column_class == "even-column") ? "odd-column" : "even-column"
       return @column_class
     end
+
+    def reset_column_class
+      @column_class = "even-column"
+    end
   end
 
   class SimpleTaskBoardMacro < Macro
