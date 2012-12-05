@@ -71,8 +71,13 @@ module Dirt
     end
 
     def row_class
-      @row_class = (@row_class == "even-stream") ? "odd-stream" : "even-stream"
+      @row_class = (@row_class == "even-row") ? "odd-row" : "even-row"
       return @row_class
+    end
+
+    def column_class
+      @column_class = (@column_class == "even-column") ? "odd-column" : "even-column"
+      return @column_class
     end
   end
 

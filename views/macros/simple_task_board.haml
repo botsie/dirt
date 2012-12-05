@@ -1,15 +1,16 @@
 %h5=caption
 .row.taskboard-lanes
-  %div{class: "#{span} taskboard-label"}
+  %div{class: "#{span} taskboard-label #{column_class}"}
   - lanes.each do |lane|
-    %div{class: "#{span} taskboard-label-lane"}
+    %div{class: "#{span} taskboard-label-lane #{column_class}"}
       %h6=lane
 - streams.each do |stream|
+  - reset_column_class
   %div{class: "row taskboard-streams #{row_class}"}
-    %div{class: "#{span} taskboard-label-stream"}
+    %div{class: "#{span} taskboard-label-stream #{column_class}"}
       %h6=stream[:Subject]
     - lanes.each do |lane|
-      %div{class: "#{span}"}
+      %div{class: "#{span} #{column_class}"}
         - cards(:stream => stream, :lane => lane).each do |card|  
           .card.span1
             %p="##{card[:id]}"

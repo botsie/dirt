@@ -32,12 +32,20 @@ body {
     border-bottom: 1px solid #dddddd;
 }
 
-.even-stream {
+.even-row {
     background-color: #ffffff;
 }
 
-.odd-stream {
-    background-color: #fefefe;
+.odd-row {
+    background-color: #ffffff;
+}
+
+.even-column {
+    background-color: #f0f0f0;
+}
+
+.odd-column {
+    background-color: #F0F0F0;
 }
 
 .col {
