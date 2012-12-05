@@ -19,9 +19,13 @@ body {
     line-height: 125%;
 }
 
-.taskboard-label {
+.taskboard-lanes {
     text-align: center;
-    background-color: #dddddd;
+    background-color: #bbbbbb;
+}
+
+.taskboard-streams {
+    border-bottom: 1px solid #dddddd;
 }
 
 .col {

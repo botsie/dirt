@@ -1,12 +1,12 @@
 %h5=caption
-.row
+.row.taskboard-lanes
   %div{class: "#{span} taskboard-label"}
   - lanes.each do |lane|
-    %div{class: "#{span} taskboard-label"}
+    %div{class: "#{span} taskboard-label-lane"}
       %h6=lane
 - streams.each do |stream|
-  .row
-    %div{class: "#{span} taskboard-label"}
+  .row.taskboard-streams
+    %div{class: "#{span} taskboard-label-stream"}
       %h6=stream[:Subject]
     - lanes.each do |lane|
       %div{class: "#{span}"}
