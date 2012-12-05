@@ -14,6 +14,16 @@
               %p="##{card[:id]}"
               %p=card[:Owner]
               %p=card[:Subject]
+  %tr
+    %td="Miscellaneous Tasks"
+    - lanes.each do |lane|
+      %td
+        - misc_cards(:lane => lane).each do |card|  
+          .card.span1
+            %p="##{card[:id]}"
+            %p=card[:Owner]
+            %p=card[:Subject]
+
 
 
     

@@ -70,6 +70,25 @@ module Dirt
         .all
     end
 
+    def misc_cards(args)
+      card_selector = @spec['ticket_selector']
+      raise "Need a ticket selector to render this macro" if card_selector.nil?
+
+      stream_ids = streams.collect{|stream| stream[:id]}
+
+      child_ids = Dirt::RT_DB[:Links]
+                    .select(:LocalBase)
+                    .where(:LocalTarget => stream_ids, :Type => 'MemberOf')
+
+      Dirt::RT_DB[:expanded_tickets]
+        .select(:id, :Subject, :Owner)
+        .exclude(:id => child_ids)
+        .where(lane_column.to_sym => args[:lane])
+        .where(Sequel.lit(card_selector))
+        .all
+    end
+
+
     def row_class
       @row_class = (@row_class == "even-row") ? "odd-row" : "even-row"
       return @row_class
