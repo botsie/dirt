@@ -34,6 +34,9 @@ h3. Using Dirt
 
 * Navigate to http://your.host.name/projects/yourproject/pages
 * Use ["textile":http://redcloth.org/textile] syntax to add text content to the page.
+
+h4. Table Macro
+
 * Add a query using the following syntax:
 
 <pre>
@@ -48,29 +51,60 @@ h3. Using Dirt
 
 p. Any arbitrary SQL statement querying the 'expanded_tickets' view can be used to report on tickets.
 
+h4. Aging Macro
+
+* Example
+
+<pre>
+<~
+{
+  "type": "aging",
+  "queues":["linux-hosting", "linux-hosting-issues"],
+  "caption": "Ticket Aging"
+}
+~>
+</pre>
+
+p. Note that queues *must* be passed an Array, even if it is a single item array.
+
+h4. Simple Taskboard Macro
+
+* Example
+
+<~
+{
+"type":"simple_task_board",
+"caption":"Taskboard",
+"group_by":"Status",
+"group_sequence":["new","open","stalled"],
+"workstream_selector":"Queue = 'linux-hosting-streams' AND Status IN ('new','open','stalled')",
+"ticket_selector":"Queue = 'linux-hosting'"
+}
+~>
+
 h3. Bugs
 
 # When editing a new page, clicking 'Cancel' will return to the edit page.
 # Ruby Rack support is not working
+# Project Tabs aren't working well
 
 h3. TODO List
 
 # -Write Documentation-
 # -Simpler markup for wikilinks-
-# Add RT db changes to migrations
 # -interpolate current and relative dates into SQL statements-
-# Value macro
 # -Aging macro-
-# Taskboard macro
+# -Taskboard macro-
+# List/Add/Edit Projects
+# Project plan to ticket hierarchy
 # View tickets
 # Make tickets clickable
 # Pie Chart macro
 # Bar/Line chart macro
-# Add/Edit Projects
 # Layout macros or tags
+# Value macro
 # Edit Tickets
 # Reply/Comment on Tickets
-# Project plan to ticket hierarchy
 # FB macro
 # Handle errors better
 # Online Help
@@ -78,6 +112,7 @@ h3. TODO List
 # User authentication
 # User profile
 # Interpolate current logged in user into SQLs
+# Add RT db changes to migrations
 # Use ACE to edit wiki
 
 h3. Contributing
