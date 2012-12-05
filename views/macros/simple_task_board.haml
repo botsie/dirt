@@ -11,7 +11,7 @@
     - lanes.each do |lane|
       %div{class: "#{span}"}
         - cards(:stream => stream, :lane => lane).each do |card|  
-          .card
+          .card.span1
             =card[:id]
             %br/
             =card[:Owner]
