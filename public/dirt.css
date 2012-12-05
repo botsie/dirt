@@ -3,12 +3,15 @@ body {
 }
 
 .card {
-    border: 1px solid #ddd;
+    border-right: 1px solid #dddddd;
+    border-left: 1px solid #dddddd;
+    border-top: 1em solid #dddddd;
+    border-bottom: 1px solid #dddddd;
     font-size: 9px;
     padding: 3px;
-    -webkit-border-radius: 4px 4px 4px 4px;
-    -moz-border-radius: 4px 4px 4px 4px;
-    border-radius: 4px 4px 4px 4px;
+    -webkit-border-radius: 0px 0px 4px 4px;
+    -moz-border-radius: 0px 0px 4px 4px;
+    border-radius: 0px 0px 4px 4px;
     background: #ffffe0;
     margin: 2px;
 }
