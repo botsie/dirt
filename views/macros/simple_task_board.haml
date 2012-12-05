@@ -1,6 +1,5 @@
 %h5=caption
-
-%table.table.table-striped.table-bordered.span12
+%table.table.table-striped.table-bordered.table-condensed.span12
   %tr
     %th
     - lanes.each do |lane|
@@ -15,25 +14,6 @@
               %p="##{card[:id]}"
               %p=card[:Owner]
               %p=card[:Subject]
-        
-
-%div{class: "row taskboard-lanes #{row_class}"}
-  %div{class: "#{span} taskboard-label #{column_class}"}
-  - lanes.each do |lane|
-    %div{class: "#{span} taskboard-label-lane #{column_class}"}
-      %h6=lane
-- streams.each do |stream|
-  - reset_column_class
-  %div{class: "row taskboard-streams #{row_class}"}
-    %div{class: "#{span} taskboard-label-stream #{column_class}"}
-      %h6=stream[:Subject]
-    - lanes.each do |lane|
-      %div{class: "#{span} #{column_class}"}
-        - cards(:stream => stream, :lane => lane).each do |card|  
-          .card.span1
-            %p="##{card[:id]}"
-            %p=card[:Owner]
-            %p=card[:Subject]
 
 
     

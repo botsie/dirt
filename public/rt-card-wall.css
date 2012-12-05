@@ -2,12 +2,10 @@ body {
     padding-top: 40px;
 }
 
-
 .card {
     border: 1px solid #ddd;
     font-size: 9px;
     padding: 3px;
-    margin-bottom: 5px;
     -webkit-border-radius: 4px 4px 4px 4px;
     -moz-border-radius: 4px 4px 4px 4px;
     border-radius: 4px 4px 4px 4px;
@@ -17,35 +15,6 @@ body {
 .card p {
     font-size: 9px;
     line-height: 125%;
-}
-
-.taskboard-label-lane {
-    text-align: center;
-    background-color: #bbbbbb;
-}
-
-.taskboard-label-streams {
-    text-align: right;
-}
-
-.taskboard-streams {
-    border-bottom: 1px solid #dddddd;
-}
-
-.even-row {
-    background-color: #ffffff;
-}
-
-.odd-row {
-    background-color: #ffffff;
-}
-
-.even-column {
-    background-color: #f0f0f0;
-}
-
-.odd-column {
-    background-color: #F0F0F0;
 }
 
 .col {
