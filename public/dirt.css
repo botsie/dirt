@@ -9,7 +9,8 @@ body {
     -webkit-border-radius: 4px 4px 4px 4px;
     -moz-border-radius: 4px 4px 4px 4px;
     border-radius: 4px 4px 4px 4px;
-    background: #ffffe0
+    background: #ffffe0;
+    margin: 2px;
 }
 
 .card p {
