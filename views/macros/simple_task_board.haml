@@ -12,9 +12,12 @@
       %div{class: "#{span}"}
         - cards(:stream => stream, :lane => lane).each do |card|  
           .card
-            %p=card[:id]
-            %p=card[:Owner]
-            %p=card[:Subject]
+            =card[:id]
+            %br/
+            =card[:Owner]
+            %br/
+            =card[:Subject]
+            %br/
 
 
     
