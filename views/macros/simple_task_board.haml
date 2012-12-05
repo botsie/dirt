@@ -1,9 +1,9 @@
 %h5=caption
 %table.table.table-striped.table-bordered.table-condensed.span12
   %tr
-    %th
+    %th{class: "#{span}"}
     - lanes.each do |lane|
-      %th=lane
+      %th{class: "#{span}"}=lane
   - streams.each do |stream|
     %tr
       %th=stream[:Subject]
