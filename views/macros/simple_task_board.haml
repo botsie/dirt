@@ -1,5 +1,23 @@
 %h5=caption
-.row.taskboard-lanes
+
+%table.table.table-striped.table-bordered.span12
+  %tr
+    %th
+    - lanes.each do |lane|
+      %th=lane
+  - streams.each do |stream|
+    %tr
+      %th=stream[:Subject]
+      - lanes.each do |lane|
+        %td
+          - cards(:stream => stream, :lane => lane).each do |card|  
+            .card.span1
+              %p="##{card[:id]}"
+              %p=card[:Owner]
+              %p=card[:Subject]
+        
+
+%div{class: "row taskboard-lanes #{row_class}"}
   %div{class: "#{span} taskboard-label #{column_class}"}
   - lanes.each do |lane|
     %div{class: "#{span} taskboard-label-lane #{column_class}"}
