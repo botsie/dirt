@@ -19,13 +19,25 @@ body {
     line-height: 125%;
 }
 
-.taskboard-lanes {
+.taskboard-label-lane {
     text-align: center;
     background-color: #bbbbbb;
 }
 
+.taskboard-label-streams {
+    text-align: right;
+}
+
 .taskboard-streams {
     border-bottom: 1px solid #dddddd;
+}
+
+.even-stream {
+    background-color: #ffffff;
+}
+
+.odd-stream {
+    background-color: #fefefe;
 }
 
 .col {

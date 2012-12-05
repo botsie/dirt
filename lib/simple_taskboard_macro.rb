@@ -69,6 +69,11 @@ module Dirt
         .where(Sequel.lit(card_selector))
         .all
     end
+
+    def row_class
+      @row_class = (@row_class == "even-stream") ? "odd-stream" : "even-stream"
+      return @row_class
+    end
   end
 
   class SimpleTaskBoardMacro < Macro

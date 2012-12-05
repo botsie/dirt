@@ -5,7 +5,7 @@
     %div{class: "#{span} taskboard-label-lane"}
       %h6=lane
 - streams.each do |stream|
-  .row.taskboard-streams
+  %div{class: "row taskboard-streams #{row_class}"}
     %div{class: "#{span} taskboard-label-stream"}
       %h6=stream[:Subject]
     - lanes.each do |lane|
