@@ -1,0 +1,25 @@
+%h3 Projects
+.row.span12
+  %a.pull-right.span1.btn{href: "/projects/new"}
+    %i.icon-plus-sign
+    New
+%hr/
+.row.span12
+  - @projects.each do |project|
+    .project-listing
+      .row
+        .project-label.span7
+          %h4
+            %a{href: "/projects/#{project[:identifier]}"}=project[:name]
+        %a.pull-right.span1.btn{href: "/projects/#{project[:identifier]}/edit"}
+          %i.icon-edit
+          Edit
+        %a.pull-right.span1.btn{href: "/projects/#{project[:identifier]}/delete"}
+          %i.icon-remove
+          Delete
+      %p=project[:description]
+%hr/
+.row.span12
+  %a.pull-right.span1.btn{href: "/projects/new"}
+    %i.icon-plus-sign
+    New

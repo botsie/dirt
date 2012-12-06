@@ -38,13 +38,16 @@ module Dirt
     end
 
 
-    get '/:queue' do
-      Dirt::CardWallController.show(params)
+#    get '/:queue' do
+#      Dirt::CardWallController.show(params)
+#    end
+
+    get %r{(^/$|^/projects[/]*$)} do
+      Dirt::ProjectController.show(params) 
     end
 
-    get '/projects/:project/' do
-      params[:page] = 'index'
-      Dirt::PageController.show(params)
+    get '/projects/:project' do 
+      redirect "/projects/#{params[:project]}/index"
     end
 
     get '/projects/:project/:page' do

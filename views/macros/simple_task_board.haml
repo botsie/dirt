@@ -15,7 +15,7 @@
               %p=card[:Owner]
               %p=card[:Subject]
   %tr
-    %td="Miscellaneous Tasks"
+    %th="Miscellaneous Tasks"
     - lanes.each do |lane|
       %td
         - misc_cards(:lane => lane).each do |card|  
