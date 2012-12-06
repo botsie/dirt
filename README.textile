@@ -20,7 +20,7 @@ Installation is still pretty clunky:
 * Copy @config/database.yml.sample@ to @config/database.yml@ and edit. Note that there are *two* database configurations:
 ** @rt@ : Your existing Request Tracker database. With the current featureset this can be read-only access. This will change with later releases.
 ** @dirt@ : A new empty database that you have created for dirt.
-* Run @rake db:migrate@ to create the dirt schema.
+* Run @RACK_ENV='production' rake db:migrate@ to create the dirt schema. Ensure the @RACK_ENV@ environment has been defined in database.yml.
 * Run @cd db; ruby create_views.rb < mapping.json > create-views.sql@
 * Review @create-views.sql@ -- TL;DR It create a few views so we have a schema that is ORM friendly and to make report queries more intuitive. 
 * Run @create-views.sql@ against your RT database. Consult your RDBMS documentation to find out how to do this. *Note:* @create-views.sql@ uses MySQL's dialect of SQL.
@@ -129,7 +129,7 @@ h3. TODO List
 # -interpolate current and relative dates into SQL statements-
 # -Aging macro-
 # -Taskboard macro-
-# List/Add/Edit Projects
+# -List-/Add/-Edit- Projects
 # Project plan to ticket hierarchy
 # View tickets
 # Make tickets clickable
