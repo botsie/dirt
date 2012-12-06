@@ -1,0 +1,16 @@
+%h4="Edit #{@project_id}"
+.content
+  %form{action: "/projects/#{@project_id}/save", method: "post"}
+    %input{type:"hidden", name:"id", value:@project[:id]}
+    %label{:for => "name"} Name
+    %input{type:"text", name:"name", value:@project[:name]}
+    %label Indentifier
+    %input{type:"text", name:"identifier", disabled:true, value:@project[:identifier]}
+    %label Description
+    %textarea.span8{name:"description"}=@project[:description]
+    %label Tab Configuration
+    %input{type:"text", name:"tab_spec", value:@project[:tab_spec]}
+    .row
+      %a.btn{href: "/projects"}="Cancel"
+      %input.btn.btn-primary{type: "submit", value:"Save"}
+

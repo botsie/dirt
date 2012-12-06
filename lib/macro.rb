@@ -29,7 +29,7 @@ module Dirt
     def haml(template_id, scope=self)
       template_file = File.expand_path("../../views/macros/" + template_id.to_s + '.haml', __FILE__)
       template = File.read template_file
-      Haml::Engine.new(template).render(scope)
+      Haml::Engine.new(template, :format => :html5).render(scope)
     end
 
     def expand_sql(spec)

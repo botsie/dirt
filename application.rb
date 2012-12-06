@@ -7,6 +7,7 @@ require 'haml'
 require 'pp'
 require 'logger'
 require 'yaml'
+
 use Rack::Logger 
 
 module Dirt
@@ -38,28 +39,50 @@ module Dirt
     end
 
 
-#    get '/:queue' do
-#      Dirt::CardWallController.show(params)
-#    end
+   # get '/:queue' do
+   #   Dirt::CardWallController.show(params)
+   # end
+    
+    # -----------------------------------------------------------------
+    # Project Related Routes
+    # -----------------------------------------------------------------
 
     get %r{(^/$|^/projects[/]*$)} do
       Dirt::ProjectController.show(params) 
     end
 
-    get '/projects/:project' do 
-      redirect "/projects/#{params[:project]}/index"
+    get '/projects/:project/edit' do
+      Dirt::ProjectController.edit(params)       
     end
 
-    get '/projects/:project/:page' do
+    post '/projects/:project/save' do
+      Dirt::ProjectController.save(params)       
+      redirect "/projects/#{params[:project]}/pages/index"
+    end
+
+    # -----------------------------------------------------------------
+    # Project Page related routes
+    # -----------------------------------------------------------------
+
+    get '/projects/:project' do 
+      redirect "/projects/#{params[:project]}/pages/index"
+    end
+
+    get '/projects/:project/pages' do 
+      redirect "/projects/#{params[:project]}/pages/index"
+    end
+
+    get '/projects/:project/pages/:page' do
       Dirt::PageController.show(params)
     end    
 
-    get '/projects/:project/:page/edit' do
+    get '/projects/:project/pages/:page/edit' do
       Dirt::PageController.edit(params)
     end    
 
-    post '/projects/:project/:page/save' do
+    post '/projects/:project/pages/:page/save' do
       Dirt::PageController.save(params)
+      redirect "/projects/#{params[:project]}/pages/#{params[:page]}"
     end    
 
     run! if app_file == $0

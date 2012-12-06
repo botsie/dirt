@@ -30,7 +30,7 @@ module Dirt
       template = File.read('views/' + template_id.to_s + '.haml')
       layout_engine = Haml::Engine.new(layout)
       layout_engine.render(self) do
-        template_engine = Haml::Engine.new(template)
+        template_engine = Haml::Engine.new(template, :format => :html5)
         template_engine.render(self)
       end
     end

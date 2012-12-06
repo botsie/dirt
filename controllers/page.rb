@@ -40,7 +40,6 @@ module Dirt
         :project => params[:project]
       )
 
-      show(params)
     end 
 
     def get_tab_spec(project_name, page_name)
