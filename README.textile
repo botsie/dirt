@@ -26,13 +26,10 @@ Installation is still pretty clunky:
 * Run @create-views.sql@ against your RT database. Consult your RDBMS documentation to find out how to do this. *Note:* @create-views.sql@ uses MySQL's dialect of SQL.
 * Run: @RACK_ENV=<env> ruby application.rb@. Ruby rack integration is currently broken.
 
-h4. Really clunky bits
-
-* Add entries into in the projects table in the dirt db. See the default value of @tab_spec@ to configure the tabs of your project.
-
 h3. Using Dirt
 
-* Navigate to http://your.host.name/projects/yourproject/pages
+* Navigate to http://your.host.name
+* Add a project
 * Use ["textile":http://redcloth.org/textile] syntax to add text content to the page.
 
 h4. Table Macro
@@ -129,7 +126,10 @@ h3. TODO List
 # -interpolate current and relative dates into SQL statements-
 # -Aging macro-
 # -Taskboard macro-
-# -List-/Add/-Edit- Projects
+# -List/Add/Edit Projects-
+# Make all cards in taskboard the same size
+# Placeholder text in add project screen
+# Increase the size of the tabspec text entry
 # Project plan to ticket hierarchy
 # View tickets
 # Make tickets clickable
