@@ -8,6 +8,11 @@ module Dirt
     one_to_many :pages
 
     def self.persist(args = {})
+      
+      if args[:tab_spec].nil? or args[:tab_spec].empty?
+        args[:tab_spec] = %q([{"caption":"Index", "page":"index"}])
+      end
+
       if args[:id].empty?
         self.insert(
           :name => args[:name],

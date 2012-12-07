@@ -51,8 +51,19 @@ module Dirt
       Dirt::ProjectController.show(params) 
     end
 
-    get '/projects/:project/edit' do
+    get '/projects/new' do
+      params[:new] = true
       Dirt::ProjectController.edit(params)       
+    end
+
+    get '/projects/:project/edit' do
+      params[:new] = false
+      Dirt::ProjectController.edit(params)       
+    end
+
+    post '/projects/add' do
+      Dirt::ProjectController.save(params)       
+      redirect "/projects/#{params[:project]}/pages/index"
     end
 
     post '/projects/:project/save' do

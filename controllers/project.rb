@@ -8,8 +8,11 @@ module Dirt
     end
 
     def edit(params)
+      @new = params[:new]
+      @disable_identifier = !@new
       @project_id = params[:project]
-      @project = Dirt::Project.where(:identifier => @project_id).first
+      @post_target = @new ? "/projects/new/save" : "/projects/#{@project_id}/save"
+      @project = @new ? Hash.new : Dirt::Project.where(:identifier => @project_id).first
       haml :project_edit
     end
 

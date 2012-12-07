@@ -1,11 +1,14 @@
 #!/usr/bin/env ruby
 
+require "json"
+
 module Dirt
   class PageController < Dirt::Controller
     def show(params)
       @project = params[:project]
       @page_name = params[:page]
-      get_tab_spec(@project, @page_name)
+      @tab_spec = get_tab_spec(@project, @page_name)
+
       begin
         @page = Dirt::Page.html(@project, @page_name)
       rescue RuntimeError => e
@@ -19,7 +22,8 @@ module Dirt
     def edit(params)
       @project = params[:project]
       @page_name = params[:page]
-      get_tab_spec(@project, @page_name)
+      @tab_spec = get_tab_spec(@project, @page_name)
+
       begin
         @page = Dirt::Page.source(@project, @page_name)
       rescue RuntimeError => e
@@ -43,8 +47,15 @@ module Dirt
     end 
 
     def get_tab_spec(project_name, page_name)
-      @tab_spec = JSON.parse(Dirt::Project.where(:identifier => project_name).first.tab_spec, :symbolize_names=>true)
-      @tab_spec.each {|t| t[:page] == page_name ? t[:class] = "active" : t[:class] = ""}
+      begin
+        tab_spec = JSON.parse(Dirt::Project.where(:identifier => project_name).first[:tab_spec], :symbolize_names=>true)
+      rescue JSON::ParserError
+        tab_spec = [{:caption => "Index", :page => "index"}]
+        @error_message = "Invalid Tab Specification, Using Default"
+      end
+
+      tab_spec.each {|t| t[:page] == page_name ? t[:class] = "active" : t[:class] = ""}
+      return tab_spec
     end
   end
 end

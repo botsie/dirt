@@ -1,4 +1,8 @@
 %h4=@project
+- if @error_message
+  .alert.alert-error
+    %i.icon-exclamation-sign
+    = @error_message
 .tab-bar
   %ul.nav.nav-tabs
     - @tab_spec.each do |tab|
