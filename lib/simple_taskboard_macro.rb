@@ -64,7 +64,9 @@ module Dirt
         .where(lane_column.to_sym => args[:lane])
         .where(Sequel.lit(card_selector))
         .all.collect do |ticket|
+          ticket[:short_subject] = shorten(ticket[:Subject])
           ticket[:age_class] = classify(ticket[:LastUpdated])
+          ticket
         end
     end
 
