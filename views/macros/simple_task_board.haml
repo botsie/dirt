@@ -10,19 +10,23 @@
       - lanes.each do |lane|
         %td
           - cards(:stream => stream, :lane => lane).each do |card|  
-            .card.span1
+            .card.span1{class: card[:age_class]}
               %p="##{card[:id]}"
               %p=card[:Owner]
-              %p=card[:Subject]
+              -# %p=card[:LastUpdated]
+              %p
+                %span.card-subject(title="#{card[:Subject]}")=card[:short_subject]
   %tr
     %th="Miscellaneous Tasks"
     - lanes.each do |lane|
       %td
         - misc_cards(:lane => lane).each do |card|  
-          .card.span1
+          .card.span1{class: card[:age_class]}
             %p="##{card[:id]}"
             %p=card[:Owner]
-            %p=card[:Subject]
+            -# %p=card[:LastUpdated]
+            %p
+              %span.card-subject(title="#{card[:Subject]}")=card[:short_subject]
 
 
 

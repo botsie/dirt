@@ -9,7 +9,6 @@ module Dirt
   class SimpleTaskBoardMacroModel
     def initialize(spec)
       @spec = spec
-      p @spec
     end
 
     def caption
@@ -43,9 +42,6 @@ module Dirt
       where_clause = @spec['workstream_selector']
       raise "Need a Workstream selector to render this macro" if where_clause.nil?
 
-#      sql = %Q{SELECT id, Subject FROM expanded_tickets WHERE ?}
-#      @streams = Dirt::RT_DB.fetch(sql, where_clause)
-
       @streams = Dirt::RT_DB[:expanded_tickets]
                   .select(:id, :Subject)
                   .where(Sequel.lit(where_clause))
@@ -63,11 +59,13 @@ module Dirt
                     .where(:LocalTarget => args[:stream][:id], :Type => 'MemberOf')
 
       Dirt::RT_DB[:expanded_tickets]
-        .select(:id, :Subject, :Owner)
+        .select(:id, :Subject, :Owner, :LastUpdated, :Created)
         .where(:id => child_ids)
         .where(lane_column.to_sym => args[:lane])
         .where(Sequel.lit(card_selector))
-        .all
+        .all.collect do |ticket|
+          ticket[:age_class] = classify(ticket[:LastUpdated])
+        end
     end
 
     def misc_cards(args)
@@ -81,13 +79,36 @@ module Dirt
                     .where(:LocalTarget => stream_ids, :Type => 'MemberOf')
 
       Dirt::RT_DB[:expanded_tickets]
-        .select(:id, :Subject, :Owner)
+        .select(:id, :Subject, :Owner, :LastUpdated, :Created)
         .exclude(:id => child_ids)
         .where(lane_column.to_sym => args[:lane])
         .where(Sequel.lit(card_selector))
-        .all
+        .all.collect do |ticket|
+          ticket[:short_subject] = shorten(ticket[:Subject])
+          ticket[:age_class] = classify(ticket[:LastUpdated])
+          ticket
+        end
     end
 
+    def shorten(str)
+      max_length = 27
+      if str.length > max_length
+        return str[0..max_length] << "..."
+      else
+        return str
+      end
+    end
+
+    def classify(time)
+      case Date.today - time.to_date
+      when 0..7
+        return "this-week"
+      when 8..30
+        return "this-month"
+      else
+        return "old"
+      end
+    end
 
     def row_class
       @row_class = (@row_class == "even-row") ? "odd-row" : "even-row"
