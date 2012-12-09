@@ -81,11 +81,11 @@ body {
     border-left: 1em solid #DF4F49;
 }
 
-.past-month {
+.this-month {
     border-left: 1em solid #FAA732;
 }
 
-.past-month {
+.this-week {
     border-left: 1em solid #5BB75B;
 }
 
