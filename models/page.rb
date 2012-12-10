@@ -37,7 +37,7 @@ module Dirt
 
     def self.render_extensions(project, page_name, text)
       # expand wikilinks
-      text.gsub!(/\[\[(.*?)\]\]/) {|m| %Q(["#{$1}":/projects/#{project}/#{$1}]) }
+      text.gsub!(/\[\[(.*?)\]\]/) {|m| %Q(["#{$1}":/projects/#{project}/pages/#{$1}]) }
 
       text.gsub(/<~(.*?)~>/m) do |match_string|
         Dirt::Macro.to_html($1.chomp)
