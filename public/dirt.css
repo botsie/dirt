@@ -10,11 +10,12 @@ body {
     -webkit-border-radius: 0px 0px 0px 0px;
     -moz-border-radius: 0px 0px 0px 0px;
     border-radius: 0px 0px 0px 0px;
-    width: 88px;
+    width: 82px;
     height: 69px;
     padding: 0px;
     font-size: 9px;
     margin: 2px;
+    float: left;
 }
 
 .card {
@@ -22,7 +23,7 @@ body {
     padding: 3px;
     background: #ffffed;
     font-size: 9px;
-    width: 72px;
+    width: 67px;
     height: 63px;
 }
 
