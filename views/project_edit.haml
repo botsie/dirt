@@ -9,7 +9,7 @@
     %label Description
     %textarea.span8{name:"description"}=@project[:description]
     %label Tab Configuration
-    %input{type:"text", name:"tab_spec", value:@project[:tab_spec]}
+    %input.span8{type:"text", name:"tab_spec", value:@project[:tab_spec]}
     .row
       %a.btn{href: "/projects"}="Cancel"
       %input.btn.btn-primary{type: "submit", value:"Save"}
