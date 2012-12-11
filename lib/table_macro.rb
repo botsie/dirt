@@ -12,6 +12,7 @@ module Dirt
       rows = Dirt::RT_DB[sql].all
 
       # TODO: Handle the no results case
+      rows = [{"result" => "No rows to display"}] if rows.count == 0
 
       headers = rows.first.keys
       
