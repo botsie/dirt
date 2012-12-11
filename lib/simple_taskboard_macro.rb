@@ -73,7 +73,7 @@ module Dirt
 
       if args[:lane] == 'resolved' and not resolved_after.nil?
         first_date = Chronic.parse(resolved_after).strftime('%Y-%m-%d')
-        last_date = Date.today.strftime('%Y-%m-%d')
+        last_date = Chronic.parse("Tomorrow").strftime('%Y-%m-%d')
 
         ds = ds.where(Sequel.lit("Resolved BETWEEN '#{first_date}' AND '#{last_date}'"))
       end
