@@ -9,7 +9,7 @@
       %th=stream[:Subject]
       - lanes.each do |lane|
         %td
-          - cards(:stream => stream, :lane => lane).each do |card|  
+          - stream_cards(:stream => stream, :lane => lane).each do |card|  
             .card-border
               .card{class: card[:age_class]}
                 %p="##{card[:id]}"

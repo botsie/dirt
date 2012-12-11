@@ -50,46 +50,50 @@ module Dirt
       return @streams
     end 
 
+    def stream_members(stream_id)
+      if stream_id == :all 
+        stream_id = streams.collect{|stream| stream[:id]}
+      end
+
+      return Dirt::RT_DB[:Links]
+              .select(:LocalBase)
+              .where(:LocalTarget => stream_id, :Type => 'MemberOf')
+    end        
+
     def cards(args)
       card_selector = @spec['ticket_selector']
       raise "Need a ticket selector to render this macro" if card_selector.nil?
 
-      child_ids = Dirt::RT_DB[:Links]
-                    .select(:LocalBase)
-                    .where(:LocalTarget => args[:stream][:id], :Type => 'MemberOf')
+      resolved_after = @spec['resolved_after']
 
-      Dirt::RT_DB[:expanded_tickets]
+      ds = Dirt::RT_DB[:expanded_tickets]
         .select(:id, :Subject, :Owner, :LastUpdated, :Created)
-        .where(:id => child_ids)
         .where(lane_column.to_sym => args[:lane])
         .where(Sequel.lit(card_selector))
-        .all.collect do |ticket|
-          ticket[:short_subject] = shorten(ticket[:Subject])
-          ticket[:age_class] = classify(ticket[:LastUpdated])
-          ticket
-        end
+
+      if args[:lane] == 'resolved' and not resolved_after.nil?
+        first_date = Chronic.parse(resolved_after).strftime('%Y-%m-%d')
+        last_date = Date.today.strftime('%Y-%m-%d')
+
+        ds = ds.where(Sequel.lit("Resolved BETWEEN '#{first_date}' AND '#{last_date}'"))
+      end
+
+      ds = yield ds
+
+      ds.all.collect do |ticket|
+        ticket[:short_subject] = shorten(ticket[:Subject])
+        ticket[:age_class] = classify(ticket[:LastUpdated])
+        ticket
+      end      
+    end
+
+    def stream_cards(args)
+      stream_id = args[:stream][:id]
+      cards(args) {|ds| ds.where(:id => stream_members(stream_id))}
     end
 
     def misc_cards(args)
-      card_selector = @spec['ticket_selector']
-      raise "Need a ticket selector to render this macro" if card_selector.nil?
-
-      stream_ids = streams.collect{|stream| stream[:id]}
-
-      child_ids = Dirt::RT_DB[:Links]
-                    .select(:LocalBase)
-                    .where(:LocalTarget => stream_ids, :Type => 'MemberOf')
-
-      Dirt::RT_DB[:expanded_tickets]
-        .select(:id, :Subject, :Owner, :LastUpdated, :Created)
-        .exclude(:id => child_ids)
-        .where(lane_column.to_sym => args[:lane])
-        .where(Sequel.lit(card_selector))
-        .all.collect do |ticket|
-          ticket[:short_subject] = shorten(ticket[:Subject])
-          ticket[:age_class] = classify(ticket[:LastUpdated])
-          ticket
-        end
+      cards(args) {|ds| ds.exclude(:id => stream_members(:all))}
     end
 
     def shorten(str)

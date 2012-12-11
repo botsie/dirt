@@ -76,7 +76,8 @@ Example:
   "group_by":"Status",
   "group_sequence":["new","open","stalled"],
   "workstream_selector":"Queue = 'linux-hosting-streams' AND Status IN ('new','open','stalled')",
-  "ticket_selector":"Queue = 'linux-hosting'"
+  "ticket_selector":"Queue = 'linux-hosting'",
+  "resolved_after":"1 week ago"
 }
 ~>
 </pre>
