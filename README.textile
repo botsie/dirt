@@ -128,7 +128,8 @@ h3. TODO List
 # -Aging macro-
 # -Taskboard macro-
 # -List/Add/Edit Projects-
-# Make all cards in taskboard the same size
+# -Make all cards in taskboard the same size-
+# Handle errors in macros better
 # Placeholder text in add project screen
 # Increase the size of the tabspec text entry
 # Project plan to ticket hierarchy

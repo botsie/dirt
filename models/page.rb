@@ -40,7 +40,11 @@ module Dirt
       text.gsub!(/\[\[(.*?)\]\]/) {|m| %Q(["#{$1}":/projects/#{project}/pages/#{$1}]) }
 
       text.gsub(/<~(.*?)~>/m) do |match_string|
-        Dirt::Macro.to_html($1.chomp)
+        begin
+          Dirt::Macro.to_html($1.chomp)
+        rescue Exception => e
+          e.message
+        end
       end
     end
   end	
