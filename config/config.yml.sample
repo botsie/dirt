@@ -1,3 +1,6 @@
 development:
+    rt_url: "http://rt.example.com"
 test:
+    rt_url: "http://rt.example.com"
 production:
+    rt_url: "http://rt.example.com"
