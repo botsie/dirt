@@ -1,8 +1,4 @@
 
 *.sublime-*
-
 *.sqlite
-
-config/database.yml
-
-fig/database.yml
+*.yml
