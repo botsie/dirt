@@ -122,35 +122,7 @@ h3. Bugs
 
 h3. TODO List
 
-# -Write Documentation-
-# -Simpler markup for wikilinks-
-# -interpolate current and relative dates into SQL statements-
-# -Aging macro-
-# -Taskboard macro-
-# -List/Add/Edit Projects-
-# -Make all cards in taskboard the same size-
-# Handle errors in macros better
-# Placeholder text in add project screen
-# Increase the size of the tabspec text entry
-# Project plan to ticket hierarchy
-# View tickets
-# Make tickets clickable
-# Pie Chart macro
-# Bar/Line chart macro
-# Layout macros or tags
-# Value macro
-# Edit Tickets
-# Reply/Comment on Tickets
-# Simplify installation
-# FB macro
-# Handle errors better
-# Online Help
-# Default Queues for queries
-# User authentication
-# User profile
-# Interpolate current logged in user into SQLs
-# Add RT db changes to migrations
-# Use ACE to edit wiki
+See ["TODO.textile":docs/TODO.textile]
 
 h3. Contributing
 
