@@ -14,6 +14,13 @@ module Dirt
       # TODO: Handle the no results case
       rows = [{"result" => "No rows to display"}] if rows.count == 0
 
+      if rows.first.has_key? :id 
+        rows.map! do |row|
+          row[:id] = "##{row[:id]}"
+          row
+        end
+      end
+
       headers = rows.first.keys
       
       caption = @spec['caption'] 

@@ -39,13 +39,17 @@ module Dirt
       # expand wikilinks
       text.gsub!(/\[\[(.*?)\]\]/) {|m| %Q(["#{$1}":/projects/#{project}/pages/#{$1}]) }
 
-      text.gsub(/<~(.*?)~>/m) do |match_string|
+      text.gsub!(/<~(.*?)~>/m) do |match_string|
         begin
           Dirt::Macro.to_html($1.chomp)
         rescue Exception => e
           e.message
         end
       end
+
+      text.gsub(/#([0-9]+)/) do |m|
+        %Q{<a href="#{Dirt::CONFIG[:rt_url]}/Ticket/Display.html?id=#{$1}" target="_blank">##{$1}</a>}
+      end 
     end
   end	
 end

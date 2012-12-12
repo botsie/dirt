@@ -25,7 +25,7 @@ module Dirt
     end
 
     configure do
-      # @config = load_config(CONFIG_FILE)
+      Dirt::CONFIG = load_config(CONFIG_FILE)
       db_config = load_config(DB_CONFIG_FILE)
 
       Dirt::RT_DB = Sequel.connect(db_config[:rt])
