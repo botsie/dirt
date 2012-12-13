@@ -68,7 +68,7 @@ module Dirt
 
     post '/projects/:project/save' do
       Dirt::ProjectController.save(params)       
-      redirect "/projects/#{params[:project]}/pages/index"
+      redirect "/projects/#{params[:identifier]}/pages/index"
     end
 
     # -----------------------------------------------------------------
