@@ -6,7 +6,9 @@
       %th{class: "#{span}"}=lane
   - streams.each do |stream|
     %tr
-      %th=stream[:Subject]
+      %th
+        %p="##{stream[:id]}"
+        %p=stream[:Subject]
       - lanes.each do |lane|
         %td
           - stream_cards(:stream => stream, :lane => lane).each do |card|  
