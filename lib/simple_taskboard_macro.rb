@@ -50,7 +50,7 @@ module Dirt
                   .select(:id, :Subject)
                   .where(Sequel.lit(ticket_selector))
                   .where(:id => parent_tickets)
-                  .exclude(:Status => 'resolved')
+                  .exclude(:Status => ['resolved','deleted'])
                   .all
 
       return @streams
