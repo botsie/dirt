@@ -8,7 +8,7 @@ h3. Features
 * A wiki for documentation
 * Tabular reports 
 * Prettier than RT (IMO)
-* ... more to come (see ["TODO list below":#todo-list])
+* ... more to come (see ["TODO.textile":docs/TODO.textile])
 
 h3. Installation
 
