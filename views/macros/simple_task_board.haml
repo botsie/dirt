@@ -3,7 +3,7 @@
   %tr
     %th{class: "#{span}"}
     - lanes.each do |lane|
-      %th{class: "#{span}"}=lane
+      %th{class: "#{span}"}=lane.capitalize
   - streams.each do |stream|
     %tr
       %th

@@ -50,6 +50,7 @@ module Dirt
                   .select(:id, :Subject)
                   .where(Sequel.lit(ticket_selector))
                   .where(:id => parent_tickets)
+                  .exclude(:Status => 'resolved')
                   .all
 
       return @streams
@@ -63,7 +64,7 @@ module Dirt
       return Dirt::RT_DB[:Links]
               .select(:LocalBase)
               .where(:LocalTarget => stream_id, :Type => 'MemberOf')
-    end        
+    end    
 
     def cards(args)
       ticket_selector = @spec['ticket_selector']
