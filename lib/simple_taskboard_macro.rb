@@ -39,12 +39,17 @@ module Dirt
     def streams
       return @streams unless @streams.nil?
 
-      where_clause = @spec['workstream_selector']
-      raise "Need a Workstream selector to render this macro" if where_clause.nil?
+      ticket_selector = @spec['ticket_selector']
+      raise "Need a ticket selector to render this macro" if ticket_selector.nil?
+
+      parent_tickets = Dirt::RT_DB[:Links]
+                        .select(:LocalTarget)
+                        .where(:Type => 'MemberOf')
 
       @streams = Dirt::RT_DB[:expanded_tickets]
                   .select(:id, :Subject)
-                  .where(Sequel.lit(where_clause))
+                  .where(Sequel.lit(ticket_selector))
+                  .where(:id => parent_tickets)
                   .all
 
       return @streams
@@ -61,15 +66,15 @@ module Dirt
     end        
 
     def cards(args)
-      card_selector = @spec['ticket_selector']
-      raise "Need a ticket selector to render this macro" if card_selector.nil?
+      ticket_selector = @spec['ticket_selector']
+      raise "Need a ticket selector to render this macro" if ticket_selector.nil?
 
       resolved_after = @spec['resolved_after']
 
       ds = Dirt::RT_DB[:expanded_tickets]
         .select(:id, :Subject, :Owner, :LastUpdated, :Created)
         .where(lane_column.to_sym => args[:lane])
-        .where(Sequel.lit(card_selector))
+        .where(Sequel.lit(ticket_selector))
 
       if args[:lane] == 'resolved' and not resolved_after.nil?
         first_date = Chronic.parse(resolved_after).strftime('%Y-%m-%d')
