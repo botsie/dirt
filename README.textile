@@ -22,7 +22,7 @@ Installation is still pretty clunky:
 ** @dirt@ : A new empty database that you have created for dirt.
 * Run @RACK_ENV='production' rake db:migrate@ to create the dirt schema. Ensure the @RACK_ENV@ environment has been defined in database.yml.
 * Run @cd db; ruby create_views.rb < mapping.json > create-views.sql@
-* Review @create-views.sql@ -- TL;DR It create a few views so we have a schema that is ORM friendly and to make report queries more intuitive. 
+* Review @create-views.sql@ -- TL;DR It creates a few views so we have a schema that is ORM friendly and to make report queries more intuitive. 
 * Run @create-views.sql@ against your RT database. Consult your RDBMS documentation to find out how to do this. *Note:* @create-views.sql@ uses MySQL's dialect of SQL.
 * Run: @RACK_ENV=<env> ruby application.rb@. Ruby rack integration is currently broken.
 
@@ -75,7 +75,6 @@ Example:
   "caption":"Taskboard",
   "group_by":"Status",
   "group_sequence":["new","open","stalled"],
-  "workstream_selector":"Queue = 'linux-hosting-streams' AND Status IN ('new','open','stalled')",
   "ticket_selector":"Queue = 'linux-hosting'",
   "resolved_after":"1 week ago"
 }
