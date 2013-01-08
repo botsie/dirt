@@ -6,9 +6,10 @@ ENV["RACK_ENV"] ||= "development"
 
 DEBUG = false
 
-user="dirt"
-server = 'dirt-staging'
-deploy_location = '/opt/dirt2/'
+app_user="dirt"
+app_group="dirt-deploy"
+server = 'dirt-staging.internal.directi.com'
+deploy_location = '/opt/dirt/'
 github_url="git://github.com/perfectayush/dirt.git"
 
 namespace :db do
@@ -26,12 +27,17 @@ namespace :code do
   task :deploy_prep do
     system_with_status do |e|
       e.message = "Creating #{deploy_location} on server #{server}"
-      e.command = "ssh #{user}@#{server} sudo mkdir -p #{deploy_location} 2>&1"
+      e.command = "ssh #{server} sudo mkdir -p #{deploy_location} 2>&1"
     end
 
     system_with_status do |e|
-      e.message = "Changing the owner of #{deploy_location} to #{user} on server #{server}"
-      e.command = "ssh #{user}@#{server} sudo chown #{user}:#{user} #{deploy_location}"
+      e.message = "Changing the owner of #{deploy_location} to #{app_user} on server #{server}"
+      e.command = "ssh #{server} sudo chown #{app_user}:#{app_group} #{deploy_location}"
+    end
+
+    system_with_status do |e|
+      e.message = "Changing the permissions of #{deploy_location} to 775 on server #{server}"
+      e.command = "ssh #{server} sudo chmod 775 #{deploy_location}"
     end
   end
 
@@ -39,12 +45,7 @@ namespace :code do
   task :sync do
     system_with_status do |e|
       e.message = "rsync-ing files to server #{server}"
-      e.command = "rsync -avz --delete  --exclude='dirt.sqlite' . #{user}@#{server}:#{deploy_location}/dirt/ 2>&1"
-    end
-
-    system_with_status do |e|
-      e.message = "Linking rsync'd path to #{deploy_location}current"
-      e.command = "ssh #{user}@#{server} ln -snf #{deploy_location}dirt #{deploy_location}/current"
+      e.command = "rsync -avz --delete  --exclude='dirt.sqlite' . #{server}:#{deploy_location}/ 2>&1"
     end
   end
 
@@ -52,14 +53,8 @@ namespace :code do
   task :sync_all do
     system_with_status do |e|
       e.message = "rsync-ing files to server #{server}"
-      e.command = "rsync -avz --delete . #{user}@#{server}:#{deploy_location}/dirt/ 2>&1"
+      e.command = "rsync -avz --delete . #{server}:#{deploy_location}/ 2>&1"
     end
-
-    system_with_status do |e|
-      e.message = "Linking rsync'd path to #{deploy_location}current"
-      e.command = "ssh #{user}@#{server} ln -snf #{deploy_location}dirt #{deploy_location}/current"
-    end
-
   end
 
   desc "Git clone"
@@ -69,12 +64,12 @@ namespace :code do
 
     system_with_status do |e|
       e.message = "Git checkout code"
-      e.command = "ssh #{user}@#{server} git clone #{github_url} #{deploy_location}dirt-#{time_stamp}" 
+      e.command = "ssh #{server} git clone #{github_url} #{deploy_location}dirt-#{time_stamp}" 
     end
 
     system_with_status do |e|
       e.message = "Linking rsync'd path to #{deploy_location}current"
-      e.command = "ssh #{user}@#{server} ln -snf #{deploy_location}dirt-#{time_stamp} #{deploy_location}/current"
+      e.command = "ssh #{server} ln -snf #{deploy_location}dirt-#{time_stamp} #{deploy_location}/current"
     end
   end
 
@@ -94,7 +89,7 @@ namespace :app do
   task :start do
     system_with_status do |e|
       e.message = "Starting dirt on #{server}"
-      e.command = "ssh #{user}@#{server} \"/#{deploy_location}current/start_app.sh `</dev/null` >nohup.out 2>&1 &\""
+      e.command = "ssh #{server} \"/#{deploy_location}current/start_app.sh `</dev/null` >nohup.out 2>&1 &\""
     end
   end
 
@@ -102,7 +97,7 @@ namespace :app do
   task :stop do
     system_with_status do |e|
       e.message = "Stoping dirt on #{server}"
-      e.command = "ssh #{user}@#{server} #{deploy_location}/current/stop_app.sh"
+      e.command = "ssh #{server} #{deploy_location}/current/stop_app.sh"
     end
   end
 
@@ -142,7 +137,7 @@ namespace :staging do
     servers.each do |server|
       system_with_status do |e|
         e.message = "Remove dir #{deploy_location} on server #{server}"
-        e.command = "ssh #{user}@#{server} sudo rm -rf #{deploy_location} 2>&1"
+        e.command = "ssh #{server} sudo rm -rf #{deploy_location} 2>&1"
       end
     end
   end
