@@ -45,7 +45,7 @@ namespace :code do
   task :sync do
     system_with_status do |e|
       e.message = "rsync-ing files to server #{server}"
-      e.command = "rsync -avz --delete  --exclude='dirt.sqlite' . #{server}:#{deploy_location}/ 2>&1"
+      e.command = "rsync -avz --exclude='dirt.sqlite' . #{server}:#{deploy_location}/ 2>&1"
     end
   end
 
