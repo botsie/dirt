@@ -42,12 +42,15 @@ module Dirt
       ticket_selector = @spec['ticket_selector']
       raise "Need a ticket selector to render this macro" if ticket_selector.nil?
 
+      # TODO:
+      # Convert this subselect into a join -- may be faster
+   
       parent_tickets = Dirt::RT_DB[:Links]
                         .select(:LocalTarget)
                         .where(:Type => 'MemberOf')
 
       @streams = Dirt::RT_DB[:expanded_tickets]
-                  .select(:id, :Subject)
+                  .select(:id, :Subject, :Owner, :LastUpdated, :Created)
                   .where(Sequel.lit(ticket_selector))
                   .where(:id => parent_tickets)
                   .exclude(:Status => ['resolved','deleted'])
@@ -67,15 +70,12 @@ module Dirt
     end    
 
     def cards(args)
-      ticket_selector = @spec['ticket_selector']
-      raise "Need a ticket selector to render this macro" if ticket_selector.nil?
-
       resolved_after = @spec['resolved_after']
 
       ds = Dirt::RT_DB[:expanded_tickets]
         .select(:id, :Subject, :Owner, :LastUpdated, :Created)
         .where(lane_column.to_sym => args[:lane])
-        .where(Sequel.lit(ticket_selector))
+        
 
       if args[:lane] == 'resolved' and not resolved_after.nil?
         first_date = Chronic.parse(resolved_after).strftime('%Y-%m-%d')
@@ -99,7 +99,13 @@ module Dirt
     end
 
     def misc_cards(args)
-      cards(args) {|ds| ds.exclude(:id => stream_members(:all))}
+      ticket_selector = @spec['ticket_selector']
+      raise "Need a ticket selector to render this macro" if ticket_selector.nil?
+
+      cards(args) do |ds|
+        ds.where(Sequel.lit(ticket_selector))
+          .exclude(:id => stream_members(:all))
+      end
     end
 
     def shorten(str)
