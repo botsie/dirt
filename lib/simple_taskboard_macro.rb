@@ -59,9 +59,13 @@ module Dirt
       return @streams
     end 
 
+    def stream_ids
+      streams.collect{|stream| stream[:id]}
+    end
+
     def stream_members(stream_id)
       if stream_id == :all 
-        stream_id = streams.collect{|stream| stream[:id]}
+        stream_id = stream_ids
       end
 
       return Dirt::RT_DB[:Links]
@@ -105,6 +109,7 @@ module Dirt
       cards(args) do |ds|
         ds.where(Sequel.lit(ticket_selector))
           .exclude(:id => stream_members(:all))
+          .exclude(:id => stream_ids)
       end
     end
 
