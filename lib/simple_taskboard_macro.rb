@@ -26,7 +26,7 @@ module Dirt
     def lane_column
       lane_column = @spec['group_by'] 
       lane_column ||= 'Status'
-      return lane_column
+      return lane_column.to_sym
     end
 
     def span
@@ -39,8 +39,8 @@ module Dirt
     def streams
       return @streams unless @streams.nil?
 
-      ticket_selector = @spec['ticket_selector']
-      raise "Need a ticket selector to render this macro" if ticket_selector.nil?
+      queues = @spec['queues']
+      raise "Need a 'queues' parameter to render this macro" if queues.nil?
 
       # TODO:
       # Convert this subselect into a join -- may be faster
@@ -51,7 +51,7 @@ module Dirt
 
       @streams = Dirt::RT_DB[:expanded_tickets]
                   .select(:id, :Subject, :Owner, :LastUpdated, :Created)
-                  .where(Sequel.lit(ticket_selector))
+                  .where(:Queue => queues)
                   .where(:id => parent_tickets)
                   .exclude(:Status => ['resolved','deleted'])
                   .all
@@ -60,7 +60,11 @@ module Dirt
     end 
 
     def stream_ids
-      streams.collect{|stream| stream[:id]}
+      return @stream_ids unless @stream_ids.nil?
+
+      @stream_ids = streams.collect{|stream| stream[:id]}
+
+      return @stream_ids
     end
 
     def stream_members(stream_id)
@@ -73,44 +77,62 @@ module Dirt
               .where(:LocalTarget => stream_id, :Type => 'MemberOf')
     end    
 
-    def cards(args)
-      resolved_after = @spec['resolved_after']
+    def cards
+      return @cards unless @cards.nil?
+
+      # SELECT l.LocalBase AS Parent, et.*
+      # FROM expanded_tickets et
+      # LEFT JOIN Links l ON et.id = l.LocalBase and l.Type = 'MemberOf'
+      # WHERE et.Status IN('open','new')
+      #  AND (l.LocalTarget IN(1185289, 1208515, 1141057, 1141109, 1209731) OR et.Queue = 'linux-hosting')
+      # ORDER BY Parent DESC
+
+      queues = @spec['queues']
+      raise "Need a 'queues' parameter to render this macro" if queues.nil?
+
+      # resolved_after = @spec['resolved_after']
 
       ds = Dirt::RT_DB[:expanded_tickets]
-        .select(:id, :Subject, :Owner, :LastUpdated, :Created)
-        .where(lane_column.to_sym => args[:lane])
+        .select(:expanded_tickets__id, 
+                :expanded_tickets__Subject,
+                :expanded_tickets__Owner, 
+                :expanded_tickets__LastUpdated, 
+                :expanded_tickets__Created, 
+                lane_column(), 
+                :Links__LocalBase___Parent)
+        .left_outer_join(:Links, :expanded_tickets__id => :Links__LocalBase, :Links__Type => 'MemberOf')
+        .where(lane_column => lanes)
+        .filter(:Links__LocalTarget => stream_ids).or(:Queue => queues)
+        .reverse_order(:Parent)
         
 
-      if args[:lane] == 'resolved' and not resolved_after.nil?
-        first_date = Chronic.parse(resolved_after).strftime('%Y-%m-%d')
-        last_date = Chronic.parse("Tomorrow").strftime('%Y-%m-%d')
+      # if args[:lane] == 'resolved' and not resolved_after.nil?
+      #   first_date = Chronic.parse(resolved_after).strftime('%Y-%m-%d')
+      #   last_date = Chronic.parse("Tomorrow").strftime('%Y-%m-%d')
 
-        ds = ds.where(Sequel.lit("Resolved BETWEEN '#{first_date}' AND '#{last_date}'"))
-      end
+      #   ds = ds.where(Sequel.lit("Resolved BETWEEN '#{first_date}' AND '#{last_date}'"))
+      # end
 
-      ds = yield ds
+      # ds = yield ds
 
-      ds.all.collect do |ticket|
+      @cards = ds.all.collect do |ticket|
         ticket[:short_subject] = shorten(ticket[:Subject])
         ticket[:age_class] = classify(ticket[:LastUpdated])
         ticket
       end      
+
+      return @cards
     end
 
     def stream_cards(args)
       stream_id = args[:stream][:id]
-      cards(args) {|ds| ds.where(:id => stream_members(stream_id))}
+      lane = args[:lane]
+      cards.select {|card| (card[:Parent] == stream_id) && (card[lane_column] == lane)}
     end
 
     def misc_cards(args)
-      ticket_selector = @spec['ticket_selector']
-      raise "Need a ticket selector to render this macro" if ticket_selector.nil?
-
-      cards(args) do |ds|
-        ds.where(Sequel.lit(ticket_selector))
-          .exclude(:id => stream_members(:all))
-          .exclude(:id => stream_ids)
-      end
+      lane = args[:lane]
+      cards.select {|card| (card[:Parent].nil?) && (card[lane_column] == lane)}
     end
 
     def shorten(str)
@@ -152,7 +174,8 @@ module Dirt
     def to_html
       # Get IDs of Parent Cards
       model = Dirt::SimpleTaskBoardMacroModel.new(@spec)
-      haml :simple_task_board, model      
+      content = haml :simple_task_board, model     
+      return content
     end    
   end
 
