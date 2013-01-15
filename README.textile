@@ -116,7 +116,7 @@ to tabulate the average age of tickets per user.
 h3. Bugs
 
 # When editing a new page, clicking 'Cancel' will return to the edit page.
-# Ruby Rack support is not working
+# -Ruby Rack support is not working-
 # -Project Tabs aren't working well-
 
 h3. TODO List

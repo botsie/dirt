@@ -6,4 +6,5 @@ gem "haml"
 gem "RedCloth"
 gem "sqlite3"
 gem "chronic"
+gem "thin"
 
