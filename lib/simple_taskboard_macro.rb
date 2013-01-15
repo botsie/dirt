@@ -53,10 +53,16 @@ module Dirt
                         .where(:Type => 'MemberOf')
 
       @streams = Dirt::RT_DB[:expanded_tickets]
-                  .select(:id, :Subject, :Owner, :LastUpdated, :Created)
+                  .select(:expanded_tickets__id, 
+                    :expanded_tickets__Subject, 
+                    :expanded_tickets__Owner, 
+                    :expanded_tickets__LastUpdated, 
+                    :expanded_tickets__Created)
+                  .join(:Links, :expanded_tickets__id => :Links__LocalTarget, :Links__Type => 'MemberOf' )
                   .where(:Queue => queues)
-                  .where(:id => parent_tickets)
                   .exclude(:Status => ['resolved','deleted'])
+                  .distinct
+                  .order_by(:expanded_tickets__Subject)
                   .all
 
       return @streams
@@ -133,9 +139,7 @@ module Dirt
     def stream_cards(args)
       stream_id = args[:stream][:id]
       lane = args[:lane]
-      puts stream_id.to_s << " " << lane.to_s
       cards.select do |card| 
-        # puts card[:Parent].to_s << " and " << card[lane_column] unless card[:Parent].nil?
         (card[:Parent] == stream_id) and (card[lane_column.to_sym] == lane)
       end
     end
@@ -143,7 +147,6 @@ module Dirt
     def misc_cards(args)
       lane = args[:lane]
       lane = args[:lane]
-      puts lane.to_s
       cards.select {|card| (card[:Parent].nil?) and (card[lane_column.to_sym] == lane)}
     end
 
