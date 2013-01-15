@@ -26,7 +26,7 @@ module Dirt
     def lane_column
       lane_column = @spec['group_by'] 
       lane_column ||= 'Status'
-      return lane_column.to_sym
+      return lane_column
     end
 
     def span
@@ -38,6 +38,9 @@ module Dirt
 
     def streams
       return @streams unless @streams.nil?
+
+
+
 
       queues = @spec['queues']
       raise "Need a 'queues' parameter to render this macro" if queues.nil?
@@ -87,35 +90,38 @@ module Dirt
       #  AND (l.LocalTarget IN(1185289, 1208515, 1141057, 1141109, 1209731) OR et.Queue = 'linux-hosting')
       # ORDER BY Parent DESC
 
-      queues = @spec['queues']
-      raise "Need a 'queues' parameter to render this macro" if queues.nil?
+      raise "Need a 'queues' parameter to render this macro" if @spec['queues'].nil?
+      queues = [*@spec['queues']]
 
-      # resolved_after = @spec['resolved_after']
+      raise "Need a 'resolved_after' parameter to render this macro" if @spec['resolved_after'].nil?
+      resolved_after = @spec['resolved_after']
 
-      ds = Dirt::RT_DB[:expanded_tickets]
-        .select(:expanded_tickets__id, 
-                :expanded_tickets__Subject,
-                :expanded_tickets__Owner, 
-                :expanded_tickets__LastUpdated, 
-                :expanded_tickets__Created, 
-                lane_column(), 
-                :Links__LocalBase___Parent)
-        .left_outer_join(:Links, :expanded_tickets__id => :Links__LocalBase, :Links__Type => 'MemberOf')
-        .where(lane_column => lanes)
-        .filter(:Links__LocalTarget => stream_ids).or(:Queue => queues)
-        .reverse_order(:Parent)
-        
+      first_date = Chronic.parse(resolved_after).strftime('%Y-%m-%d')
+      last_date = Chronic.parse("Tomorrow").strftime('%Y-%m-%d')
 
-      # if args[:lane] == 'resolved' and not resolved_after.nil?
-      #   first_date = Chronic.parse(resolved_after).strftime('%Y-%m-%d')
-      #   last_date = Chronic.parse("Tomorrow").strftime('%Y-%m-%d')
+      # Needed to handcraft the SQL to get it right
 
-      #   ds = ds.where(Sequel.lit("Resolved BETWEEN '#{first_date}' AND '#{last_date}'"))
-      # end
+      sql = "SELECT 
+                et.id AS id,
+                et.Subject AS Subject,
+                et.Owner AS Owner,
+                et.LastUpdated AS LastUpdated,
+                et.Created AS Created,
+                et.#{lane_column()} AS #{lane_column},
+                l.LocalTarget AS Parent 
+            FROM expanded_tickets et
+            LEFT JOIN Links l ON et.id = l.LocalBase AND l.Type = 'MemberOf'
+            WHERE et.#{lane_column()} IN('#{lanes.join("', '")}')
+              AND (l.LocalTarget IN(#{stream_ids.join(', ')}) 
+                    OR et.Queue IN('#{queues.join("', '")}'))
+              AND ((Resolved BETWEEN '#{first_date}' AND '#{last_date}') OR Status <> 'resolved')
+            ORDER BY Parent DESC"
 
-      # ds = yield ds
+      ds = Dirt::RT_DB[sql]
 
-      @cards = ds.all.collect do |ticket|
+      raw_cards = ds.all
+
+      @cards = raw_cards.collect do |ticket|
         ticket[:short_subject] = shorten(ticket[:Subject])
         ticket[:age_class] = classify(ticket[:LastUpdated])
         ticket
@@ -127,12 +133,18 @@ module Dirt
     def stream_cards(args)
       stream_id = args[:stream][:id]
       lane = args[:lane]
-      cards.select {|card| (card[:Parent] == stream_id) && (card[lane_column] == lane)}
+      puts stream_id.to_s << " " << lane.to_s
+      cards.select do |card| 
+        # puts card[:Parent].to_s << " and " << card[lane_column] unless card[:Parent].nil?
+        (card[:Parent] == stream_id) and (card[lane_column.to_sym] == lane)
+      end
     end
 
     def misc_cards(args)
       lane = args[:lane]
-      cards.select {|card| (card[:Parent].nil?) && (card[lane_column] == lane)}
+      lane = args[:lane]
+      puts lane.to_s
+      cards.select {|card| (card[:Parent].nil?) and (card[lane_column.to_sym] == lane)}
     end
 
     def shorten(str)
