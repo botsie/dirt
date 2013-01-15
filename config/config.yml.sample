@@ -1,6 +1,12 @@
 development:
     rt_url: "http://rt.example.com"
+    log_sql: true
+    sql_log_file: "logs/dirt_sql.log"
 test:
     rt_url: "http://rt.example.com"
+    log_sql: true
+    sql_log_file: "logs/dirt_sql.log"
 production:
     rt_url: "http://rt.example.com"
+    log_sql: false
+    sql_log_file: "logs/dirt_sql.log"

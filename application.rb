@@ -25,6 +25,8 @@ module Dirt
     end
 
     configure do
+      set :logging, true
+
       Dirt::CONFIG = load_config(CONFIG_FILE)
       db_config = load_config(DB_CONFIG_FILE)
 
@@ -33,6 +35,14 @@ module Dirt
 
       Dirt::DIRT_DB = Sequel.connect(db_config[:dirt])
       Dirt::DIRT_DB.loggers << Logger.new($stdout)
+
+      if Dirt::CONFIG[:log_sql]
+        sql_log_file = Dirt::CONFIG[:sql_log_file]
+        sql_logger = Logger.new(sql_log_file)
+
+        Dirt::RT_DB.loggers << sql_logger
+        Dirt::DIRT_DB.loggers << sql_logger
+      end
 
       Dir['models/*.rb'].sort.each { |model| require File.join(File.dirname(__FILE__), model) }
       Dir['controllers/*.rb'].sort.each { |controller| require File.join(File.dirname(__FILE__), controller) }
