@@ -105,6 +105,8 @@ module Dirt
       first_date = Chronic.parse(resolved_after).strftime('%Y-%m-%d')
       last_date = Chronic.parse("Tomorrow").strftime('%Y-%m-%d')
 
+      p stream_ids
+
       # Needed to handcraft the SQL to get it right
 
       sql = "SELECT 
@@ -118,10 +120,15 @@ module Dirt
             FROM expanded_tickets et
             LEFT JOIN Links l ON et.id = l.LocalBase AND l.Type = 'MemberOf'
             WHERE et.#{lane_column()} IN('#{lanes.join("', '")}')
-              AND (l.LocalTarget IN(#{stream_ids.join(', ')}) 
-                    OR et.Queue IN('#{queues.join("', '")}'))
-              AND ((Resolved BETWEEN '#{first_date}' AND '#{last_date}') OR Status <> 'resolved')
-            ORDER BY Parent DESC"
+              AND ((Resolved BETWEEN '#{first_date}' AND '#{last_date}') OR Status <> 'resolved')"
+
+      if stream_ids.empty?
+        sql <<  "AND et.Queue IN('#{queues.join("', '")}')"
+      else
+        sql <<  "AND (l.LocalTarget IN(#{stream_ids.join(', ')}) 
+                    OR et.Queue IN('#{queues.join("', '")}'))"
+      end
+      sql << " ORDER BY Parent DESC"
 
       ds = Dirt::RT_DB[sql]
 
