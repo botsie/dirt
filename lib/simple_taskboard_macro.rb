@@ -154,7 +154,9 @@ module Dirt
     def misc_cards(args)
       lane = args[:lane]
       lane = args[:lane]
-      cards.select {|card| (card[:Parent].nil?) and (card[lane_column.to_sym] == lane)}
+      cards.select do |card| 
+        (card[:Parent].nil?) and (card[lane_column.to_sym] == lane) and (not stream_ids.include? card[:id])
+      end
     end
 
     def shorten(str)
