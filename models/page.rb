@@ -3,8 +3,8 @@
 require "sequel"
 require "redcloth"
 
-require File.expand_path('../../lib/macro.rb', __FILE__)
-Dir[File.expand_path('../../lib/*_macro.rb', __FILE__)].sort.each { |f| require f }
+require File.expand_path('../../macros/macro.rb', __FILE__)
+Dir[File.expand_path('../../macros/*_macro.rb', __FILE__)].sort.each { |f| require f }
 
 module Dirt
   class Page < Sequel::Model(Dirt::DIRT_DB)
