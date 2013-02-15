@@ -1,0 +1,18 @@
+.login-container.container
+  .row
+    .span6.offset3
+      .well
+        %form.form-horizontal{:method => "POST", :action => "/login"}
+          %legend Login
+          .control-group
+            %label.control-label{:for => "userid"} Username
+            .controls
+              %input{:type => "text", :name => "userid", :placeholder => "RT username", :autofocus => "autofocus"}
+          .control-group
+            %label.control-label{:for => "passwd"} Password
+            .controls 
+              %input{:type => "password", :name => "passwd", :placeholder => "RT password" }
+          .control-group
+            .controls
+              %button.btn.btn-primary{:type => "submit"} Sign in
+          %input{:type => "hidden", :name => "redirect_to", :value => "#{@redirect_to}"}

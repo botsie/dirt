@@ -10,9 +10,9 @@ module Dirt
 
     attr_accessor :tab_spec
 
-    def self.show(params)
+    def self.show(params, session=nil)
       controller = self.new
-      controller.show(params)
+      controller.show(params, session)
     end 
 
     def self.edit(params)

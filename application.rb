@@ -11,9 +11,20 @@ require 'yaml'
 use Rack::Logger 
 
 module Dirt
+
+
   class Application < Sinatra::Application
     CONFIG_FILE = File.join(File.dirname(__FILE__), 'config/config.yml')
     DB_CONFIG_FILE = File.join(File.dirname(__FILE__), 'config/database.yml')
+
+    def array_match(value, array)
+      found = false
+      array.each do |v|
+        found = (value =~ v)
+        break if found
+      end
+      return found
+    end 
 
     def self.load_config(file_name)
       env = ENV["RACK_ENV"]
@@ -26,6 +37,7 @@ module Dirt
 
     configure do
       set :logging, true
+      enable :sessions
 
       Dirt::CONFIG = load_config(CONFIG_FILE)
       db_config = load_config(DB_CONFIG_FILE)
@@ -48,6 +60,28 @@ module Dirt
       Dir['controllers/*.rb'].sort.each { |controller| require File.join(File.dirname(__FILE__), controller) }
     end
 
+    before do 
+      @user = Dirt::User.get(session[:user_id])
+      path = request.path_info
+
+      if @user.nil? and not array_match(path, [/login/,/favicon/])
+        redirect to("/login?redirect_to=#{path}")
+      end        
+    end
+
+    # -----------------------------------------------------------------
+    # App Related Routes
+    # -----------------------------------------------------------------
+
+    get '/login' do
+      Dirt::LoginController.show(params, session) 
+    end
+
+    post '/login' do
+      Dirt::LoginController.authenticate(params, session)
+      # session[:user_id] = User.authenticate(params).id
+      # redirect to(params[:redirect_to])
+    end
 
    # get '/:queue' do
    #   Dirt::CardWallController.show(params)
