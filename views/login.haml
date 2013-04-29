@@ -1,17 +1,23 @@
 .login-container.container
   .row
     .span6.offset3
+      - if not @failure_message.nil?
+        .alert.alert-error
+          %strong Error
+          =@failure_message
+  .row
+    .span6.offset3
       .well
         %form.form-horizontal{:method => "POST", :action => "/login"}
           %legend Login
           .control-group
-            %label.control-label{:for => "userid"} Username
+            %label.control-label{:for => "user_id"} Username
             .controls
-              %input{:type => "text", :name => "userid", :placeholder => "RT username", :autofocus => "autofocus"}
+              %input{:type => "text", :name => "user_id", :placeholder => "RT username", :autofocus => "autofocus"}
           .control-group
-            %label.control-label{:for => "passwd"} Password
+            %label.control-label{:for => "password"} Password
             .controls 
-              %input{:type => "password", :name => "passwd", :placeholder => "RT password" }
+              %input{:type => "password", :name => "password", :placeholder => "RT password" }
           .control-group
             .controls
               %button.btn.btn-primary{:type => "submit"} Sign in

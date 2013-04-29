@@ -15,14 +15,14 @@ module Dirt
       controller.show(params, session)
     end 
 
-    def self.edit(params)
+    def self.edit(params, session=nil)
       controller = self.new
-      controller.edit(params)
+      controller.edit(params, session)
     end 
 
-    def self.save(params)
+    def self.save(params, session=nil)
       controller = self.new
-      controller.save(params)
+      controller.save(params, session)
     end 
 
     def haml( template_id )

@@ -2,12 +2,12 @@
 
 module Dirt
   class ProjectController < Dirt::Controller
-    def show(params)
+    def show(params, session)
       @projects = Dirt::Project.all
       haml :projects
     end
 
-    def edit(params)
+    def edit(params, session)
       @new = params[:new]
       @disable_identifier = !@new
       @project_id = params[:project]
@@ -16,7 +16,7 @@ module Dirt
       haml :project_edit
     end
 
-    def save(params)
+    def save(params, session)
       Dirt::Project.persist(
         :id => params[:id],
         :name => params[:name],

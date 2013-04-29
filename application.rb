@@ -7,6 +7,7 @@ require 'haml'
 require 'pp'
 require 'logger'
 require 'yaml'
+require 'uri'
 
 use Rack::Logger 
 
@@ -37,7 +38,7 @@ module Dirt
 
     configure do
       set :logging, true
-      enable :sessions
+      # enable :sessions
 
       Dirt::CONFIG = load_config(CONFIG_FILE)
       db_config = load_config(DB_CONFIG_FILE)
@@ -48,6 +49,10 @@ module Dirt
       Dirt::DIRT_DB = Sequel.connect(db_config[:dirt])
       Dirt::DIRT_DB.loggers << Logger.new($stdout)
 
+      use Rack::Session::Cookie, :key => 'rack.session',
+                                 :path => '/',
+                                 :secret => 'qwedsa123'
+
       if Dirt::CONFIG[:log_sql]
         sql_log_file = Dirt::CONFIG[:sql_log_file]
         sql_logger = Logger.new(sql_log_file)
@@ -56,6 +61,7 @@ module Dirt
         Dirt::DIRT_DB.loggers << sql_logger
       end
 
+      Dir['lib/*.rb'].sort.each { |lib| require File.join(File.dirname(__FILE__), lib) }
       Dir['models/*.rb'].sort.each { |model| require File.join(File.dirname(__FILE__), model) }
       Dir['controllers/*.rb'].sort.each { |controller| require File.join(File.dirname(__FILE__), controller) }
     end
@@ -78,9 +84,12 @@ module Dirt
     end
 
     post '/login' do
-      Dirt::LoginController.authenticate(params, session)
-      # session[:user_id] = User.authenticate(params).id
-      # redirect to(params[:redirect_to])
+      begin
+        Dirt::LoginController.authenticate(params, session)
+      rescue => error
+        redirect to("/login?redirect_to=#{params[:redirect_to]}&failure_message=#{error.message}")
+      end
+      redirect to(params[:redirect_to])
     end
 
    # get '/:queue' do
@@ -107,12 +116,12 @@ module Dirt
 
     post '/projects/add' do
       Dirt::ProjectController.save(params)       
-      redirect "/projects/#{params[:project]}/pages/index"
+      redirect "/projects/"
     end
 
     post '/projects/:project/save' do
       Dirt::ProjectController.save(params)       
-      redirect "/projects/#{params[:identifier]}/pages/index"
+      redirect "/projects/"
     end
 
     # -----------------------------------------------------------------

@@ -4,7 +4,7 @@ require "json"
 
 module Dirt
   class PageController < Dirt::Controller
-    def show(params)
+    def show(params, session)
       @project = params[:project]
       @page_name = params[:page]
       @tab_spec = get_tab_spec(@project, @page_name)
@@ -19,7 +19,7 @@ module Dirt
       end
     end
 
-    def edit(params)
+    def edit(params, session)
       @project = params[:project]
       @page_name = params[:page]
       @tab_spec = get_tab_spec(@project, @page_name)
@@ -33,7 +33,7 @@ module Dirt
       haml :page_edit
     end
 
-    def save(params)
+    def save(params, session)
       # TODO: escape content to prevent SQL injection
 
       Dirt::Page.persist(
