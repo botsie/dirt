@@ -7,4 +7,5 @@ gem "RedCloth"
 gem "sqlite3"
 gem "chronic"
 gem "thin"
-
+gem "capistrano"
+gem "capistrano-ext"
