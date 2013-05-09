@@ -66,14 +66,14 @@ module Dirt
       Dir['controllers/*.rb'].sort.each { |controller| require File.join(File.dirname(__FILE__), controller) }
     end
 
-    before do 
-      @user = Dirt::User.get(session[:user_id])
-      path = request.path_info
+    #before do 
+      #@user = Dirt::User.get(session[:user_id])
+      #path = request.path_info
 
-      if @user.nil? and not array_match(path, [/login/,/favicon/])
-        redirect to("/login?redirect_to=#{path}")
-      end        
-    end
+      #if @user.nil? and not array_match(path, [/login/,/favicon/])
+        #redirect to("/login?redirect_to=#{path}")
+      #end        
+    #end
 
     # -----------------------------------------------------------------
     # App Related Routes
