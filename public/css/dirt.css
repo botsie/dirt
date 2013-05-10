@@ -4,7 +4,7 @@ body {
 
 @font-face {
     font-family: "Pacifico";
-    src: url(./Pacifico.ttf) format("truetype");
+    src: url(/css/Pacifico.ttf) format("truetype");
 }
 
 .navbar-inverse .head_title{

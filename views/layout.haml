@@ -3,20 +3,20 @@
   %head
     %title DiRT: Directi RT
     %link(rel="stylesheet" href="/bootstrap/css/bootstrap.min.css")
-    %link(rel="stylesheet" href="/dirt.css")
-%body
-  .navbar.navbar-inverse.navbar-fixed-top
-    .navbar-inner
-      .container
-        %a.brand.head_title(href='/') DiRT
-  .container
-    =yield
-  
-    #footer.span12
-      %hr
-      %p.small
-        %a{href:"http://www.github.com/botsie/dirt"} Dirt 
-        &copy; 2012-2013 Biju Chacko
-  
+    %link(rel="stylesheet" href="/css/dirt.css")
+  %body
+    .navbar.navbar-inverse.navbar-fixed-top
+      .navbar-inner
+        .container
+          %a.brand.head_title(href='/') DiRT
+    .container
+      =yield
+    
+      #footer.span12
+        %hr
+        %p.small
+          %a{href:"http://www.github.com/botsie/dirt"} Dirt 
+          &copy; 2012-2013 Biju Chacko
+  %script( type="text/javascript" src="/js/main.js")  
 
     
