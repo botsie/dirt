@@ -1,16 +1,23 @@
-%h4="Edit #{@project_id}"
-.content
-  %form{action: @post_target, method: "post"}
-    %input{type:"hidden", name:"id", value:@project[:id]}
-    %label{:for => "name"} Name
-    %input{type:"text", name:"name", value:@project[:name]}
-    %label Indentifier
-    %input{type:"text", name:"identifier", disabled:@disable_identifier, value:@project[:identifier]}
-    %label Description
-    %textarea.span8{name:"description"}=@project[:description]
-    %label Tab Configuration
-    %input.span8{type:"text", name:"tab_spec", value:@project[:tab_spec]}
-    .row
-      %a.btn{href: "/projects"}="Cancel"
-      %input.btn.btn-primary{type: "submit", value:"Save"}
+%h4="#{(@project_id) ? 'Edit '+@project_id : 'New' }"
+%form.form-horizontal{action: @post_target, method: "post"}
+  .control-group
+    %label.control-label{:for => "name"} Name
+    .controls
+      %input.input-xlarge{type:"text", name:"name", value:@project[:name]}
+      %input{type:"hidden", name:"id", value:@project[:id]}
+  .control-group
+    %label.control-label{:for => "identifier"} Indentifier
+    .controls
+      %input.input-xlarge{type:"text", name:"identifier", disabled:@disable_identifier, value:@project[:identifier]}
+  .control-group
+    %label.control-label{:for => "description"} Description
+    .controls
+      %textarea.input-xlarge.span8{name:"description"}=@project[:description]
+  .control-group
+    %label.control-label{:for => "tab_spec"} Tab Configuration
+    .controls
+      %textarea.input-xlarge.span8{name:"tab_spec"}=@project[:tab_spec]
+  .form-actions
+    %input.btn.btn-primary{type: "submit", value:"Save"}
+    %a.btn{href: "/projects"}="Cancel"
 
