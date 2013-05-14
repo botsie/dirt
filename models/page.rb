@@ -21,7 +21,6 @@ module Dirt
     	page = self.source(project, page_name)
 
       pre_processed_src = render_extensions(project, page_name, page[:content])
-
 	    page[:html] = RedCloth.new(pre_processed_src).to_html
 	    page
     end
@@ -40,6 +39,9 @@ module Dirt
       text.gsub!(/\[\[(.*?)\]\]/) {|m| %Q(["#{$1}":/projects/#{project}/pages/#{$1}]) }
 
       text.gsub!(/<~(.*?)~>/m) do |match_string|
+        p '\n\n\n\n\n\n\n\n\nn\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n'
+        p JSON.parse($1)
+        p '\n\n\n\n\n\n\n\n\nn\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n'
         begin
           Dirt::Macro.to_html($1.chomp)
         rescue Exception => e

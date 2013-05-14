@@ -11,8 +11,8 @@ h1. TODO List
 # App configuration
 # Log configuration
 # Config search path
-# Placeholder text in add project screen
-# Increase the size of the tabspec text entry
+# -Placeholder text in add project screen-
+# -Increase the size of the tabspec text entry-
 # Project plan to ticket hierarchy
 # View tickets
 # Make tickets clickable
@@ -20,7 +20,7 @@ h1. TODO List
 # Bar/Line chart macro
 # Layout macros or tags
 # Value macro
-# Edit Tickets
+# Add and Edit tickets
 # Reply/Comment on Tickets
 # Simplify installation
 # FB macro

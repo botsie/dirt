@@ -39,6 +39,7 @@ module Dirt
     configure do
       set :logging, true
       # enable :sessions
+      # use Rack::Session::Pool, :expire_after => 2592000
 
       Dirt::CONFIG = load_config(CONFIG_FILE)
       db_config = load_config(DB_CONFIG_FILE)
@@ -51,7 +52,8 @@ module Dirt
 
       use Rack::Session::Cookie, :key => 'rack.session',
                                  :path => '/',
-                                 :secret => 'qwedsa123'
+                                 :secret => 'qwedsa123',
+                                 :expire_after => 86400
 
       if Dirt::CONFIG[:log_sql]
         sql_log_file = Dirt::CONFIG[:sql_log_file]
@@ -149,6 +151,13 @@ module Dirt
       redirect "/projects/#{params[:project]}/pages/#{params[:page]}"
     end    
 
+    post '/tickets/:action' do
+      # route for ajax activities
+      # deals with the following
+      # change in status of a ticket
+      # comment on a ticket
+      #Dirt::PageController.
+    end
     # run! if app_file == $0
   end
 end

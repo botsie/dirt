@@ -57,8 +57,8 @@
 
 	var cards = document.getElementsByClassName("card-border");
 	for(var i=0;i<cards.length;i++){
-		cards[i].setAttribute("draggable", true);
-		cards[i].setAttribute('data-bind','event: { dragstart : function(e){handledragstart(e)} } ');
+		//cards[i].setAttribute("draggable", true);
+		//cards[i].setAttribute('data-bind','event: { afterMove : afterMoveCallBack } ');
 		cards[i].addEventListener('dragstart', handledragstart, false);
 	}
 	

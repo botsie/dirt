@@ -8,7 +8,7 @@ module Dirt
       @project = params[:project]
       @page_name = params[:page]
       @tab_spec = get_tab_spec(@project, @page_name)
-
+      
       begin
         @page = Dirt::Page.html(@project, @page_name)
       rescue RuntimeError => e

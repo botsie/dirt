@@ -105,7 +105,7 @@ module Dirt
       first_date = Chronic.parse(resolved_after).strftime('%Y-%m-%d')
       last_date = Chronic.parse("Tomorrow").strftime('%Y-%m-%d')
 
-      p stream_ids
+      #p stream_ids
 
       # Needed to handcraft the SQL to get it right
 

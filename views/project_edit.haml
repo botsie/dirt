@@ -3,20 +3,22 @@
   .control-group
     %label.control-label{:for => "name"} Name
     .controls
-      %input.input-xlarge{type:"text", name:"name", value:@project[:name]}
+      %input.input-xlarge{type:"text", name:"name", value:@project[:name], placeholder:"Project Name"}
+      %p.help-block Name of the project (Eg: Linux Hosting)
       %input{type:"hidden", name:"id", value:@project[:id]}
   .control-group
     %label.control-label{:for => "identifier"} Indentifier
     .controls
-      %input.input-xlarge{type:"text", name:"identifier", disabled:@disable_identifier, value:@project[:identifier]}
+      %input.input-xlarge{type:"text", name:"identifier", disabled:@disable_identifier, value:@project[:identifier], placeholder:"Project Identifier"}
+      %p.help-block Short Identifier (Eg: Linuxhost)  
   .control-group
     %label.control-label{:for => "description"} Description
     .controls
-      %textarea.input-xlarge.span8{name:"description"}=@project[:description]
+      %textarea.input-xlarge.span8{name:"description", placeholder:"Project Description goes here..", rows:"3"}=@project[:description]
   .control-group
     %label.control-label{:for => "tab_spec"} Tab Configuration
     .controls
-      %textarea.input-xlarge.span8{name:"tab_spec"}=@project[:tab_spec]
+      %textarea.input-xlarge.span8{name:"tab_spec", placeholder:"Tab config for the project..", rows:"8"}=@project[:tab_spec]
   .form-actions
     %input.btn.btn-primary{type: "submit", value:"Save"}
     %a.btn{href: "/projects"}="Cancel"
