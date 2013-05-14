@@ -8,7 +8,15 @@
     .navbar.navbar-inverse.navbar-fixed-top
       .navbar-inner
         .container
-          %a.brand.head_title(href='/') DiRT
+          %a.active.brand.head_title(href='/') DiRT
+          %ul.nav.pull-right
+            %li
+              %a(href='/profile/view') Profile
+            %li
+              %a(href='/') Help
+            %li
+              %form.navbar-search.pull-left
+                %input.search-query{placeholder: "Search", type: "text"}
     .container
       =yield
     
