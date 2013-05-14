@@ -2,20 +2,20 @@
 
 module Dirt
 
-  class UserController < Dirt::Controller
-    def index(params)
-      if defined? self.(params[:page])
-        self.params[:page];
+  class StaticController < Dirt::Controller
+    def show (params, session)
+      if defined? (params[:page])
+        send(params[:page])
       elsif 
-        raise unless e.message == "Page Not Found"
+        raise message == "Page Not Found"
       end
     end
 
-    def help(params)
+    def help
       haml :help
     end
 
-    def about(params)
+    def about
       haml :about
     end
 

@@ -10,10 +10,16 @@
         .container
           %a.active.brand.head_title(href='/') DiRT
           %ul.nav.pull-right
+            - if(defined? session[:user_id])
+              %li
+                %a(href='/profile/view') Profile
+              %li
+                %a(href='/logout') Logout
+            - if(!defined? session[:user_id])
+              %li
+                %a(href='/login') Login
             %li
-              %a(href='/profile/view') Profile
-            %li
-              %a(href='/') Help
+              %a(href='/static/help') Help
             %li
               %form.navbar-search.pull-left
                 %input.search-query{placeholder: "Search", type: "text"}

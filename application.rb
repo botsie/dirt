@@ -177,7 +177,7 @@ module Dirt
     # -----------------------------------------------------------------
 
     get '/static/:page' do
-        Dirt::StaticController.index(params)
+        Dirt::StaticController.show(params)
     end
     
     # -----------------------------------------------------------------
