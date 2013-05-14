@@ -39,9 +39,6 @@ module Dirt
       text.gsub!(/\[\[(.*?)\]\]/) {|m| %Q(["#{$1}":/projects/#{project}/pages/#{$1}]) }
 
       text.gsub!(/<~(.*?)~>/m) do |match_string|
-        p '\n\n\n\n\n\n\n\n\nn\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n'
-        p JSON.parse($1)
-        p '\n\n\n\n\n\n\n\n\nn\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n'
         begin
           Dirt::Macro.to_html($1.chomp)
         rescue Exception => e
