@@ -1,4 +1,6 @@
-
+*.log
+*~
+*.sql
 *.sublime-*
 *.sqlite
 *.yml
