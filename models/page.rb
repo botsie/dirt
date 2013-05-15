@@ -21,7 +21,6 @@ module Dirt
     	page = self.source(project, page_name)
 
       pre_processed_src = render_extensions(project, page_name, page[:content])
-
 	    page[:html] = RedCloth.new(pre_processed_src).to_html
 	    page
     end

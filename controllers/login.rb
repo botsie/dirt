@@ -10,6 +10,12 @@ module Dirt
       haml :login
     end
 
+    def logout
+      session.delete(:user_id)
+      session.delete(:rt_cookie)
+      redirect_to = "/"
+    end
+
     def self.authenticate(params, session)
 
       rt_server = Dirt::RT::Server.new(Dirt::CONFIG[:rt_url])

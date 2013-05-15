@@ -39,6 +39,7 @@ module Dirt
     configure do
       set :logging, true
       # enable :sessions
+      # use Rack::Session::Pool, :expire_after => 2592000
 
       Dirt::CONFIG = load_config(CONFIG_FILE)
       db_config = load_config(DB_CONFIG_FILE)
@@ -51,7 +52,8 @@ module Dirt
 
       use Rack::Session::Cookie, :key => 'rack.session',
                                  :path => '/',
-                                 :secret => 'qwedsa123'
+                                 :secret => 'qwedsa123',
+                                 :expire_after => 86400
 
       if Dirt::CONFIG[:log_sql]
         sql_log_file = Dirt::CONFIG[:sql_log_file]
@@ -65,7 +67,7 @@ module Dirt
       Dir['models/*.rb'].sort.each { |model| require File.join(File.dirname(__FILE__), model) }
       Dir['controllers/*.rb'].sort.each { |controller| require File.join(File.dirname(__FILE__), controller) }
     end
-
+=begin
     before do 
       @user = Dirt::User.get(session[:user_id])
       path = request.path_info
@@ -74,7 +76,7 @@ module Dirt
         redirect to("/login?redirect_to=#{path}")
       end        
     end
-
+=end
     # -----------------------------------------------------------------
     # App Related Routes
     # -----------------------------------------------------------------
@@ -92,6 +94,10 @@ module Dirt
       redirect to(params[:redirect_to])
     end
 
+    get '/logout' do
+        Dirt::LoginController.logout(params, session)
+    end
+
    # get '/:queue' do
    #   Dirt::CardWallController.show(params)
    # end
@@ -106,7 +112,7 @@ module Dirt
 
     get '/projects/new' do
       params[:new] = true
-      Dirt::ProjectController.edit(params)       
+      Dirt::ProjectController.edit(params)
     end
 
     get '/projects/:project/edit' do
@@ -147,9 +153,54 @@ module Dirt
     post '/projects/:project/pages/:page/save' do
       Dirt::PageController.save(params)
       redirect "/projects/#{params[:project]}/pages/#{params[:page]}"
-    end    
+    end
 
+    # -----------------------------------------------------------------
+    # User profile related routes
+    # -----------------------------------------------------------------
+
+    get '/profile/view' do
+      Dirt::UserController.show(params)
+    end
+
+    get '/profile/edit' do
+      Dirt::UserController.edit(params)
+    end
+
+    post '/profile/edit' do
+      Dirt::UserController.edit(params)
+      redirect "/";
+    end
+
+    # -----------------------------------------------------------------
+    # Static page related routes
+    # -----------------------------------------------------------------
+
+    get '/static/:page' do
+        Dirt::StaticController.show(params)
+    end
+    
+    # -----------------------------------------------------------------
+    # Search related routes
+    # -----------------------------------------------------------------
+
+    get '/search/:keys' do
+        Dirt::StaticController.show(params)
+    end
+    
+    # -----------------------------------------------------------------
+    # Tickets related routes
+    # -----------------------------------------------------------------
+
+    post '/tickets/:action' do
+      # route for ajax activities
+      # deals with the following
+      # change in status of a ticket
+      # comment on a ticket
+      #Dirt::PageController.
+    end
     # run! if app_file == $0
+
   end
 end
 

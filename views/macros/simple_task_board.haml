@@ -9,10 +9,10 @@
       %th
         %p="##{stream[:id]}"
         %p=stream[:Subject]
-      - lanes.each do |lane|
-        %td
+      - lanes.each do |lane| 
+        %td{parent_id: "#{stream[:id]}", status: "#{lane}"}
           - stream_cards(:stream => stream, :lane => lane).each do |card|  
-            .card-border
+            .card-border{draggable: "true"}
               .card{class: card[:age_class]}
                 %p="##{card[:id]}"
                 %p=card[:Owner]
@@ -32,6 +32,6 @@
               %p
                 %span.card-subject(title="#{card[:Subject]}")=card[:short_subject]
 
-
-
-    
+- require 'json'
+%script
+  var x = #{lanes}
