@@ -4,71 +4,96 @@
  *
  */
 
-(function(window, document, ko, undefined){
-	console.log("taskboard.js - loaded");
-	var dragging = null; //currently being dragged
-
-	//events for boxes
-	function handledragover(e){
-		e.stopPropagation();
-		e.preventDefault();
-	}
-
-	function handledragenter(e){
-		e.stopPropagation();
-		e.preventDefault();
-	}
-
-	function handledragleave(e){
-		e.stopPropagation();e.preventDefault();
-	}
-
-	function handledrop(e){
-		e.stopPropagation();
-		if (e.stopPropagation) {
-   			e.stopPropagation(); // stops the browser from redirecting.
-  		}
-
-  		var flag = 1;
-  		
-  		if(dragging.parentNode === e.target){flag = 0;}
-  		if(flag) {
-  			flag = 0;
-  			for(i in boxes){
-				if(e.target === boxes[i]){flag=1;break;}
-			}
-  		}
-  		if(flag) {
-  			console.log("changing");
-  			e.target.appendChild(dragging);
-  		}
-		e.preventDefault();
-	}
-
-	//events for cards
-	var handledragstart = function (e){
-		e.stopPropagation();
-		dragging = e.target
-	}
-
-	function handledragend(){
-		
-	}
-
+(function(window, document, ko){
 	var cards = document.getElementsByClassName("card-border");
-	for(var i=0;i<cards.length;i++){
-		//cards[i].setAttribute("draggable", true);
-		//cards[i].setAttribute('data-bind','event: { afterMove : afterMoveCallBack } ');
-		cards[i].addEventListener('dragstart', handledragstart, false);
-	}
-	
 	var boxes = document.getElementsByTagName("td");
-	for(i in boxes){
-		if(typeof boxes[i] === "object"){
-			boxes[i].addEventListener('dragenter', handledragenter, false);
-			boxes[i].addEventListener('dragover',handledragover, false);
-			boxes[i].addEventListener('dragleave',handledragleave,false);
-			boxes[i].addEventListener('drop',handledrop,false);
-		}
+	
+	for(i=0;i<cards.length;i++){
+		//console.log(cards[i]);
+		cards[i].setAttribute("draggable","true");
+		cards[i].setAttribute("data-bind","cardext :{ name :'card"+i+"'}");
 	}
-})(window, document, ko);
+
+	for(j=0;j<boxes.length;j++){
+		//console.log(boxes[j]);
+		boxes[j].setAttribute("data-bind","boxext :{ name :'box"+i+"'}");
+
+	}
+
+	//my extension for knockout 
+	var dragitem = null;
+
+	//actual ko code
+	ko.utils.extend(ko.bindingHandlers, {
+		cardext : {
+			init : function(element, valueAccessor){
+				var value = ko.utils.unwrapObservable(valueAccessor()),
+					name = value.name;
+
+				ko.utils.registerEventHandler(element, 'dragstart', function (event) {
+					//set the source container
+					//console.log("starting drag");
+					//console.log(event.target);
+					dragitem = event.target;
+				});
+			}
+		},
+		boxext : {
+			init : function(element, valueAccessor){
+				var value = ko.utils.unwrapObservable(valueAccessor()),
+					name = value.name;
+
+				ko.utils.registerEventHandler(element, 'dragenter', function (event) {
+					//console.log("dragenter");
+					event.stopPropagation();
+					event.preventDefault();
+				});
+
+
+				ko.utils.registerEventHandler(element, 'dragover', function (event) {
+					//console.log("dragover");
+					event.stopPropagation();
+					event.preventDefault();
+				});
+
+
+				ko.utils.registerEventHandler(element, 'dragleave', function (event) {
+					//console.log("dragleave");
+					event.stopPropagation();
+					event.preventDefault();
+				});
+
+
+				ko.utils.registerEventHandler(element, 'drop', function (event) {
+					//console.log("drop");
+					//handle drop event
+					//get source container n event.target returns the current target container
+					event.stopPropagation();
+					if (event.stopPropagation) {
+							event.stopPropagation(); // stops the browser from redirecting.
+					}
+
+					//console.log(event.target);
+
+					var flag = 1;
+  		
+  					if(dragitem.parentNode === event.target){flag = 0;}
+  					if(flag) {
+  						flag = 0;
+  						for(i in boxes){
+							if(event.target === boxes[i]){flag=1;break;}
+						}
+  					}
+  					if(flag) {
+  						//console.log("changing");
+  						event.target.appendChild(dragitem);
+  					}
+
+				});
+			}
+		}
+	});
+	
+	ko.applyBindings();
+
+})(window, window.document ,ko);

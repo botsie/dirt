@@ -6,6 +6,9 @@ module Dirt
     def self.process(params, session)
     end
 
+    def fetchTicketInfo
+    end
+
     def addComment
     end
 

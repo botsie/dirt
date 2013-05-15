@@ -20,7 +20,7 @@ h1. TODO List
 # Bar/Line chart macro
 # Layout macros or tags
 # Value macro
-# Add and Edit tickets
+# Edit tickets
 # Reply/Comment on Tickets
 # Simplify installation
 # FB macro
