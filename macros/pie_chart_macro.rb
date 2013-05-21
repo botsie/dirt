@@ -18,13 +18,26 @@ module Dirt
     end
 
     def info
-      return @info unless @info.nil?      
-      sql = @spec['sql'];
-      # SOME DB OPERATION
-      return @info
+      return @info unless @info.nil?
+
+      sql = @spec['sql']
+      rows = Dirt::RT_DB[sql].all
+
+      # TODO: Handle the no results case
+      rows = [{"result" => "No rows to display"}] if rows.count == 0
+
+      @info = Array.new()
+      i = 0
+      rows.each do |row|
+        @info[i] = Array.new()
+        row.each do |key, value|
+          @info[i] << value
+        end
+        i += 1
+      end
+
+      return @info  
     end
-
-
   end
 
   class PieChartMacro < Macro
