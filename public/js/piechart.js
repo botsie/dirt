@@ -19,7 +19,7 @@ $(function () {
                 plotShadow: false
             },
             title: {
-                text: 'some text'
+                text: caption
             },
             tooltip: {
                 pointFormat: '{series.name}: <b>{point.percentage}%</b>',
