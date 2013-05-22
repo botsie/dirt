@@ -13,7 +13,7 @@ module Dirt
 
     def caption
       caption = @spec['caption'] 
-      caption ||= "Bar Chart"
+      caption ||= "Pie Chart"
       return caption
     end
 
