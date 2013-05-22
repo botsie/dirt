@@ -15,7 +15,3 @@
       %a.btn.btn-primary{href: "/projects/#{@project}/pages/#{@page_name}/edit"}="Edit"
   .wiki-page-content.span12
     %div=@page[:html]
-
--if (@page_name == 'Taskboard')
-  %script{src: "/js/ko.min-2.2.1.js?version=#{rand(5)}"}
-  %script{src: "/js/taskboard.js?version=#{rand(5)}"}
