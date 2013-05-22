@@ -39,6 +39,9 @@ $(function () {
                     }
                 }
             },
+            credits: {
+            enabled: false
+            },
             series: [{
                 type: 'pie',
                 name: caption,
