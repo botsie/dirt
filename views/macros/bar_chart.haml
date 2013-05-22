@@ -1,2 +1,8 @@
 %h5=caption
-Bar Chart template
+#container
+%script{type: "text/javascript"}
+	var caption = "#{caption}";
+	var graphdata = #{info};
+	console.log(graphdata);
+%script{type: "text/javascript", src: "/js/highcharts.js"}
+%script{type: "text/javascript", src: "/js/barchart.js"}
