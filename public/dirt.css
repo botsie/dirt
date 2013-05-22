@@ -94,3 +94,19 @@ body {
     border-left: 1em solid #5BB75B;
 }
 
+.kanban td {
+    height: 89px;
+}
+
+.kanban th {
+    text-align: center;
+}
+
+.kanban .subcat {
+    font-weight: bold;
+    width: 100%;
+    text-align: center;
+    background-color: #eaeaea;
+    margin: 0px;
+    padding: 0px;
+}
