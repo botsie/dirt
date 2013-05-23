@@ -2,8 +2,24 @@ body {
     padding-top: 40px;
 }
 
+@font-face {
+    font-family: "Pacifico";
+    src: url(/css/Pacifico.ttf) format("truetype");
+}
+
+.navbar-inverse .head_title{
+    font-family: "Pacifico";
+    color: #ccc;
+    font-size: 25px;
+    margin-left: 10px;
+}
+
 .login-container {
     padding-top: 3em;
+}
+
+body>.container {
+    padding-top: 40px;
 }
 
 .card-border {
