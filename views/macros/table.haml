@@ -1,5 +1,5 @@
 %h5=caption
-%table.table.table-striped.table-bordered
+%table.table.table-striped.table-bordered.table-hover
   %tr 
     - headers.each do |header|
       %th=header.to_s.gsub(/_/," ").gsub(/([a-z])([A-Z])/, '\1 \2').capitalize

@@ -1,9 +1,10 @@
-%h3 Projects
-.row.span12
+%h3.span12 Projects
+.span12
   %a.pull-right.span1.btn{href: "/projects/new"}
     %i.icon-plus-sign
     New
-%hr/
+%hr.span12.row
+
 .row.span12
   - @projects.each do |project|
     .project-listing.well
