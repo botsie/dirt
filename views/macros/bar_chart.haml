@@ -1,0 +1,11 @@
+%h5=caption
+#container
+%script{type: "text/javascript"}
+	var type = "#{type}";
+	var graphdata = #{info};
+	var title = "#{caption}";
+	var sourcetext = "#{sourcetext unless sourcetext.nil?}";
+	var ytext = "#{yaxistext unless yaxistext.nil?}";
+	var groupname = #{groupname};
+%script{type: "text/javascript", src: "/js/highcharts.js"}
+%script{type: "text/javascript", src: "/js/barchart.js"}
