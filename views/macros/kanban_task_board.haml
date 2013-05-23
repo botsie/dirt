@@ -14,7 +14,9 @@
       - row.each do |col|
         - if(col.length<=1)
           %td{class: "span"+span[i].to_s , colspan: span[i] }
+            .sn
         - if(col.length>1)
           -col[1].each do |subcat|
             %td{class: "span"+span[i].to_s , colspan: span[i] }
               .subcat=subcat[0]
+              .sn

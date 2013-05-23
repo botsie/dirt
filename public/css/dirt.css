@@ -80,24 +80,6 @@ body>.container {
     cursor: pointer;
 }
 
-/*
-.card-subject:hover:after {
-    content: attr(title);
-    position: absolute;
-    white-space: nowrap;
-    background: rgba(0, 0, 0, 0.85);
-    padding: 3px 7px;
-    color: #FFF;
-    border-radius: 3px;
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
-    margin-left: 7px;
-    margin-top: -3px;
-}
-
-*/
-
-
 .old {
     border-left: 1em solid #DF4F49;
 }
@@ -108,10 +90,6 @@ body>.container {
 
 .this-week {
     border-left: 1em solid #5BB75B;
-}
-
-.kanban td {
-    height: 89px;
 }
 
 .kanban th {
@@ -125,4 +103,10 @@ body>.container {
     background-color: #eaeaea;
     margin: 0px;
     padding: 0px;
+}
+
+.sn {
+    min-height: 79px;
+    width: 0px;
+    display: block;
 }

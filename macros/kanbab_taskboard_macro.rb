@@ -18,14 +18,10 @@ module Dirt
     end      
     
     def lanes
-      #lanes = @spec['group_sequence'] 
-      #lanes ||= ['new', 'open', 'stalled', 'resolved']
-      #return lanes
     end
 
     def grp_seq
       @grp_seq = @spec['group_sequence']
-      #grp_seq ||= 
       return @grp_seq
     end
 
@@ -44,24 +40,6 @@ module Dirt
       end
       return @span
     end
-
-    #def streams
-    #end 
-
-    #def stream_ids
-    #end
-
-    #def stream_members(stream_id)
-    #end    
-
-    #def cards
-    #end
-
-    #def stream_cards(args)
-    #end
-
-    #def misc_cards(args)
-    #end
 
     def shorten(str)
       max_length = 27
