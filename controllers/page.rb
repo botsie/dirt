@@ -13,7 +13,7 @@ module Dirt
         @page = Dirt::Page.html(@project, @page_name)
       rescue RuntimeError => e
         raise unless e.message == "Page Not Found"
-        edit(params)
+        edit(params, session)
       else
         haml :page
       end
