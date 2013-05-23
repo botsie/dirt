@@ -50,9 +50,6 @@ module Dirt
       end
     end
 
-    #def classify(time)
-    #end
-
    
   end
 
