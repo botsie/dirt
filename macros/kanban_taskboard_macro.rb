@@ -15,9 +15,6 @@ module Dirt
       caption = @spec['caption'] 
       caption ||= "Taskboard"
       return caption
-    end      
-    
-    def lanes
     end
 
     def grp_seq
