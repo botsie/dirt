@@ -6,26 +6,15 @@ require 'chronic'
 
 module Dirt
 
-  class BarChartMacroModel
+  class LineChartMacroModel
     def initialize(spec)
       @spec = spec
     end
 
-    def type
-      return "bar" if @spec['direction'] == "horizontal"
-      return "column"
-    end
-
     def caption
       caption = @spec['caption'] 
-      caption ||= "Bar Chart"
+      caption ||= "Line Chart"
       return caption
-    end
-
-    def sourcetext
-      sourcetext = @spec['source']
-      return sourcetext unless sourcetext.nil?
-      return ""
     end
 
     def yaxistext
@@ -34,10 +23,10 @@ module Dirt
       return "y axis"
     end
 
-    def groupname
-      groupname = @spec['group-sequence']
-      return groupname unless groupname.nil?
-      return false
+    def graphlabels
+      graphlabels = @spec['group-sequence']
+      raise "Need a 'group-sequence' parameter to render this macro" if graphlabels.nil?
+      return graphlabels
     end
 
     def info
@@ -47,30 +36,39 @@ module Dirt
       rows = Dirt::RT_DB[sql].all
 
       # TODO: Handle the no results case
-      rows = [{"result" => "No rows to display"}] if rows.count == 0
+      raise "No rows found" if rows.count == 0
 
       @info = Array.new()
       i = 0
       rows.each do |row|
-        j = 0
+        j=-1
+        temp = ""
         row.each do |key,value|
-          if i==0 
-            @info[j] = Array.new()
-          end
-          @info[j] << value
           j += 1
+          if j==0
+            temp = value
+            next
+          end
+          if i==0 && j!=0
+            @info[j-1] = Array.new() 
+          end
+          
+          @info[j-1] << [value, temp]
         end
         i += 1
       end
+      p '\n\n\n\n\n\n\n\n\n\n\n\n'
+      p @info
+      
       return @info  
     end
   end
 
-  class BarChartMacro < Macro
+  class LineChartMacro < Macro
     def to_html
       # Get IDs of Parent Cards
-      model = Dirt::BarChartMacroModel.new(@spec)
-      content = haml :bar_chart, model     
+      model = Dirt::LineChartMacroModel.new(@spec)
+      content = haml :line_chart, model     
       return content
     end    
   end

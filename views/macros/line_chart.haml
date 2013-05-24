@@ -1,0 +1,9 @@
+%h5=caption
+#container
+%script{type: "text/javascript"}
+	var title = "#{caption}";
+	var graphdata = #{info};
+	var ytext = "#{yaxistext unless yaxistext.nil?}";
+	var graphlables = #{graphlabels};
+%script{type: "text/javascript", src: "/js/highcharts.js"}
+%script{type: "text/javascript", src: "/js/linechart.js"}
