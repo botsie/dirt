@@ -57,9 +57,6 @@ module Dirt
         end
         i += 1
       end
-      p '\n\n\n\n\n\n\n\n\n\n\n\n'
-      p @info
-      
       return @info  
     end
   end
