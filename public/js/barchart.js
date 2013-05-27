@@ -1,6 +1,5 @@
 $(function () {
     for(var i=0; i<appdata['barchart'].length; i++){
-        console.log(typeof highcharts);
         var categories = appdata['barchart'][i].graphdata[0];
         var series = new Array();
         for(var j=0; j< appdata['barchart'][i].graphdata.length; j++){
@@ -12,7 +11,6 @@ $(function () {
                 data: appdata['barchart'][i].graphdata[j]
             });
         }
-        console.log($('#'+appdata['barchart'][i].id));
         $('#'+appdata['barchart'][i].id).highcharts({
             chart: {
                 type: appdata['barchart'][i].type

@@ -1,9 +1,22 @@
 %h5=caption
-#container
-%script{type: "text/javascript"}
-	var title = "#{caption}";
-	var graphdata = #{info};
-	var ytext = "#{yaxistext unless yaxistext.nil?}";
-	var graphlables = #{graphlabels};
-%script{type: "text/javascript", src: "/js/highcharts.js"}
-%script{type: "text/javascript", src: "/js/linechart.js"}
+- divname = rand(1000)
+%div(id = "#{'linechart'+divname.to_s}")
+:javascript
+	if(typeof appdata === 'undefined'){
+		appdata = new Object();
+	}
+	if(typeof appdata['linechart'] === 'undefined'){
+		appdata['linechart'] = new Array();
+	}
+	appdata['linechart'].push({
+		id : "#{'linechart'+divname.to_s}",
+		title : "#{caption}",
+		graphdata : #{info},
+		ytext : "#{yaxistext unless yaxistext.nil?}",
+		graphlables : #{graphlabels}
+	});
+	if(typeof appdata['jsfiles'] === 'undefined'){
+		appdata['jsfiles'] = new Object();
+	}
+	appdata['jsfiles']['highcharts'] = 1;
+	appdata['jsfiles']['linechart'] = 1;
