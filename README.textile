@@ -83,6 +83,10 @@ Example:
 
 h4. Kanban Taskboard Macro
 
+* Each column in a row must be added as an array element
+* To add sub columns pass an array of array elements with the parent column name
+* Add a query using the following syntax:
+
 Example:
 
 <pre>
@@ -103,7 +107,14 @@ Example:
 ~>
 </pre>
 
+p. Note that queues *must* be passed an Array, even if it is a single item array.
+
+
 h4. Pie Chart Macro
+
+* The group by column comes first in the SQL statement
+* The data column follows the group column
+* If more than one data column in received, only the 1st data column is used to generate the graph
 
 Example:
 
@@ -118,6 +129,10 @@ Example:
 </pre>
 
 h4. Bar Chart Macro
+
+* The group by column comes first in the SQL statement
+* The data column follows the group column
+* More than one data column can be plotted if 'group-sequence' is defined
 
 Example:
 
@@ -136,6 +151,11 @@ Example:
 </pre>
 
 h4. Line Chart Macro
+
+* The group by column comes first in the SQL statement
+* The data column follows the group column
+* If more than one data column in received, only the 1st data column is used to generate the graph
+* *Tip:* Frequence graph can obtained by ordering according to the data column
 
 Example:
 
