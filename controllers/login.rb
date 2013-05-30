@@ -25,8 +25,7 @@ module Dirt
     def self.logout(params, session)
       puts session
 
-      session[:user_id] = nil
-      session[:rt_cookie] = nil
+      session.clear
       @success_message = "You have been successfully logged out"
       return @success_message 
     end

@@ -12,9 +12,7 @@
           %ul.nav.pull-right
             - if(defined? session[:user_id])
               %li
-                %a(href='/profile/view') Profile
-              %li
-                %a(href='/logout') Logout
+                %a
             - if(!defined? session[:user_id])
               %li
                 %a(href='/login') Login
