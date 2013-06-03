@@ -9,20 +9,34 @@
       .navbar-inner
         .container
           %a.active.brand.head_title(href='/') DiRT
-          %ul.nav.pull-right
-            - if(defined? session[:user_id])
-              %li
-                %a(href='/profile/view') Profile
-              %li
-                %a(href='/logout') Logout
-            - if(!defined? session[:user_id])
-              %li
-                %a(href='/login') Login
-            %li
-              %a(href='/static/help') Help
+          %ul.nav.pull-left
             %li
               %form.navbar-search.pull-left
                 %input.search-query{placeholder: "Search", type: "text"}
+          %ul.nav.pull-right
+            - if(defined? @session[:user_id])
+              %li
+                %a(href='/profile/me')
+                  =@session[:user_id]
+              %li.dropdown
+                %a.dropdown-toggle{data: {toggle: 'dropdown'}, id: "dLabel"}
+                  %i{class: "icon-cog icon-white"}
+                  Settings
+                %ul.dropdown-menu{role: "menu", aria: {labelledby:"dLabel"} }
+                  %li
+                    %a(href='/profile/settings') Profile
+                  %li
+                    %a(href="") History
+                  %li
+                    %a(href="/static/help") Help
+                  %li.divider
+                  %li
+                    %a(href='/logout') Logout
+
+            - if(!defined? @session[:user_id])
+              %li
+                %a(href='/login') Login
+
     .container
       =yield
     
@@ -31,7 +45,6 @@
         %p.small
           %a{href:"http://www.github.com/botsie/dirt"} Dirt 
           &copy; 2012-2013 Biju Chacko
-  %script( type="text/javascript" src="/js/main.js")  
-  %script( type="text/javascript" src="/js/jquery-1.9.1.min.js")  
-
-    
+  %script( type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js")  
+  %script( type="text/javascript" src="/bootstrap/js/bootstrap.min.js")
+  %script( type="text/javascript" src="/js/main.js")

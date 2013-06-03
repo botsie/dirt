@@ -1,6 +1,10 @@
 .login-container.container
   .row
     .span6.offset3
+      - if not @success_message.nil?
+        .alert.alert-success
+          %strong Success
+          =@success_message
       - if not @failure_message.nil?
         .alert.alert-error
           %strong Error

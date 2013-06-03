@@ -3,7 +3,7 @@
 module Dirt
 
   class LoginController < Dirt::Controller
-    def show(params, session)
+    def show(params)
       puts params
       @redirect_to = params[:redirect_to]
       @failure_message = params[:failure_message]
@@ -21,5 +21,14 @@ module Dirt
 
       return 
     end
+
+    def self.logout(params, session)
+      puts session
+
+      session.clear
+      @success_message = "You have been successfully logged out"
+      return @success_message 
+    end
+
   end
 end
