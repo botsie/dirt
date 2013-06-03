@@ -74,7 +74,6 @@ module Dirt
         redirect to("/login?redirect_to=#{path}")
       end        
     end
-
     # -----------------------------------------------------------------
     # App Related Routes
     # -----------------------------------------------------------------
@@ -90,6 +89,11 @@ module Dirt
         redirect to("/login?redirect_to=#{params[:redirect_to]}&failure_message=#{error.message}")
       end
       redirect to(params[:redirect_to])
+    end
+
+    get '/logout' do
+      @success_message = Dirt::LoginController.logout(params,session)
+      haml :login
     end
 
    # get '/:queue' do
@@ -150,6 +154,35 @@ module Dirt
     end    
 
     # run! if app_file == $0
+
+    # -----------------------------------------------------------------
+    # Restapi related paths
+    # -----------------------------------------------------------------
+
+    get '/api' do
+      #respond only to ajax request
+      if request.xhr?
+        Dirt::RestapiController.show(params)
+      else
+        'Api responds only to ajax request'
+      end 
+    end
+
+    # -----------------------------------------------------------------
+    # Static file related routes
+    # -----------------------------------------------------------------
+
+    get '/static/:page' do
+      Dirt::StaticController.show(params)
+    end
+
+    # -----------------------------------------------------------------
+    # Page to handle errors
+    # -----------------------------------------------------------------
+
+    not_found do
+      Dirt::StaticController.show({:page => "notfound"})
+    end
   end
 end
 
