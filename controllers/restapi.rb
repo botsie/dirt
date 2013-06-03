@@ -12,6 +12,8 @@
   605 => 'comment_msg' missing
   606 => 'session' does not exist
   607 => save failed
+  608 => 'parentId' missing
+  609 => 'status' missing
 =end
 
 module Dirt
@@ -51,13 +53,32 @@ module Dirt
     end
 
     def update(params, session)
-      #get comments for a ticket by using ticketId and lastcommentId
+      #get comments for a ticket by using ticketId and last commentId
+      if params[:commentId].nil?
+        return {:status => "604" , :message => "'commentId' cannot be nil"}
+      end
+
     end
 
     def add(params, session)
       #add comments for a ticket by using ticketId
+      if params[:comment_msg].nil?
+        return {:status => "605" , :message => "'comment_msg' cannot be nil"}
+      end
+      msg = params[:comment_msg].to_s
     end
 
+    def status(params,session)
+      #change status of a ticket using ticketId
+      #sets new parentId and status
+      if params[:parentId].nil?
+        return {:status => "608" , :message => "'parentId' cannot be nil"}
+      end
+      if params[:status].nil?
+        return {:status => "609" , :message => "'status' cannot be nil"}
+      end
+      
+    end
 
   end
 end
