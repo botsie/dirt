@@ -79,7 +79,7 @@ module Dirt
     # -----------------------------------------------------------------
 
     get '/login' do
-      Dirt::LoginController.show(params, session) 
+      Dirt::LoginController.show(params) 
     end
 
     post '/login' do
@@ -92,7 +92,7 @@ module Dirt
     end
 
     get '/logout' do
-      @success_message = Dirt::LoginController.logout(params,session)
+      @success_message = Dirt::LoginController.logout(params, session)
       haml :login
     end
 
@@ -105,26 +105,26 @@ module Dirt
     # -----------------------------------------------------------------
 
     get %r{(^/$|^/projects[/]*$)} do
-      Dirt::ProjectController.show(params) 
+      Dirt::ProjectController.show(params, session) 
     end
 
     get '/projects/new' do
       params[:new] = true
-      Dirt::ProjectController.edit(params)       
+      Dirt::ProjectController.edit(params, session)       
     end
 
     get '/projects/:project/edit' do
       params[:new] = false
-      Dirt::ProjectController.edit(params)       
+      Dirt::ProjectController.edit(params, session)
     end
 
     post '/projects/add' do
-      Dirt::ProjectController.save(params)       
+      Dirt::ProjectController.save(params, session)
       redirect "/projects/"
     end
 
     post '/projects/:project/save' do
-      Dirt::ProjectController.save(params)       
+      Dirt::ProjectController.save(params, session)
       redirect "/projects/"
     end
 
@@ -141,15 +141,15 @@ module Dirt
     end
 
     get '/projects/:project/pages/:page' do
-      Dirt::PageController.show(params)
+      Dirt::PageController.show(params, session)
     end    
 
     get '/projects/:project/pages/:page/edit' do
-      Dirt::PageController.edit(params)
+      Dirt::PageController.edit(params, session)
     end    
 
     post '/projects/:project/pages/:page/save' do
-      Dirt::PageController.save(params)
+      Dirt::PageController.save(params, session)
       redirect "/projects/#{params[:project]}/pages/#{params[:page]}"
     end    
 
@@ -162,7 +162,7 @@ module Dirt
     get '/api' do
       #respond only to ajax request
       if request.xhr?
-        Dirt::RestapiController.show(params)
+        Dirt::RestapiController.show(params, session)
       else
         'Api responds only to ajax request'
       end 
@@ -173,7 +173,7 @@ module Dirt
     # -----------------------------------------------------------------
 
     get '/static/:page' do
-      Dirt::StaticController.show(params)
+      Dirt::StaticController.show(params, session)
     end
 
     # -----------------------------------------------------------------
@@ -181,7 +181,7 @@ module Dirt
     # -----------------------------------------------------------------
 
     not_found do
-      Dirt::StaticController.show({:page => "notfound"})
+      Dirt::StaticController.show({:page => "notfound"}, session)
     end
   end
 end

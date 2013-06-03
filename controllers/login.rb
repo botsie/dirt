@@ -3,7 +3,7 @@
 module Dirt
 
   class LoginController < Dirt::Controller
-    def show(params, session)
+    def show(params)
       puts params
       @redirect_to = params[:redirect_to]
       @failure_message = params[:failure_message]

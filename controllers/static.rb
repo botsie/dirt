@@ -2,7 +2,7 @@
 
 module Dirt
   class StaticController < Dirt::Controller
-  	def show(params, session)
+  	def show(params)
   		if defined? (params[:page].to_s)
   			send(params[:page].to_s)
   		elsif
