@@ -3,7 +3,7 @@
 require "sequel"
 
 module Dirt
-  class TicketStatus < Sequel::Model(Dirt::DIRT_DB)
+  class StatusTicket < Sequel::Model(Dirt::DIRT_DB)
     set_primary_key :id
     many_to_one :statuses
 

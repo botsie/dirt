@@ -6,7 +6,7 @@ module Dirt
   class Status < Sequel::Model(Dirt::DIRT_DB)
     set_primary_key :id
     many_to_one :projects
-    one_to_many :ticket_status
+    one_to_many :status_tickets
 
     def self.persist(args = {})
       if args[:id].empty?

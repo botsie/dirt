@@ -58,6 +58,24 @@ module Dirt
       end
     end
 
+    def stream_ids
+      return @stream_ids unless @stream_ids.nil?
+
+      @stream_ids = streams.collect{|stream| stream[:id]}
+
+      return @stream_ids
+    end
+
+    def stream_members(stream_id)
+      if stream_id == :all 
+        stream_id = stream_ids
+      end
+
+      return Dirt::RT_DB[:Links]
+              .select(:LocalBase)
+              .where(:LocalTarget => stream_id, :Type => 'MemberOf')
+    end 
+
     def cards()
       return @cards unless @cards.nil?
 
@@ -67,6 +85,14 @@ module Dirt
 
       # Note: if both are mysql databases linked server can be created and the two queries can be combined
 
+      raise "Need a 'queues' parameter to render this macro" if @spec['queues'].nil?
+      queues = [*@spec['queues']]
+
+      raise "Need a 'resolved_after' parameter to render this macro" if @spec['resolved_after'].nil?
+      resolved_after = @spec['resolved_after']
+
+      first_date = Chronic.parse(resolved_after).strftime('%Y-%m-%d')
+      last_date = Chronic.parse("Tomorrow").strftime('%Y-%m-%d')
 
       sql = "SELECT 
                 et.id AS id,
@@ -77,16 +103,10 @@ module Dirt
                 l.LocalTarget AS Parent 
             FROM expanded_tickets et
             LEFT JOIN Links l ON et.id = l.LocalBase AND l.Type = 'MemberOf'
-            WHERE et.#{lane_column()} IN('#{lanes.join("', '")}')
-              AND ((Resolved BETWEEN '#{first_date}' AND '#{last_date}') OR Status <> 'resolved')"
+            WHERE ((Resolved BETWEEN '#{first_date}' AND '#{last_date}') OR Status <> 'resolved')"
 
-      if stream_ids.empty?
-        sql <<  "AND et.Queue IN('#{queues.join("', '")}')"
-      else
-        sql <<  "AND (l.LocalTarget IN(#{stream_ids.join(', ')}) 
-                    OR et.Queue IN('#{queues.join("', '")}'))"
-      end
-      sql << " ORDER BY Parent DESC"
+      
+      sql << " ORDER BY Parent DESC  LIMIT 10"
 
       ds = Dirt::RT_DB[sql]
 
@@ -95,12 +115,16 @@ module Dirt
       card_ids = Array.new()
       card_list = ""
 
+      p '\n\n\n\n\n\n\n\n\n\n'
+      p raw_cards.length
+      p '\n\n\n\n\n\n\n\n\n\n'
+
       @cards = raw_cards.collect do |ticket|
         card_ids.push(ticket[:id])
         card_list = card_list + "'#{ticket[:id]}' "
-        ticket[:short_subject] = shorten(ticket[:Subject])
-        ticket[:age_class] = classify(ticket[:LastUpdated])
-        ticket
+        #ticket[:short_subject] = shorten(ticket[:Subject])
+        #ticket[:age_class] = classify(ticket[:LastUpdated])
+        #ticket
       end
 
       # have the id's of the cards, we can get the kanban status from dirt db
@@ -108,11 +132,13 @@ module Dirt
       # Have find how to do the above sql query using Dirt::DIRT_DB
 
 
-      # In Rails activerecord 
-      TicketStatus.where(:ticket_id => card_ids).joins("LEFT JOIN statuses on `statuses`.`id` = `ticket_status`.`id`")
-      # have to do it for sequel
+      card_status = Dirt::StatusTicket.where(:ticket_id => card_ids)
 
+      p '\n\n\n\n\n\n\n\n\n\n'
+      p card_status
+      p '\n\n\n\n\n\n\n\n\n\n'
 
+      return "asdf"
     end
    
   end
@@ -121,6 +147,7 @@ module Dirt
     def to_html
       # Get IDs of Parent Cards
       model = Dirt::KanbanTaskBoardMacroModel.new(@spec)
+      model.cards
       content = haml :kanban_task_board, model     
       return content
     end    
