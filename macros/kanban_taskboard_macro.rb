@@ -58,6 +58,46 @@ module Dirt
       end
     end
 
+    def lanes
+      return ['new', 'open', 'stalled', 'resolved']
+    end
+
+    def lane_column
+      return 'Status'
+    end
+
+    def streams
+      return @streams unless @streams.nil?
+
+
+
+
+      queues = @spec['queues']
+      raise "Need a 'queues' parameter to render this macro" if queues.nil?
+
+      # TODO:
+      # Convert this subselect into a join -- may be faster
+   
+      parent_tickets = Dirt::RT_DB[:Links]
+                        .select(:LocalTarget)
+                        .where(:Type => 'MemberOf')
+
+      @streams = Dirt::RT_DB[:expanded_tickets]
+                  .select(:expanded_tickets__id, 
+                    :expanded_tickets__Subject, 
+                    :expanded_tickets__Owner, 
+                    :expanded_tickets__LastUpdated, 
+                    :expanded_tickets__Created)
+                  .join(:Links, :expanded_tickets__id => :Links__LocalTarget, :Links__Type => 'MemberOf' )
+                  .where(:Queue => queues)
+                  .exclude(:Status => ['resolved','deleted'])
+                  .distinct
+                  .order_by(:expanded_tickets__Subject)
+                  .all
+
+      return @streams
+    end 
+
     def stream_ids
       return @stream_ids unless @stream_ids.nil?
 
@@ -74,7 +114,7 @@ module Dirt
       return Dirt::RT_DB[:Links]
               .select(:LocalBase)
               .where(:LocalTarget => stream_id, :Type => 'MemberOf')
-    end 
+    end
 
     def cards()
       return @cards unless @cards.nil?
@@ -100,13 +140,20 @@ module Dirt
                 et.Owner AS Owner,
                 et.LastUpdated AS LastUpdated,
                 et.Created AS Created,
+                et.#{lane_column()} AS #{lane_column},
                 l.LocalTarget AS Parent 
             FROM expanded_tickets et
             LEFT JOIN Links l ON et.id = l.LocalBase AND l.Type = 'MemberOf'
-            WHERE ((Resolved BETWEEN '#{first_date}' AND '#{last_date}') OR Status <> 'resolved')"
+            WHERE et.#{lane_column()} IN('#{lanes.join("', '")}')
+              AND ((Resolved BETWEEN '#{first_date}' AND '#{last_date}') OR Status <> 'resolved')"
 
-      
-      sql << " ORDER BY Parent DESC  LIMIT 10"
+      if stream_ids.empty?
+        sql <<  "AND et.Queue IN('#{queues.join("', '")}')"
+      else
+        sql <<  "AND (l.LocalTarget IN(#{stream_ids.join(', ')}) 
+                    OR et.Queue IN('#{queues.join("', '")}'))"
+      end
+      sql << " ORDER BY id"
 
       ds = Dirt::RT_DB[sql]
 
@@ -115,29 +162,27 @@ module Dirt
       card_ids = Array.new()
       card_list = ""
 
-      p '\n\n\n\n\n\n\n\n\n\n'
-      p raw_cards.length
-      p '\n\n\n\n\n\n\n\n\n\n'
+      # done with retreiving cards
 
       @cards = raw_cards.collect do |ticket|
         card_ids.push(ticket[:id])
-        card_list = card_list + "'#{ticket[:id]}' "
-        #ticket[:short_subject] = shorten(ticket[:Subject])
-        #ticket[:age_class] = classify(ticket[:LastUpdated])
-        #ticket
+        ticket[:short_subject] = shorten(ticket[:Subject])
+        ticket[:age_class] = classify(ticket[:LastUpdated])
       end
 
+      # find all the statuses for the current project
       # have the id's of the cards, we can get the kanban status from dirt db
-      # sql = "SELECT * FROM `table_status` AS `ts` LEFT JOIN `statuses` AS `s` ON `ts`.`status_id`=`s`.`id` WHERE `ticket_id` in (#{card_list})"
+      # sql = "SELECT * FROM `status_tickets` AS `ts` LEFT JOIN `statuses` AS `s` ON `ts`.`status_id`=`s`.`id` WHERE `ticket_id` in (#{card_list})"
       # Have find how to do the above sql query using Dirt::DIRT_DB
 
 
-      card_status = Dirt::StatusTicket.where(:ticket_id => card_ids)
+      card_status = Dirt::StatusTicket.where(:ticket_id => card_ids).left_join(:statuses, :id => :status_id).all
 
       p '\n\n\n\n\n\n\n\n\n\n'
       p card_status
       p '\n\n\n\n\n\n\n\n\n\n'
 
+      
       return "asdf"
     end
    

@@ -5,7 +5,7 @@ require "sequel"
 module Dirt
   class StatusTicket < Sequel::Model(Dirt::DIRT_DB)
     set_primary_key :id
-    many_to_one :statuses
+    many_to_one :status
 
     def self.persist(args = {})
       if args[:id].empty?
