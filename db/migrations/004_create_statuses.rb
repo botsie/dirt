@@ -3,7 +3,7 @@ Sequel.migration do
     create_table(:statuses) do
       primary_key :id
       String :status_name, :null=>false
-      String :project_id
+      Integer :project_id
     end
   end
 

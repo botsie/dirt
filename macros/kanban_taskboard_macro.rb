@@ -168,6 +168,7 @@ module Dirt
         card_ids.push(ticket[:id])
         ticket[:short_subject] = shorten(ticket[:Subject])
         ticket[:age_class] = classify(ticket[:LastUpdated])
+        ticket
       end
 
       # find all the statuses for the current project
@@ -176,13 +177,30 @@ module Dirt
       # Have find how to do the above sql query using Dirt::DIRT_DB
 
 
-      card_status = Dirt::StatusTicket.where(:ticket_id => card_ids).left_join(:statuses, :id => :status_id).all
-
+      ticket_status = Dirt::StatusTicket.where(:ticket_id => card_ids).left_join(:statuses, :id => :status_id).order(:ticket_id).all
+=begin
+      sql = "SELECT * 
+                FROM `status_tickets` `ts` 
+                JOIN `statuses` `s` ON `ts`.`status_id`=`s`.`id`
+                WHERE `ticket_id` in ('#{card_ids.join("', '")}')
+                ORDER BY `ticket_id`"
+      ticket_status = Dirt::DIRT_DB[sql].all
+=end
       p '\n\n\n\n\n\n\n\n\n\n'
-      p card_status
+      p ticket_status
+      p '\n\n\n\n\n\n\n\n\n\n'
       p '\n\n\n\n\n\n\n\n\n\n'
 
-      
+      i = 0
+      ticket_status.each do |value|
+        while (@cards[i][:id] < value[:ticket_id]) do
+          i += 1
+        end
+        if @cards[i][:id] == value[:ticket_id]
+          @cards[i].merge!({:status_id => value[:status_id], :status_name => value[:status_name], :project_id => value[:project_id]})
+          p @cards[i]
+        end
+      end
       return "asdf"
     end
    
