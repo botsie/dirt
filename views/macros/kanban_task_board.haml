@@ -3,6 +3,7 @@
   - i=-1
   - grp_seq.each do |row|
     - i+=1
+    -# This is for the headings
     %tr    
       - row.each do |col|
         - if(col.length<=1)
@@ -10,15 +11,45 @@
         - if(col.length>1)
           %th{class: "span"+(col[1].length*span[i]).to_s , colspan: col[1].length*span[i]}
             =col[0].capitalize
+    -# This is for the rows
     %tr    
       - row.each do |col|
         - if(col.length<=1)
           %td{class: "span"+span[i].to_s , colspan: span[i] }
+            - getcardsfor(col[0]).each do |card|
+              .card-border
+                .card{class: card[:age_class]}
+                  %p="##{card[:id]}"
+                  %p=card[:Owner]
+                  -# %p=card[:LastUpdated]
+                  %p
+                    %span.card-subject(title="#{card[:Subject]}")=card[:short_subject]
             .sn
         - if(col.length>1)
           -col[1].each do |subcat|
             %td{class: "span"+span[i].to_s , colspan: span[i] }
               .subcat=subcat[0]
+              - getcardsfor(subcat[0]).each do |card|
+                .card-border
+                  .card{class: card[:age_class]}
+                    %p="##{card[:id]}"
+                    %p=card[:Owner]
+                    -# %p=card[:LastUpdated]
+                    %p
+                      %span.card-subject(title="#{card[:Subject]}")=card[:short_subject]
               .sn
+
+- if @unclassified_present
+  %table.table.table-stripped.table-bordered.table-condensed.span12.kanban
     %tr
-      %td
+      %th{class: "span12", colspan: "span12"}Unclassified
+    %tr
+      %td{class: "span12", colspan: "span12"}
+        - getunclassified.each do |card|
+          .card-border
+            .card{class: card[:age_class]}
+              %p="##{card[:id]}"
+              %p=card[:Owner]
+              -# %p=card[:LastUpdated]
+              %p
+                %span.card-subject(title="#{card[:Subject]}")=card[:short_subject]

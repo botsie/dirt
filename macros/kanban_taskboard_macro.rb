@@ -178,18 +178,12 @@ module Dirt
 
 
       ticket_status = Dirt::StatusTicket.where(:ticket_id => card_ids).left_join(:statuses, :id => :status_id).order(:ticket_id).all
-=begin
-      sql = "SELECT * 
-                FROM `status_tickets` `ts` 
-                JOIN `statuses` `s` ON `ts`.`status_id`=`s`.`id`
-                WHERE `ticket_id` in ('#{card_ids.join("', '")}')
-                ORDER BY `ticket_id`"
-      ticket_status = Dirt::DIRT_DB[sql].all
-=end
-      p '\n\n\n\n\n\n\n\n\n\n'
-      p ticket_status
-      p '\n\n\n\n\n\n\n\n\n\n'
-      p '\n\n\n\n\n\n\n\n\n\n'
+
+      if ticket_status.length != @cards.length
+        @unclassified_present = true
+      else
+        @unclassified_present = false
+      end
 
       i = 0
       ticket_status.each do |value|
@@ -201,9 +195,21 @@ module Dirt
           p @cards[i]
         end
       end
-      return "asdf"
+      return @cards
+    end
+
+    def getcardsfor(specname)
+      specname.to_s.downcase
+      @cards.select do |card|
+        (card[:status_name].to_s.downcase == specname)
+      end
     end
    
+    def getunclassified
+      @cards.select do |card|
+        ((!defined? card[:status_name])||(card[:status_name]).nil?)
+      end
+    end
   end
 
   class KanbanTaskBoardMacro < Macro
