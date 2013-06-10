@@ -150,6 +150,21 @@ module Dirt
     end    
 
     # run! if app_file == $0
+
+    # -----------------------------------------------------------------
+    # Restapi related paths
+    # -----------------------------------------------------------------
+
+    get '/api/v1.0/' do
+      #respond only to ajax request
+      if request.xhr?
+        Dirt::RestapiController.show(params, session)
+      else
+        'Api responds only to ajax request'
+      end 
+    end
+
+
   end
 end
 
