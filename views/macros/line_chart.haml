@@ -1,24 +1,22 @@
 %h5=caption
 - divname = rand(1000)
-%div(id = "#{'barchart'+divname.to_s}")
+%div(id = "#{'linechart'+divname.to_s}")
 :javascript
 	if(typeof appdata === 'undefined'){
 		appdata = new Object();
 	}
-	if(typeof appdata['barchart'] === 'undefined'){
-		appdata['barchart'] = new Array();
+	if(typeof appdata['linechart'] === 'undefined'){
+		appdata['linechart'] = new Array();
 	}
-	appdata['barchart'].push({
-		id : "#{'barchart'+divname.to_s}",
-		type : "#{type}",
+	appdata['linechart'].push({
+		id : "#{'linechart'+divname.to_s}",
 		title : "#{caption}",
 		graphdata : #{info},
-		sourcetext : "#{sourcetext unless sourcetext.nil?}",
 		ytext : "#{yaxistext unless yaxistext.nil?}",
-		groupname : #{groupname}
+		graphlables : #{graphlabels}
 	});
 	if(typeof appdata['jsfiles'] === 'undefined'){
 		appdata['jsfiles'] = new Object();
 	}
 	appdata['jsfiles']['highcharts'] = 1;
-	appdata['jsfiles']['barchart'] = 1;
+	appdata['jsfiles']['linechart'] = 1;
