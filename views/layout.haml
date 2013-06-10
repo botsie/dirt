@@ -9,34 +9,33 @@
       .navbar-inner
         .container
           %a.active.brand.head_title(href='/') DiRT
+          %ul.nav.pull-left
+            %li
+              %form.navbar-search.pull-left
+                %input.search-query{placeholder: "Search", type: "text"}
           %ul.nav.pull-right
-            - if(defined? session[:user_id])
+            - if(defined? @session[:user_id])
               %li
-                %a(href='/profile/view') Profile
-              %li
-                %a(href='/logout') Logout
-            - if(!defined? session[:user_id])
+                %a(href='/profile/me')
+                  =@session[:user_id]
+              %li.dropdown
+                %a.dropdown-toggle{data: {toggle: 'dropdown'}, id: "dLabel"}
+                  %i{class: "icon-cog icon-white"}
+                  Settings
+                %ul.dropdown-menu{role: "menu", aria: {labelledby:"dLabel"} }
+                  %li
+                    %a(href='/profile/settings') Profile
+                  %li
+                    %a(href="") History
+                  %li
+                    %a(href="/static/help") Help
+                  %li.divider
+                  %li
+                    %a(href='/logout') Logout
+
+            - if(!defined? @session[:user_id])
               %li
                 %a(href='/login') Login
-            %li
-              %a(href='/static/help') Help
-            -#%li
-            -# %form.navbar-search.pull-left
-            -#   %input.search-query{placeholder: "Search", type: "text"}
-            %li.dropdown
-              %a.dropdown-toggle{data: {toggle: 'dropdown'}, id: "dLabel"}
-                %i{class: "icon-cog icon-white"}
-                Settings
-              %ul.dropdown-menu{role: "menu", aria: {labelledby:"dLabel"} }
-                %li
-                  %a(href='/profile/settings') Profile
-                %li
-                  %a(href="") History
-                %li
-                  %a(href="static/help") Help
-                %li.divider
-                %li
-                  %a(href='/logout') Logout
 
     .container
       =yield
