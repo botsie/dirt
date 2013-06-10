@@ -1,25 +1,26 @@
 $(function () {
-        
+    Highcharts.getOptions().colors = Highcharts.map(Highcharts.getOptions().colors, function(color) {
+        return {
+            radialGradient: { cx: 0.5, cy: 0.3, r: 0.7 },
+            stops: [
+                [0, color],
+                [1, Highcharts.Color(color).brighten(-0.3).get('rgb')] // darken
+            ]
+        };
+    });
+    
+    
+    for(var i=0; i<appdata['piechart'].length; i++){
         // Radialize the colors
-        Highcharts.getOptions().colors = Highcharts.map(Highcharts.getOptions().colors, function(color) {
-            return {
-                radialGradient: { cx: 0.5, cy: 0.3, r: 0.7 },
-                stops: [
-                    [0, color],
-                    [1, Highcharts.Color(color).brighten(-0.3).get('rgb')] // darken
-                ]
-            };
-        });
-        
         // Build the chart
-        $('#container').highcharts({
+        $('#'+appdata['piechart'][i].id).highcharts({
             chart: {
                 plotBackgroundColor: null,
                 plotBorderWidth: null,
                 plotShadow: false
             },
             title: {
-                text: caption
+                text: appdata['piechart'][i].caption
             },
             tooltip: {
                 pointFormat: '{series.name}: <b>{point.percentage}%</b>',
@@ -40,13 +41,14 @@ $(function () {
                 }
             },
             credits: {
-            enabled: false
+                enabled: false
             },
             series: [{
                 type: 'pie',
-                name: caption,
-                data: graphdata
+                name: appdata['piechart'][i].caption,
+                data: appdata['piechart'][i].graphdata
             }]
         });
-    });
+    }
+});
     
