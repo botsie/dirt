@@ -14,6 +14,14 @@
   607 => save failed
   608 => 'parentId' missing
   609 => 'status' missing
+
+
+
+  methods :
+  fetch - to fetch the comments for a ticket
+  update - check for updates for a ticket
+  add - add a comment for a ticket
+  status - change status of a ticket
 =end
 
 module Dirt
