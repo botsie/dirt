@@ -8,6 +8,7 @@ require 'pp'
 require 'logger'
 require 'yaml'
 require 'uri'
+require 'json'
 
 use Rack::Logger 
 
@@ -156,12 +157,27 @@ module Dirt
     # run! if app_file == $0
 
     # -----------------------------------------------------------------
+    # Restapi related paths
+    # -----------------------------------------------------------------
+
+    get '/api/v1.0/' do
+      #respond only to ajax request
+      if request.xhr?
+        value = Dirt::RestapiController.show(params, session)
+        value.to_json
+      else
+        'Api responds only to ajax request'
+      end 
+    end
+
+    # -----------------------------------------------------------------
     # Page to handle errors
     # -----------------------------------------------------------------
 
     not_found do
       Dirt::StaticController.show({:page => "notfound"}, session)
     end
+  
   end
 end
 
