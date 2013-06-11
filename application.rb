@@ -75,13 +75,12 @@ module Dirt
         redirect to("/login?redirect_to=#{path}")
       end        
     end
-
     # -----------------------------------------------------------------
     # App Related Routes
     # -----------------------------------------------------------------
 
     get '/login' do
-      Dirt::LoginController.show(params, session) 
+      Dirt::LoginController.show(params) 
     end
 
     post '/login' do
@@ -93,6 +92,11 @@ module Dirt
       redirect to(params[:redirect_to])
     end
 
+    get '/logout' do
+      @success_message = Dirt::LoginController.logout(params, session)
+      haml :login
+    end
+
    # get '/:queue' do
    #   Dirt::CardWallController.show(params)
    # end
@@ -102,26 +106,26 @@ module Dirt
     # -----------------------------------------------------------------
 
     get %r{(^/$|^/projects[/]*$)} do
-      Dirt::ProjectController.show(params) 
+      Dirt::ProjectController.show(params, session) 
     end
 
     get '/projects/new' do
       params[:new] = true
-      Dirt::ProjectController.edit(params)       
+      Dirt::ProjectController.edit(params, session)       
     end
 
     get '/projects/:project/edit' do
       params[:new] = false
-      Dirt::ProjectController.edit(params)       
+      Dirt::ProjectController.edit(params, session)
     end
 
     post '/projects/add' do
-      Dirt::ProjectController.save(params)       
+      Dirt::ProjectController.save(params, session)
       redirect "/projects/"
     end
 
     post '/projects/:project/save' do
-      Dirt::ProjectController.save(params)       
+      Dirt::ProjectController.save(params, session)
       redirect "/projects/"
     end
 
@@ -138,15 +142,15 @@ module Dirt
     end
 
     get '/projects/:project/pages/:page' do
-      Dirt::PageController.show(params)
+      Dirt::PageController.show(params, session)
     end    
 
     get '/projects/:project/pages/:page/edit' do
-      Dirt::PageController.edit(params)
+      Dirt::PageController.edit(params, session)
     end    
 
     post '/projects/:project/pages/:page/save' do
-      Dirt::PageController.save(params)
+      Dirt::PageController.save(params, session)
       redirect "/projects/#{params[:project]}/pages/#{params[:page]}"
     end    
 
@@ -166,7 +170,14 @@ module Dirt
       end 
     end
 
+    # -----------------------------------------------------------------
+    # Page to handle errors
+    # -----------------------------------------------------------------
 
+    not_found do
+      Dirt::StaticController.show({:page => "notfound"}, session)
+    end
+  
   end
 end
 
