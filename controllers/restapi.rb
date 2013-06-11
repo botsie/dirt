@@ -5,15 +5,14 @@
   Respond each request with status code.
   
   600 => Successful, all went fine!
-  601 => 'query' missing
-  602 => 'query' does not exist
+  601 => 'query' invalid
+  602 => save failed
   603 => 'ticketId' missing
   604 => 'commentId' missing
   605 => 'comment_msg' missing
   606 => 'session' does not exist
-  607 => save failed
-  608 => 'parentId' missing
-  609 => 'status' missing
+  607 => 'projectId' missing
+  608 => 'status' missing
 
 
 
@@ -30,31 +29,31 @@ module Dirt
     def show(params, session)
       #respond to query variable
       if params[:query].nil?
-        return {:status => "601" , :message => "'query' field is nil"}
+        return {:status => "601" , :message => "Invalid 'query' field"}
+      elsif params[:ticketId].nil?
+        return {:status => "603" , :message => "'ticketId' cannot be nil"}
+      elsif session.nil?
+        return {:status => "606" , :message => "'session' does not exist"}
       end
 
-      validate(params, session)
       
       case params[:query]
+=begin   
       when 'fetch'
         fetch(params, session)
       when 'update'
         update(params, session)
       when 'add'
         add(params, session)
+=end
+      when 'status'
+        status(params, session)
       else
-        return {:status => "602" , :message => "Unknown 'query' field"}
+        return {:status => "601" , :message => "Invalid 'query' field"}
       end
     end
 
-    def validate(params, session)
-      if params[:ticketId].nil?
-        return {:status => "603" , :message => "'ticketId' cannot be nil"}
-      elsif session.nil?
-        return {:status => "606" , :message => "'session' does not exist"}
-      end
-    end
-
+=begin
     def fetch(params, session)
       #get comments for a ticket by using ticketId
 
@@ -75,17 +74,31 @@ module Dirt
       end
       msg = params[:comment_msg].to_s
     end
-
+=end
     def status(params,session)
       #change status of a ticket using ticketId
-      #sets new parentId and status
-      if params[:parentId].nil?
-        return {:status => "608" , :message => "'parentId' cannot be nil"}
+      #sets new statusId and status
+      if params[:projectId].nil?
+        return {:status => "607" , :message => "'projectId' cannot be nil"}
       end
       if params[:status].nil?
-        return {:status => "609" , :message => "'status' cannot be nil"}
+        return {:status => "608" , :message => "'status' cannot be nil"}
       end
       
+      statusrow = Dirt::Status.where(:status_name => params[:status], :project_id => params[:projectId]).first
+
+      if statusrow.nil?
+        Dirt::Status.insert(:status_name => params[:status], :project_id => params[:projectId])
+      end
+        statusId = statusrow[:id]
+
+      result =  Dirt::StatusTicket.where(:ticket_id => params[:ticketId]).update(:status_id => statusId)
+
+      if result
+        return {:status => "600" , :message => "Updated successfully"}
+      else
+        return {:status => "601" , :message => "Save failed"}
+      end
     end
 
   end

@@ -8,6 +8,7 @@ require 'pp'
 require 'logger'
 require 'yaml'
 require 'uri'
+require 'json'
 
 use Rack::Logger 
 
@@ -158,7 +159,8 @@ module Dirt
     get '/api/v1.0/' do
       #respond only to ajax request
       if request.xhr?
-        Dirt::RestapiController.show(params, session)
+        value = Dirt::RestapiController.show(params, session)
+        value.to_json
       else
         'Api responds only to ajax request'
       end 
