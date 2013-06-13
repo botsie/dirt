@@ -6,7 +6,7 @@ require 'chronic'
 
 module Dirt
   class AgingMacro < Macro
-    def to_html
+    def to_html(project_name)
       queues = @spec['queues']
       last_week = Dirt::RT_DB[:expanded_tickets]
                     .where(:Created => Chronic.parse("last week")..Chronic.parse("today"), 

@@ -8,21 +8,25 @@ require "json"
 module Dirt
   class Controller
 
-    attr_accessor :tab_spec
+    attr_accessor :tab_spec , :session
+
+    def initialize (session)
+      @session = session
+    end
 
     def self.show(params, session=nil)
-      controller = self.new
-      controller.show(params, session)
+      controller = self.new (session)
+      controller.show(params)
     end 
 
     def self.edit(params, session=nil)
-      controller = self.new
-      controller.edit(params, session)
+      controller = self.new (session)
+      controller.edit(params)
     end 
 
     def self.save(params, session=nil)
-      controller = self.new
-      controller.save(params, session)
+      controller = self.new (session)
+      controller.save(params)
     end 
 
     def haml( template_id )

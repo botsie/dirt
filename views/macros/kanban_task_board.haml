@@ -1,0 +1,78 @@
+%h5=caption
+%table.table.table-bordered.table-condensed.span12.kanban
+  - i=-1
+  - grp_seq.each do |row|
+    - i+=1
+    -# This is for the headings
+    %tr    
+      - row.each do |col|
+        - if(col.length<=1)
+          %th{ colspan: lcm_col/span[i], style: "width: #{(940/lcm_col)*lcm_col/span[i]}px; background-color: #efefef;", rowspan: rowspan[i]}=col[0].capitalize
+        - if(col.length>1)
+          %th{ colspan: col[1].length*lcm_col/span[i], style: "width: #{(940/lcm_col)*col[1].length*lcm_col/span[i]}px; background-color: #efefef;", rowspan: "1"}
+            =col[0].capitalize
+    - if rowspan[i] > 1
+      %tr
+        - row.each do |col|
+          - if(col.length>1)
+            -col[1].each do |subcat|
+              %th{colspan: lcm_col/span[i], style: "width: #{(940/lcm_col)*lcm_col/span[i]}px; background-color: #efefef;", rowspan: "1"}=subcat[0].capitalize
+    -# This is for the rows
+    %tr    
+      - row.each do |col|
+        - if(col.length<=1)
+          %td{colspan: lcm_col/span[i], style: "width: #{(940/lcm_col)*lcm_col/span[i]}px;", status_name: col[0] ,data:{bind: " boxext : { name :'box' }"}}
+            - getcardsfor(col[0]).each do |card|
+              .card-border{draggable: "true", ticketId: "#{card[:id]}", data: {target: "#comment_modal", toggle: "modal", bind: "click : handleClick , cardext :{ name :'#{card[:id]}'}"}}
+                .card{class: card[:age_class]}
+                  %p="##{card[:id]}"
+                  %p=card[:Owner]
+                  -# %p=card[:LastUpdated]
+                  %p
+                    %span.card-subject(title="#{card[:Subject]}")=card[:short_subject]
+            .sn
+        - if(col.length>1)
+          -col[1].each do |subcat|
+            %td{colspan: lcm_col/span[i], style: "width: #{(940/lcm_col)*lcm_col/span[i]}px;", status_name: subcat[0] , data:{bind: " boxext : { name : 'box' }"}}
+              - getcardsfor(subcat[0]).each do |card|
+                .card-border{draggable: "true", ticketId: "#{card[:id]}", data: {target: "#comment_modal", toggle: "modal", bind: "click : handleClick , cardext :{ name :'#{card[:id]}'}"}}
+                  .card{class: card[:age_class]}
+                    %p="##{card[:id]}"
+                    %p=card[:Owner]
+                    -# %p=card[:LastUpdated]
+                    %p
+                      %span.card-subject(title="#{card[:Subject]}")=card[:short_subject]
+              .sn
+-# for unclassified table
+- if @unclassified_present
+  %table.table.table-striped.table-bordered.table-condensed.span12.kanban
+    %tr
+      %th{class: "span12", colspan: "span12", style: "background-color: #efefef;"}Unclassified
+    %tr
+      %td{class: "span12", colspan: "span12", data:{bind: "boxext :{ name :'box'}"}}
+        - getunclassified.each do |card|
+          .card-border{draggable: "true", ticketId: "#{card[:id]}", data: {target: "#comment_modal", toggle: "modal", bind: "click : handleClick , cardext :{ name :'#{card[:id]}'}"}}
+            .card{class: card[:age_class]}
+              %p="##{card[:id]}"
+              %p=card[:Owner]
+              -# %p=card[:LastUpdated]
+              %p
+                %span.card-subject(title="#{card[:Subject]}")=card[:short_subject]
+
+#ajax-status
+  Saving 
+  %img{src: "/images/busy.gif"}
+
+:javascript
+  if(typeof appdata === 'undefined'){
+    appdata = new Object();
+  }
+  appdata['project_id'] = #{@spec[:project_id]} 
+  if(typeof appdata['jsfiles'] === 'undefined'){
+    appdata['jsfiles'] = new Object();
+  }
+  //appdata['jsfiles']['knockout-min-2.2.1'] = 1;
+  //appdata['jsfiles']['taskboard'] = 1;
+
+%script{src: "/js/knockout-min-2.2.1.js?version=#{rand(5)}"}
+%script{src: "/js/taskboard.js?version=#{rand(5)}"}

@@ -41,7 +41,7 @@ module Dirt
   end
 
   class PieChartMacro < Macro
-    def to_html
+    def to_html(project_name)
       # Get IDs of Parent Cards
       model = Dirt::PieChartMacroModel.new(@spec)
       content = haml :pie_chart, model     

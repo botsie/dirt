@@ -1,7 +1,20 @@
 %h5=caption
-#container
-%script{type: "text/javascript"}
-	var caption = "#{caption}";
-	var graphdata = #{info};
-%script{type: "text/javascript", src: "/js/highcharts.js"}
-%script{type: "text/javascript", src: "/js/piechart.js"}
+- divname = rand(1000)
+%div(id = "#{'piechart'+divname.to_s}")
+:javascript
+	if(typeof appdata === 'undefined'){
+		appdata = new Object();
+	}
+	if(typeof appdata['piechart'] === 'undefined'){
+		appdata['piechart'] = new Array();
+	}
+	appdata['piechart'].push({
+		id : "#{'piechart'+divname.to_s}",
+		caption : "#{caption}",
+		graphdata : #{info},
+	});
+	if(typeof appdata['jsfiles'] === 'undefined'){
+		appdata['jsfiles'] = new Object();
+	}
+	appdata['jsfiles']['highcharts'] = 1;
+	appdata['jsfiles']['piechart'] = 1;

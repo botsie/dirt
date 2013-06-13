@@ -41,7 +41,7 @@ module Dirt
 
       text.gsub!(/<~(.*?)~>/m) do |match_string|
         begin
-          Dirt::Macro.to_html($1.chomp)
+          Dirt::Macro.to_html($1.chomp, project)
         rescue Exception => e
           e.message
         end

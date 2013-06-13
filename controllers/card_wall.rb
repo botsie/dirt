@@ -2,7 +2,7 @@
 
 module Dirt
   class CardWallController < Dirt::Controller
-    def show(params, session)
+    def show(params)
       @cards = Hash.new
       @queue = params[:queue]
       @statuses = [ 'new', 'open', 'stalled', 'resolved' ]

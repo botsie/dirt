@@ -2,13 +2,15 @@ body {
     padding-top: 40px;
 }
 
+/*
 @font-face {
     font-family: "Pacifico";
     src: url(/css/Pacifico.ttf) format("truetype");
 }
+*/
 
 .navbar-inverse .head_title{
-    font-family: "Pacifico";
+/*    font-family: "Pacifico";*/
     color: #ccc;
     font-size: 25px;
     margin-left: 10px;
@@ -80,24 +82,6 @@ body>.container {
     cursor: pointer;
 }
 
-/*
-.card-subject:hover:after {
-    content: attr(title);
-    position: absolute;
-    white-space: nowrap;
-    background: rgba(0, 0, 0, 0.85);
-    padding: 3px 7px;
-    color: #FFF;
-    border-radius: 3px;
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
-    margin-left: 7px;
-    margin-top: -3px;
-}
-
-*/
-
-
 .old {
     border-left: 1em solid #DF4F49;
 }
@@ -108,5 +92,39 @@ body>.container {
 
 .this-week {
     border-left: 1em solid #5BB75B;
+}
+
+.kanban th {
+    text-align: center;
+}
+
+.kanban .subcat {
+    font-weight: bold;
+    width: 100%;
+    text-align: center;
+    background-color: #eaeaea;
+    margin: 0px;
+    padding: 0px;
+}
+
+.sn {
+    min-height: 79px;
+    width: 0px;
+    display: block;
+    float: left;
+}
+
+#ajax-status {
+    position: fixed;
+    top: 43px ;
+    right: 20px;
+    padding: 3px;
+    border: none;
+    visibility: hidden;
+}
+
+/* Over ride bootstrap css */
+.wiki-page-content [class*=span], .wiki-page-content {
+    margin-left: 0px;
 }
 
