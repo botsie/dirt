@@ -19,7 +19,62 @@
     %label.control-label{:for => "tab_spec"} Tab Configuration
     .controls
       %textarea.input-xlarge.span8{name:"tab_spec", placeholder:"Tab config for the project..", rows:"8"}=@project[:tab_spec]
+  .control-group
+    %label.control-label{:for => "status"} Status Map
+    .controls
+      .row-fluid
+        %table.table-striped.table-condensed
+          %thead
+            %tr
+              %th Kanban Status
+              %th RT Status
+              %th
+          %tbody{data: {bind: "foreach : statuses"}}
+            %tr
+              %td
+                %input{type: "text", data: {bind: "attr: {name: 'statuses[][kanban]'}"}}
+              %td
+                %select{type: "text", data: {bind: "attr: {name: 'statuses[][RT]'}"}}
+                  %option{value: '1'}New
+                  %option{value: '2'}Open
+                  %option{value: '3'}Stalled
+                  %option{value: '4'}Resolved
+                  %option{value: '5'}Rejected
+                  %option{value: '6'}Deleted
+              %td
+                .pull-right
+                  %a.close{data: {bind: "click: $root.removeStatus"}} &times;
+          %tr
+            %td
+            %td.pull-right
+              %a.btn.btn-success{data: {bind: "click: $root.addStatus"}} Add Another Status
   .form-actions
     %input.btn.btn-primary{type: "submit", value:"Save"}
     %a.btn{href: "/projects"}="Cancel"
 
+
+%script( type="text/javascript" src="/js/knockout-min-2.2.1.js")
+:javascript
+  if(typeof appdata === 'undefined'){
+    appdata = new Object();
+  }
+  if(typeof appdata['jsfiles'] === 'undefined'){
+  appdata['jsfiles'] = new Object();
+  }
+  appdata['jsfiles']['knockout-min-2.2.1'] = 1;
+  
+  var StatusMap = function(name){
+    var self = this;
+
+    self.statuses = ko.observableArray([{'kanban':'', 'RT':''}]);
+
+    self.addStatus = function(){
+      self.statuses.push({'kanban':'', 'RT':''});
+    }
+
+    self.removeStatus = function(status){
+      self.statuses.remove(status);
+    }
+  }
+
+  ko.applyBindings(new StatusMap())
