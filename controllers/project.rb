@@ -24,6 +24,10 @@ module Dirt
         :description => params[:description],
         :tab_spec => params[:tab_spec]
         )
+
+      params[:statuses].each do |status|
+        Dirt::Status.persist(:project_id => params[:id], :identifier => params[:identifier], :status_name => status["kanban"] , :rt_status_id => status["RT"])
+      end
     end
   end
 end
