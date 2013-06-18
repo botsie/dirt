@@ -70,7 +70,9 @@
     self.statuses = ko.observableArray([]);
 
     for(var i=0;i<statusobj.length; i++){
-      self.statuses.push({"kanban" : statusobj[i]['kanban'], "RT" : statusobj[i]['RT']});
+      if (statusobj[i]['kanban'] != "" || typeof statusobj[i]['kanban'] != 'undefined'){
+        self.statuses.push({"kanban" : statusobj[i]['kanban'], "RT" : statusobj[i]['RT']});
+      }
     }
 
     if(!self.statuses.length) {
