@@ -164,7 +164,7 @@ module Dirt
       #respond only to ajax request
       if request.xhr?
         value = Dirt::RestapiController.show(params, session)
-        value.to_json
+        return value.to_json
       else
         'Api responds only to ajax request'
       end 

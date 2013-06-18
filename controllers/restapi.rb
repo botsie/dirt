@@ -8,11 +8,12 @@
   601 => 'query' invalid
   602 => save failed
   603 => 'ticketId' missing
-  604 => 'commentId' missing
+  604 => query yielded an empty set
   605 => 'comment_msg' missing
   606 => 'session' does not exist
   607 => 'projectId' missing
   608 => 'status' missing
+  609 => 'commentId' missing
 
 
 
@@ -21,6 +22,7 @@
   update - check for updates for a ticket
   add - add a comment for a ticket
   status - change status of a ticket
+  info - gets information about a ticket from rt
 =end
 
 module Dirt
@@ -41,6 +43,8 @@ module Dirt
 
       when 'status'
         status(params)
+      when 'info'
+        info(params)
       else
         return {:status => "601" , :message => "Invalid 'query' field"}
       end
@@ -79,6 +83,18 @@ module Dirt
         return {:status => "601" , :message => "Save failed"}
       else
         return {:status => "600" , :message => "Updated successfully"}
+      end
+    end
+
+    def info(params)
+      ticketId = params[:ticketId]
+
+      row = Dirt::RT_DB[:expanded_tickets].where(:id => ticketId).first
+
+      if row.nil?
+        return {:status => "604" , :message => "Query yielded an empyt set"}
+      else 
+        return row
       end
     end
 

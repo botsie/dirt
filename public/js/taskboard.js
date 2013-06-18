@@ -87,7 +87,7 @@
   						},
   						success: function(data){
   							$("ajax-status").hide();
-  							console.log(data)
+  							//console.log(data)
   						}
   					});
 
@@ -104,23 +104,59 @@
 			// get ticket id from event.target and check if its available in the data array
 			// if available check for updates
 			// if not get comments from server
-			console.log(event);
-			var flag = 0;
-			var data = this.data;
-			var currentId = this.currentId =  event.target.parentNode.getAttribute('ticketId');
-			console.log(data.length);
-			for(var i=0; i< data.length; i++){
-				if(data[i].ticketId === currentId){
-					console.log("matched");
-					flag = 1;
-					break;
-				}
-			}
-			if(flag == 0){ //ticket comments have to be fetched from the server
-				this.ticketId.push(currentId);
-			} else { // ticket comments found, request server for updates
+			//console.log(event);
+			$("#taskboardModal").modal();
+			var currentId = this.currentId =  $(event.target).closest(".card-border").attr('ticketid');
+			
 
-			}
+			$("#taskboardLable").html("<a href='https://sysrt.ops.directi.com/Ticket/Display.html?id="+currentId+"'>#"+currentId+"</a>");
+
+			$.ajax({
+				url : "/api/v1.0/",
+				method: "get",
+				dataType: "JSON",
+				data: {
+					"query" : "info",
+					"ticketId" : currentId
+				},
+				success: function(data){
+					// console.log(data);
+					// var html = "";
+					$("#taskboardLable").html("<a href='https://sysrt.ops.directi.com/Ticket/Display.html?id="+currentId+"'>#"+currentId+"</a> <span>: "+data['Subject']+"</span>");
+					var html = "<table class='table table-striped'>";
+					html += "<tr><td>Ticket Id</td><td><a href='https://sysrt.ops.directi.com/Ticket/Display.html?id="+data['id']+"'>#"+data['id']+"</a></td></tr>";
+					html += "<tr><td>Queue Name</td><td>"+data['Queue']+"</td></tr>";
+					html += "<tr><td>Subject</td><td>"+data['Subject']+"</td></tr>";
+					html += "<tr><td>Prority</td><td>"+data['Prority']+"</td></tr>";
+					html += "<tr><td>Status</td><td>"+data['Status']+"</td></tr>";
+					html += "<tr><td>Creator</td><td>"+data['Creator']+"</td></tr>";
+					html += "<tr><td>Owner</td><td>"+data['Owner']+"</td></tr>";
+					html += "<tr><td>Created</td><td>"+data['Created']+"</td></tr>";
+					html += "<tr><td>Last Updated</td><td>"+data['LastUpdated']+"</td></tr>";
+					html += "</table>";
+					// html += "<tr><td></td><td></td></tr>";
+					// for(var i in data){
+					// 	html += i+"::"+data[i]+"<br/>";
+					// }
+					$("#taskboardBody").html(html);
+					$("#taskboardBody").html(html);
+				}
+			});
+			// var flag = 0;
+			// var data = this.data;
+			// console.log(data.length);
+			// for(var i=0; i< data.length; i++){
+			// 	if(data[i].ticketId === currentId){
+			// 		console.log("matched");
+			// 		flag = 1;
+			// 		break;
+			// 	}
+			// }
+			// if(flag == 0){ //ticket comments have to be fetched from the server
+			// 	this.ticketId.push(currentId);
+			// } else { // ticket comments found, request server for updates
+
+			// }
 		}
 
 	}
