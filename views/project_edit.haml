@@ -32,9 +32,9 @@
           %tbody{data: {bind: "foreach : statuses"}}
             %tr
               %td
-                %input{type: "text", data: {bind: "attr: {name: 'statuses[][kanban]'}"}}
+                %input{type: "text", data: {bind: "value: kanban , attr: {name: 'statuses[][kanban]'}"}}
               %td
-                %select{type: "text", data: {bind: "attr: {name: 'statuses[][RT]'}"}}
+                %select{type: "text", data: {bind: "value: RT , attr: {name: 'statuses[][RT]'}"}}
                   %option{value: '1'}New
                   %option{value: '2'}Open
                   %option{value: '3'}Stalled
@@ -62,12 +62,21 @@
   appdata['jsfiles'] = new Object();
   }
   appdata['jsfiles']['knockout-min-2.2.1'] = 1;
-  
-  var StatusMap = function(name){
+
+  var StatusMapModel = function(name){
     var self = this;
+    
+    var statusobj = #{@status};
+    self.statuses = ko.observableArray([]);
 
-    self.statuses = ko.observableArray([{'kanban':'', 'RT':''}]);
+    for(var i=0;i<statusobj.length; i++){
+      self.statuses.push({"kanban" : statusobj[i]['kanban'], "RT" : statusobj[i]['RT']});
+    }
 
+    if(!self.statuses.length) {
+      self.statuses.push({'kanban':'', 'RT':''});
+    }
+    
     self.addStatus = function(){
       self.statuses.push({'kanban':'', 'RT':''});
     }
@@ -77,4 +86,4 @@
     }
   }
 
-  ko.applyBindings(new StatusMap())
+  ko.applyBindings(new StatusMapModel())
