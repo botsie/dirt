@@ -1,0 +1,15 @@
+h4. Aging Macro
+
+Example:
+
+<pre>
+<~
+{
+  "type": "aging",
+  "queues":["linux-hosting", "linux-hosting-issues"],
+  "caption": "Ticket Aging"
+}
+~>
+</pre>
+
+p. Note that queues *must* be passed an Array, even if it is a single item array.

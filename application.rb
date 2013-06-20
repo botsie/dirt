@@ -160,7 +160,7 @@ module Dirt
     # Restapi related paths
     # -----------------------------------------------------------------
 
-    get '/api/v1.0/' do
+    get '/api/v1.0/?' do
       #respond only to ajax request
       if request.xhr?
         value = Dirt::RestapiController.show(params, session)
@@ -168,6 +168,14 @@ module Dirt
       else
         'Api responds only to ajax request'
       end 
+    end
+
+    # -----------------------------------------------------------------
+    # Static files related routes
+    # -----------------------------------------------------------------
+
+    get '/static/:page/?:subpage?' do
+      Dirt::StaticController.show(params, session)
     end
 
     # -----------------------------------------------------------------

@@ -1,0 +1,65 @@
+.row-fluid
+	.span3
+		.well
+			%ul.nav.nav-list
+				%li
+					%lable.tree-toggle.nav-header Project
+					%ul.nav.nav-list.tree
+						%li
+							%a{href: "/static/help/create_project"}Create a Project
+						%li
+							%a{href: "/static/help/edit_project"}Edit a Project
+						%li
+				%li.divider
+				%li
+					%lable.tree-toggle.nav-header Page
+					%ul.nav.nav-list.tree
+						%li
+							%a{href: "/static/help/create_page"}Create a Page
+						%li
+							%a{href: "/static/help/edit_page"}Edit a Page
+						%li
+				%li.divider
+				%li
+					%lable.tree-toggle.nav-header Macro
+					%ul.nav.nav-list.tree
+						%li
+							%lable.tree-toggle.nav-header Taskboard
+							%ul.nav.nav-list.tree
+								%li
+									%a{href: "/static/help/simple_taskboard"}Simple Taskboard Macro
+								%li
+									%a{href: "/static/help/kanban_taskboard"}Kanban Taskboard Macro
+						%li
+							%lable.tree-toggle.nav-header Charts
+							%ul.nav.nav-list.tree
+								%li
+									%a{href: "/static/help/pie_chart"}Pie chart Macro
+								%li
+									%a{href: "/static/help/bar_chart"}Bar chart Macro
+								%li
+									%a{href: "/static/help/line_chart"}Line chart Macro
+						%li
+							%lable.tree-toggle.nav-header Others
+							%ul.nav.nav-list.tree
+								%li
+									%a{href: "/static/help/table"}Table Macro
+								%li
+									%a{href: "/static/help/aging"}Aging Macro
+
+				%li.divider
+				%li
+					%lable.tree-toggle.nav-header SQL
+					%ul.nav.nav-list.tree
+						%li
+							%a{href: "/static/help/sql"}SQL interpretation
+
+
+	.span9
+		#{@page}
+
+:javascript
+	$('.tree-toggle').parent().children('ul.tree').toggle();
+	$('.tree-toggle').click(function () {
+		$(this).parent().children('ul.tree').toggle(200);
+	});
