@@ -9,6 +9,7 @@ require 'logger'
 require 'yaml'
 require 'uri'
 require 'json'
+require 'net/http'
 
 use Rack::Logger 
 
@@ -35,6 +36,28 @@ module Dirt
       raise "No configration found in #{file_name} for RACK_ENV environment '#{env}'. Check #{file_name} for valid values of RACK_ENV" if data.nil?
 
       data.inject({}) { |memo, (k,v)| memo[k.to_sym] = v; memo }
+    end
+
+    def self.http(path, method, data='')
+      uri = URI(Dirt::CONFIG[:rt_url]+"/REST/1.0/"+path)
+      req = Net::HTTP.new(uri.host, uri.port)
+      req.use_ssl = true
+      headers = {'Cookie' => session[:rt_cookie]}
+      
+      if !data.nil?
+        reqdata = ''
+        data.each do |key,value|
+          reqdata += key+"="+value+"&"
+        end
+      end
+
+      if(method =='GET')
+        resp = req.get( url.path, reqdata, headers)
+      elsif(method == 'POST')
+        resp = req.post( url.path, reqdata, headers) 
+      end
+
+      return resp
     end
 
     configure do

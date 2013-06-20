@@ -25,6 +25,8 @@
   info - gets information about a ticket from rt
 =end
 
+
+
 module Dirt
 
   class RestapiController < Dirt::Controller
@@ -62,11 +64,11 @@ module Dirt
 
       status = params[:status].downcase
       
-      statusrow = Dirt::Status.where(:status_name => status, :project_id => params[:projectId]).first
+      statusrow = Dirt::Status.where(:status_name => status, :project_id => params[:projectId]).join(:rt_statuses, :rt_status_id => :id).first
       
       if statusrow.nil?
         Dirt::Status.insert(:status_name => status, :project_id => params[:projectId], :rt_status_id => 2)
-        statusrow = Dirt::Status.where(:status_name => status, :project_id => params[:projectId]).first
+        statusrow = Dirt::Status.where(:status_name => status, :project_id => params[:projectId]).join(:rt_statuses, :rt_status_id => :id).first
       end
       
       statusId = statusrow[:id]
@@ -78,6 +80,10 @@ module Dirt
       else
         result = row.update(:status_id => statusId)
       end
+
+      # Done with dirt update - update rt db
+
+      Dirt::Application.http('/ticket/'+params[:ticketId]+"/edit", 'POST', {:Status => statusrow[:rt_status_name]})
 
       if result.nil?
         return {:status => "601" , :message => "Save failed"}
@@ -97,6 +103,14 @@ module Dirt
         return row
       end
     end
+
+    def comment(params)
+      ticketId = params[:ticketId]
+      msg = params[:msg]
+      res = Dirt::Application.http('ticket/'+ticketId+'comment', 'POST', {:content => {:comment => msg}})
+      return res
+    end
+
 
   end
 end
