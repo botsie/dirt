@@ -185,7 +185,7 @@ module Dirt
     not_found do
       Dirt::StaticController.show({:page => "notfound"}, session)
     end
-  
+
   end
 end
 
