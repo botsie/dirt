@@ -9,10 +9,10 @@ module Dirt
 
     # Class Methods
 
-    def self.to_html(text)
+    def self.to_html(text, project_name)
       data = JSON.load(text)
       type = camel_case(data['type']) + 'Macro'
-      Dirt.const_get(type).new(data).to_html
+      Dirt.const_get(type).new(data).to_html (project_name)
     end
 
     def self.camel_case(str)
@@ -53,7 +53,7 @@ module Dirt
   end
 
   class DumpMacro < Macro
-    def to_html
+    def to_html(project_name)
       "<notextile> DUMP: " + JSON.dump(@spec) + " </notextile>"
     end
   end

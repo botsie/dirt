@@ -1,0 +1,30 @@
+h4. SQL Interpolation
+
+In most places where you provide an complete or partial SQL statement as a parameter to a macro you can use the following macros to simplify things. Note that the macros are case sensitive.
+
+h5. %DATE()
+
+SQL Statements typically expect static dates:
+
+@SELECT * FROM expanded_tickets WHERE LastUpdated > '2012-08-15'@ 
+
+But for a dashboard you'll typically need a relative date. To answer the question, "show me a list of tickets updated in the last week" you can do this:
+
+@SELECT * FROM expanded_tickets WHERE LastUpdated > %DATE(last week)@ 
+
+You can write stuff like:
+
+* last week
+* yesterday
+* last week thursday
+* 4 o'clock last monday
+
+Dirt uses the ["Chronic":https://github.com/mojombo/chronic] gem to parse these description. See ["Chronic's examples":https://github.com/mojombo/chronic#examples] for a complete listing.
+
+h5. %AVG_DAYS_SINCE()
+
+Calculate the average number of days since a date field. Example:
+
+@SELECT Owner, %AVG_DAYS_SINCE(Created) FROM expanded_tickets GROUP BY Owner@
+
+to tabulate the average age of tickets per user.

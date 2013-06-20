@@ -20,6 +20,9 @@
     .controls
       %textarea.input-xlarge.span8{name:"tab_spec", placeholder:"Tab config for the project..", rows:"8"}=@project[:tab_spec]
   .form-actions
-    %input.btn.btn-primary{type: "submit", value:"Save"}
-    %a.btn{href: "/projects"}="Cancel"
-
+    .pull-left
+      %input.btn.btn-primary{type: "submit", value:"Save"}
+      %a.btn{href: "/projects"}="Cancel"
+      %a.btn{href: "/static/help/create_project"}
+        %i.icon-question-sign
+        Help

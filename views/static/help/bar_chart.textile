@@ -1,0 +1,21 @@
+h4. Bar Chart Macro
+
+* The group by column comes first in the SQL statement
+* The data column follows the group column
+* More than one data column can be plotted if 'group-sequence' is defined
+
+Example:
+
+<pre>
+<~
+{
+"type":"bar_chart",
+"direction":"vertical",
+"caption":"Barchart Caption",
+"sql":"SELECT Owner AS Name, COUNT(id) AS Count, %AVG_DAYS_SINCE(Created), %AVG_DAYS_SINCE(LastUpdated) FROM expanded_tickets WHERE Queue IN('linux-hosting', 'linux-hosting-issues', 'vps-hosting', 'vps-hosting-issues') AND Status IN('new','open','stalled') GROUP BY Owner",
+"source":"source of the data",
+"group-sequence": [ "count" , "avg days (created)", "avg days (updated)" ] ,
+"y-text":"some y-text"
+}
+~>
+</pre>

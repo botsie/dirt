@@ -1,0 +1,15 @@
+h4. Table Macro
+
+* Add a query using the following syntax:
+
+<pre>
+<~
+{
+  "type": "table",
+  "sql":"SELECT COUNT(id) AS Count, Owner AS Name FROM expanded_tickets WHERE Queue = 'linux-hosting' AND Status IN('new', 'open', 'stalled') GROUP BY Owner",
+  "caption": "Ticket Ownership"
+}
+~>
+</pre>
+
+p. Any arbitrary SQL statement querying the 'expanded_tickets' view can be used to report on tickets.

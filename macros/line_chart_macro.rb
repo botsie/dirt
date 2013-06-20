@@ -62,7 +62,7 @@ module Dirt
   end
 
   class LineChartMacro < Macro
-    def to_html
+    def to_html(project_name)
       # Get IDs of Parent Cards
       model = Dirt::LineChartMacroModel.new(@spec)
       content = haml :line_chart, model     
