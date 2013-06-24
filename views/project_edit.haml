@@ -108,14 +108,17 @@
 
 
 
-    var pageobj = #{@project[:tab_spec]};
-    console.log(pageobj);
+    var pageobj = #{@project[:tab_spec].nil? ? [{}]: @project[:tab_spec]};
     self.pages = ko.observableArray([]);
 
     for(var i=0;i<pageobj.length;i++){
       if(pageobj[i]['caption'] != "" && typeof pageobj[i]['caption'] != 'undefined'){
         self.pages.push({'caption': pageobj[i]['caption'] ,'page': pageobj[i]['page']});
       }
+    }
+
+    if(!self.pages.length) {
+      self.pages.push({'caption':'', 'page':''});
     }
     
     self.addPage = function(){
