@@ -70,7 +70,7 @@
     self.statuses = ko.observableArray([]);
 
     for(var i=0;i<statusobj.length; i++){
-      if (statusobj[i]['kanban'] != "" || typeof statusobj[i]['kanban'] != 'undefined'){
+      if (statusobj[i]['kanban'] != "" && typeof statusobj[i]['kanban'] != 'undefined'){
         self.statuses.push({"kanban" : statusobj[i]['kanban'], "RT" : statusobj[i]['RT']});
       }
     }
@@ -85,6 +85,20 @@
 
     self.removeStatus = function(status){
       self.statuses.remove(status);
+    }
+  }
+
+  var ProjectPageModel = function(){
+    var self = this;
+
+    // var pageobj = #{@pages};
+    self.pages = ko.observableArray([]);
+
+    self.addPage = function(){
+      self.pages.push({'caption':'', 'index':''});
+    }
+
+    self.removePage = function(){
     }
   }
 
