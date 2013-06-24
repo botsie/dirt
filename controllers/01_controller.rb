@@ -10,7 +10,7 @@ module Dirt
 
     attr_accessor :tab_spec , :session
 
-    def initialize (session)
+    def initialize (session=nil)
       @session = session
     end
 

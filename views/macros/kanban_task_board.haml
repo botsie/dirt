@@ -23,9 +23,12 @@
         - if(col.length<=1)
           %td{colspan: lcm_col/span[i], style: "width: #{(940/lcm_col)*lcm_col/span[i]}px;", status_name: col[0] ,data:{bind: " boxext : { name :'box' }"}}
             - getcardsfor(col[0]).each do |card|
-              .card-border{draggable: "true", ticketId: "#{card[:id]}", data: {target: "#comment_modal", toggle: "modal", bind: "click : handleClick , cardext :{ name :'#{card[:id]}'}"}}
+              .card-border{draggable: "true", ticketId: "#{card[:id]}", data: {target: "#comment_modal", toggle: "modal", bind: "cardext :{ name :'#{card[:id]}'}"}}
                 .card{class: card[:age_class]}
-                  %p="##{card[:id]}"
+                  .pull-left
+                    %p="##{card[:id]}"
+                  .pull-right
+                    %i.icon-eye{ticketId: "#{card[:id]}", data: {bind: "click : handleClick"}}
                   %p=card[:Owner]
                   -# %p=card[:LastUpdated]
                   %p
@@ -35,9 +38,12 @@
           -col[1].each do |subcat|
             %td{colspan: lcm_col/span[i], style: "width: #{(940/lcm_col)*lcm_col/span[i]}px;", status_name: subcat[0] , data:{bind: " boxext : { name : 'box' }"}}
               - getcardsfor(subcat[0]).each do |card|
-                .card-border{draggable: "true", ticketId: "#{card[:id]}", data: {target: "#comment_modal", toggle: "modal", bind: "click : handleClick , cardext :{ name :'#{card[:id]}'}"}}
+                .card-border{draggable: "true", ticketId: "#{card[:id]}", data: {target: "#comment_modal", toggle: "modal", bind: "cardext :{ name :'#{card[:id]}'}"}}
                   .card{class: card[:age_class]}
-                    %p="##{card[:id]}"
+                    .pull-left
+                      %p="##{card[:id]}"
+                    .pull-right
+                      %i.icon-eye{ticketId: "#{card[:id]}", data: {bind: "click : handleClick"}}
                     %p=card[:Owner]
                     -# %p=card[:LastUpdated]
                     %p
@@ -51,9 +57,12 @@
     %tr
       %td{class: "span12", colspan: "span12", data:{bind: "boxext :{ name :'box'}"}}
         - getunclassified.each do |card|
-          .card-border{draggable: "true", ticketId: "#{card[:id]}", data: {target: "#comment_modal", toggle: "modal", bind: "click : handleClick , cardext :{ name :'#{card[:id]}'}"}}
+          .card-border{draggable: "true", ticketId: "#{card[:id]}", data: {target: "#comment_modal", toggle: "modal", bind: "cardext :{ name :'#{card[:id]}'}"}}
             .card{class: card[:age_class]}
-              %p="##{card[:id]}"
+              .pull-left
+                %p="##{card[:id]}"
+              .pull-right
+                %i.icon-eye{ticketId: "#{card[:id]}", data: {bind: "click : handleClick"}}
               %p=card[:Owner]
               -# %p=card[:LastUpdated]
               %p

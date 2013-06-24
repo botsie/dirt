@@ -64,11 +64,11 @@ module Dirt
 
       status = params[:status].downcase
       
-      statusrow = Dirt::Status.where(:status_name => status, :project_id => params[:projectId]).join(:rt_statuses, :rt_status_id => :id).first
+      statusrow = Dirt::Status.where(:status_name => status, :project_id => params[:projectId]).first
       
       if statusrow.nil?
         Dirt::Status.insert(:status_name => status, :project_id => params[:projectId], :rt_status_id => 2)
-        statusrow = Dirt::Status.where(:status_name => status, :project_id => params[:projectId]).join(:rt_statuses, :rt_status_id => :id).first
+        statusrow = Dirt::Status.where(:status_name => status, :project_id => params[:projectId]).first
       end
       
       statusId = statusrow[:id]
@@ -78,12 +78,13 @@ module Dirt
       if row.nil?
         result = Dirt::StatusTicket.insert(:ticket_id => params[:ticketId], :status_id => statusId)
       else
-        result = row.update(:status_id => statusId)
+        Dirt::StatusTicket.where(:ticket_id => params[:ticketId]).update(:status_id => statusId)
+        result = Dirt::StatusTicket.where(:ticket_id => params[:ticketId]).first
       end
 
       # Done with dirt update - update rt db
 
-      Dirt::Application.http('/ticket/'+params[:ticketId]+"/edit", 'POST', {:Status => statusrow[:rt_status_name]})
+      # Dirt::Application.http('/ticket/'+params[:ticketId]+"/edit", 'POST', {:Status => statusrow[:rt_status_name]})
 
       if result.nil?
         return {:status => "601" , :message => "Save failed"}

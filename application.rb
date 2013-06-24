@@ -185,12 +185,12 @@ module Dirt
 
     get '/api/v1.0/?' do
       #respond only to ajax request
-      if request.xhr?
+      # if request.xhr?
         value = Dirt::RestapiController.show(params, session)
         return value.to_json
-      else
-        'Api responds only to ajax request'
-      end 
+      # else
+        # 'Api responds only to ajax request'
+      # end 
     end
 
     # -----------------------------------------------------------------

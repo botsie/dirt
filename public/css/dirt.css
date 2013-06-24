@@ -123,6 +123,14 @@ body>.container {
     visibility: hidden;
 }
 
+.icon-eye {
+  display: inline-block;
+  background-image: url("/images/btn-sprite.png");
+  background-position: 0px 0px;
+  height: 13px;
+  width: 13px;
+}
+
 /* Over ride bootstrap css */
 .wiki-page-content [class*=span], .wiki-page-content {
     margin-left: 0px;
@@ -150,3 +158,4 @@ body>.container {
      -moz-background-clip: padding-box;
           background-clip: padding-box;
 }
+
