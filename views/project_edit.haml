@@ -18,7 +18,26 @@
   .control-group
     %label.control-label{:for => "tab_spec"} Tab Configuration
     .controls
-      %textarea.input-xlarge.span8{name:"tab_spec", placeholder:"Tab config for the project..", rows:"8"}=@project[:tab_spec]
+      .row-fluid
+        %table.table-striped.table-condensed
+          %thead
+            %tr
+              %th Page Caption
+              %th Page Name
+              %th
+          %tbody{data: {bind: "foreach : pages"}}
+            %tr
+              %td
+                %input{type: "text", data: {bind: "value: caption , attr: {name: 'pages[][caption]'}"}}
+              %td
+                %input{type: "text", data: {bind: "value: page , attr: {name: 'pages[][page]'}"}}
+              %td
+                .pull-right
+                  %a.close{data: {bind: "click: $root.removePage"}} &times;
+          %tr
+            %td
+            %td.pull-right
+              %a.btn.btn-success{data: {bind: "click: $root.addPage"}} Add Another Page
   .control-group
     %label.control-label{:for => "status"} Status Map
     .controls
@@ -63,7 +82,7 @@
   }
   appdata['jsfiles']['knockout-min-2.2.1'] = 1;
 
-  var StatusMapModel = function(name){
+  var StatusMapAndPageModel = function(name){
     var self = this;
     
     var statusobj = #{@status};
@@ -86,20 +105,26 @@
     self.removeStatus = function(status){
       self.statuses.remove(status);
     }
-  }
 
-  var ProjectPageModel = function(){
-    var self = this;
 
-    // var pageobj = #{@pages};
+
+    var pageobj = #{@project[:tab_spec]};
+    console.log(pageobj);
     self.pages = ko.observableArray([]);
 
+    for(var i=0;i<pageobj.length;i++){
+      if(pageobj[i]['caption'] != "" && typeof pageobj[i]['caption'] != 'undefined'){
+        self.pages.push({'caption': pageobj[i]['caption'] ,'page': pageobj[i]['page']});
+      }
+    }
+    
     self.addPage = function(){
-      self.pages.push({'caption':'', 'index':''});
+      self.pages.push({'caption':'', 'page':''});
     }
 
-    self.removePage = function(){
+    self.removePage = function(page){
+      self.pages.remove(page);
     }
+    
   }
-
-  ko.applyBindings(new StatusMapModel())
+  ko.applyBindings(new StatusMapAndPageModel());

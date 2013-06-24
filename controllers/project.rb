@@ -25,12 +25,15 @@ module Dirt
     end
 
     def save(params)
+      tabs = params[:pages]
+      tabs.delete_if { |page| page['caption']=="" || page['page']==""}
+      
       Dirt::Project.persist(
         :id => params[:id],
         :name => params[:name],
         :identifier => params[:identifier],
         :description => params[:description],
-        :tab_spec => params[:tab_spec]
+        :tab_spec => tabs.to_json
         )
 
       oldstatuses = Dirt::Status.where(:project_id => params[:id]).all
