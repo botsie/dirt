@@ -162,6 +162,7 @@ module Dirt
     def shorten(str)
       max_length = 27
       if str.length > max_length
+        str.insert(14,"- ") if str.index(' ')>14
         return str[0..max_length] << "..."
       else
         return str
@@ -195,7 +196,7 @@ module Dirt
   end
 
   class SimpleTaskBoardMacro < Macro
-    def to_html
+    def to_html(project_name)
       # Get IDs of Parent Cards
       model = Dirt::SimpleTaskBoardMacroModel.new(@spec)
       content = haml :simple_task_board, model     

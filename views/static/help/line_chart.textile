@@ -1,0 +1,20 @@
+h4. Line Chart Macro
+
+* The group by column comes first in the SQL statement
+* The data column follows the group column
+* If more than one data column in received, only the 1st data column is used to generate the graph
+* *Tip:* Frequence graph can obtained by ordering according to the data column
+
+Example:
+
+<pre>
+<~
+{
+"type":"line_chart",
+"caption":"Linechart Caption",
+"sql":"SELECT COUNT(id) AS Count, %AVG_DAYS_SINCE(Created)  FROM expanded_tickets WHERE Queue IN('linux-hosting', 'linux-hosting-issues', 'vps-hosting', 'vps-hosting-issues') AND Status IN('new','open','stalled') GROUP BY Owner ORDER BY AVG_DAYS_SINCE_CREATED",
+"group-sequence": [ "count" ] ,
+"y-text":"some y-text"
+}
+~>
+</pre>

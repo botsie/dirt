@@ -82,24 +82,6 @@ body>.container {
     cursor: pointer;
 }
 
-/*
-.card-subject:hover:after {
-    content: attr(title);
-    position: absolute;
-    white-space: nowrap;
-    background: rgba(0, 0, 0, 0.85);
-    padding: 3px 7px;
-    color: #FFF;
-    border-radius: 3px;
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
-    margin-left: 7px;
-    margin-top: -3px;
-}
-
-*/
-
-
 .old {
     border-left: 1em solid #DF4F49;
 }
@@ -112,3 +94,59 @@ body>.container {
     border-left: 1em solid #5BB75B;
 }
 
+.kanban th {
+    text-align: center;
+}
+
+.kanban .subcat {
+    font-weight: bold;
+    width: 100%;
+    text-align: center;
+    background-color: #eaeaea;
+    margin: 0px;
+    padding: 0px;
+}
+
+.sn {
+    min-height: 79px;
+    width: 0px;
+    display: block;
+    float: left;
+}
+
+#ajax-status {
+    position: fixed;
+    top: 43px ;
+    right: 20px;
+    padding: 3px;
+    border: none;
+    visibility: hidden;
+}
+
+/* Over ride bootstrap css */
+.wiki-page-content [class*=span], .wiki-page-content {
+    margin-left: 0px;
+}
+
+#taskboardModal {
+  position: fixed;
+  top: 80px;
+  left: 50%;
+  z-index: 1050;
+  width: 960px;
+  margin: 0 0 0 -480px;
+  background-color: #ffffff;
+  border: 1px solid #999;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  *border: 1px solid #999;
+  -webkit-border-radius: 6px;
+     -moz-border-radius: 6px;
+          border-radius: 6px;
+  outline: none;
+  -webkit-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+     -moz-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+          box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+  -webkit-background-clip: padding-box;
+     -moz-background-clip: padding-box;
+          background-clip: padding-box;
+}

@@ -1,0 +1,16 @@
+h4. Simple Taskboard Macro
+
+Example:
+
+<pre>
+<~
+{
+  "type":"simple_task_board",
+  "caption":"Taskboard",
+  "group_by":"Status",
+  "group_sequence":["new","open","stalled"],
+  "ticket_selector":"Queue = 'linux-hosting'",
+  "resolved_after":"1 week ago"
+}
+~>
+</pre>

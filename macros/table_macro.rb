@@ -7,7 +7,7 @@ require 'chronic'
 module Dirt
 
   class TableMacro < Macro
-    def to_html
+    def to_html(project_name)
       sql = @spec['sql']
       rows = Dirt::RT_DB[sql].all
 
