@@ -13,7 +13,7 @@
   .wiki-page-header
     %h4="Edit: #{@project}/#{@page_name}"
   .wiki-page-content
-    %form.form-horizontal{action: "/projects/#{@project}/pages/#{@page_name}/save", method: "post"}
+    %form.form-horizontal{action: "/projects/#{@project}/pages/#{@page_name}/save", method: "post", name: "page_form"}
       %input{type:"hidden", name: "id", value: "#{@page[:id]}"}
       %input{type:"hidden", name: "project_id", value: "#{@page[:project_id]}"}
       %input{type:"hidden", name: "page_name", value: "#{@page_name}"}
@@ -27,6 +27,7 @@
             %input.btn.btn-primary{type: "submit", value:"Save"}
       .control-group
         %textarea.input-xlarge.span12{name: 'content', cols: 300, rows: 24}=@page[:content]
+        #ace-editor
       .control-group
         .controls
           .pull-right
@@ -35,3 +36,24 @@
               Help
             %a.btn{href: "/projects/#{@project}/pages/#{@page_name}"}="Cancel"
             %input.btn.btn-primary{type: "submit", value:"Save"}
+
+%script( type="text/javascript" src="/ace/ace.js")
+:javascript
+  $(function(){
+    var editor = ace.edit("ace-editor");
+    var textarea = $("textarea[name=content]").hide();
+    editor.getSession().setValue(textarea.val());
+    editor.getSession().setMode('ace/mode/jsoniq');
+    editor.setTheme('ace/theme/github');
+    editor.getSession().on('change', function(){
+      textarea.val(editor.getSession().getValue());
+    });
+
+    editor.commands.addCommand({
+      name: 'save',
+      bindKey: {win: 'Ctrl-S',  mac: 'Command-S'},
+      exec: function(editor) {
+        $("form[name=page_form]").submit();
+      }
+    });
+  });
