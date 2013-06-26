@@ -18,12 +18,12 @@ module Dirt
         end
         result = self.where(:status_name => args[:status_name], :project_id => project_id).first
         if(result.nil?)
-          self.insert(:status_name => args[:status_name], :project_id => project_id, :rt_status_id => args[:rt_status_id])
+          self.insert(:status_name => args[:status_name], :project_id => project_id, :rt_status_id => args[:rt_status_id], :max_tickets => args[:max_tickets])
         else
-          result.update(:status_name => args[:status_name], :rt_status_id => args[:rt_status_id])
+          result.update(:status_name => args[:status_name], :rt_status_id => args[:rt_status_id], :max_tickets => args[:max_tickets])
         end
       else
-        self.where(:id => args[:id]).update(:status_name => args[:status_name], :rt_status_id => args[:rt_status_id])
+        self.where(:id => args[:id]).update(:status_name => args[:status_name], :rt_status_id => args[:rt_status_id], :max_tickets => args[:max_tickets])
       end
     end
 

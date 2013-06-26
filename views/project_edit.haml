@@ -47,6 +47,7 @@
             %tr
               %th Kanban Status
               %th RT Status
+              %th Max no.of tickets
               %th
           %tbody{data: {bind: "foreach : statuses"}}
             %tr
@@ -61,9 +62,12 @@
                   %option{value: '5'}Rejected
                   %option{value: '6'}Deleted
               %td
+                %input{type: "number", data: {bind: "value: max_tickets, attr: {name: 'statuses[][max_tickets]', style: 'width : 140px;'}"}}
+              %td
                 .pull-right
                   %a.close{data: {bind: "click: $root.removeStatus"}} &times;
           %tr
+            %td
             %td
             %td.pull-right
               %a.btn.btn-success{data: {bind: "click: $root.addStatus"}} Add Another Status
@@ -90,16 +94,16 @@
 
     for(var i=0;i<statusobj.length; i++){
       if (statusobj[i]['kanban'] != "" && typeof statusobj[i]['kanban'] != 'undefined'){
-        self.statuses.push({"kanban" : statusobj[i]['kanban'], "RT" : statusobj[i]['RT']});
+        self.statuses.push({"kanban" : statusobj[i]['kanban'], "RT" : statusobj[i]['RT'], "max_tickets" : statusobj[i]['max_tickets']});
       }
     }
 
     if(!self.statuses.length) {
-      self.statuses.push({'kanban':'', 'RT':''});
+      self.statuses.push({'kanban':'', 'RT':'', 'max_tickets':''});
     }
     
     self.addStatus = function(){
-      self.statuses.push({'kanban':'', 'RT':''});
+      self.statuses.push({'kanban':'', 'RT':'', 'max_tickets':''});
     }
 
     self.removeStatus = function(status){

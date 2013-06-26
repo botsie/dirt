@@ -18,7 +18,7 @@ module Dirt
       status = @new ? Hash.new : Dirt::Status.where(:project_id => @project[:id]).all
       @status = Array.new;
       status.each do |val|
-        @status.push({:kanban => val[:status_name], :RT => val[:rt_status_id]})
+        @status.push({:kanban => val[:status_name], :RT => val[:rt_status_id], :max_tickets => val[:max_tickets]})
       end
       @status = @status.to_json
       haml :project_edit
@@ -67,13 +67,13 @@ module Dirt
           flag = 0
           if !oldstatuses.nil?
             oldstatuses.each do |oldstatus|
-              if oldstatus[:status_name] == newstatus["kanban"] && oldstatus[:rt_status_id].to_i != newstatus["RT"].to_i
-                Dirt::Status.where(:id => oldstatus[:id]).update(:rt_status_id => newstatus["RT"])
+              if oldstatus[:status_name] == newstatus["kanban"] && (oldstatus[:rt_status_id].to_i != newstatus["RT"].to_i || oldstatuses[:max_tickets].to_i != newstatus["max_tickets"])
+                Dirt::Status.where(:id => oldstatus[:id]).update(:rt_status_id => newstatus["RT"], :max_tickets => newstatus["max_tickets"])
                 flag = 1
               end
             end
             if !newstatus["kanban"].empty? && flag==0
-              Dirt::Status.persist(:project_id => params[:id], :status_name => newstatus["kanban"] , :rt_status_id => newstatus["RT"])
+              Dirt::Status.persist(:project_id => params[:id], :status_name => newstatus["kanban"] , :rt_status_id => newstatus["RT"], :max_tickets => newstatus["max_tickets"])
             end
           end
         end
