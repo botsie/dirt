@@ -18,7 +18,59 @@
   .control-group
     %label.control-label{:for => "tab_spec"} Tab Configuration
     .controls
-      %textarea.input-xlarge.span8{name:"tab_spec", placeholder:"Tab config for the project..", rows:"8"}=@project[:tab_spec]
+      .row-fluid
+        %table.table-striped.table-condensed
+          %thead
+            %tr
+              %th Page Caption
+              %th Page Name
+              %th
+          %tbody{data: {bind: "foreach : pages"}}
+            %tr
+              %td
+                %input{type: "text", data: {bind: "value: caption , attr: {name: 'pages[][caption]'}"}}
+              %td
+                %input{type: "text", data: {bind: "value: page , attr: {name: 'pages[][page]'}"}}
+              %td
+                .pull-right
+                  %a.close{data: {bind: "click: $root.removePage"}} &times;
+          %tr
+            %td
+            %td.pull-right
+              %a.btn.btn-success{data: {bind: "click: $root.addPage"}} Add Another Page
+  .control-group
+    %label.control-label{:for => "status"} Status Map
+    .controls
+      .row-fluid
+        %table.table-striped.table-condensed
+          %thead
+            %tr
+              %th Kanban Status
+              %th RT Status
+              %th Max no.of tickets
+              %th
+          %tbody{data: {bind: "foreach : statuses"}}
+            %tr
+              %td
+                %input{type: "text", data: {bind: "value: kanban , attr: {name: 'statuses[][kanban]'}"}}
+              %td
+                %select{type: "text", data: {bind: "value: RT , attr: {name: 'statuses[][RT]'}"}}
+                  %option{value: '1'}New
+                  %option{value: '2'}Open
+                  %option{value: '3'}Stalled
+                  %option{value: '4'}Resolved
+                  %option{value: '5'}Rejected
+                  %option{value: '6'}Deleted
+              %td
+                %input{type: "number", data: {bind: "value: max_tickets, attr: {name: 'statuses[][max_tickets]', style: 'width : 140px;'}"}}
+              %td
+                .pull-right
+                  %a.close{data: {bind: "click: $root.removeStatus"}} &times;
+          %tr
+            %td
+            %td
+            %td.pull-right
+              %a.btn.btn-success{data: {bind: "click: $root.addStatus"}} Add Another Status
   .form-actions
     .pull-left
       %input.btn.btn-primary{type: "submit", value:"Save"}
@@ -26,3 +78,63 @@
       %a.btn{href: "/static/help/create_project"}
         %i.icon-question-sign
         Help
+
+%script( type="text/javascript" src="/js/knockout-min-2.2.1.js")
+:javascript
+  if(typeof appdata === 'undefined'){
+    appdata = new Object();
+  }
+  if(typeof appdata['jsfiles'] === 'undefined'){
+  appdata['jsfiles'] = new Object();
+  }
+  appdata['jsfiles']['knockout-min-2.2.1'] = 1;
+
+  var StatusMapAndPageModel = function(name){
+    var self = this;
+    
+    var statusobj = #{@status};
+    self.statuses = ko.observableArray([]);
+
+    for(var i=0;i<statusobj.length; i++){
+      if (statusobj[i]['kanban'] != "" && typeof statusobj[i]['kanban'] != 'undefined'){
+        self.statuses.push({"kanban" : statusobj[i]['kanban'], "RT" : statusobj[i]['RT'], "max_tickets" : statusobj[i]['max_tickets']});
+      }
+    }
+
+    if(!self.statuses.length) {
+      self.statuses.push({'kanban':'', 'RT':'', 'max_tickets':''});
+    }
+    
+    self.addStatus = function(){
+      self.statuses.push({'kanban':'', 'RT':'', 'max_tickets':''});
+    }
+
+    self.removeStatus = function(status){
+      self.statuses.remove(status);
+    }
+
+
+
+    var pageobj = #{@project[:tab_spec].nil? ? [{}]: @project[:tab_spec]};
+    self.pages = ko.observableArray([]);
+
+    for(var i=0;i<pageobj.length;i++){
+      if(pageobj[i]['caption'] != "" && typeof pageobj[i]['caption'] != 'undefined'){
+        self.pages.push({'caption': pageobj[i]['caption'] ,'page': pageobj[i]['page']});
+      }
+    }
+
+    if(!self.pages.length) {
+      self.pages.push({'caption':'', 'page':''});
+    }
+    
+    self.addPage = function(){
+      self.pages.push({'caption':'', 'page':''});
+    }
+
+    self.removePage = function(page){
+      self.pages.remove(page);
+    }
+    
+  }
+  ko.applyBindings(new StatusMapAndPageModel());

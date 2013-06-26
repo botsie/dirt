@@ -65,7 +65,7 @@ module Dirt
       statusrow = Dirt::Status.where(:status_name => status, :project_id => params[:projectId]).first
       
       if statusrow.nil?
-        Dirt::Status.insert(:status_name => status, :project_id => params[:projectId], :rt_status_id => 2)
+        Dirt::Status.insert(:status_name => status, :project_id => params[:projectId], :rt_status_id => 2, :max_tickets => 0)
         statusrow = Dirt::Status.where(:status_name => status, :project_id => params[:projectId]).first
       end
       
