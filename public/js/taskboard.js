@@ -96,11 +96,26 @@
 		}
 	});
 
-	var comments = {
-		data : ko.observableArray([]),
-		ticketId : [],
-		currentId : "",
-		handleClick : function(data, event){
+	var taskboard = function(){
+		var self = this;
+
+		self.data = ko.observableArray([]);
+		self.ticketId = new Array;
+		self.currentId = "";
+		
+		self.newcomment = function(data, event){
+			// var target  = $(event.target).closest(".card-border");
+			// if(typeof target.attr('ticketId') != 'undefined' && target.attr('ticketId') != null ){
+			// 	$(target).popover({
+			// 		html : "<textarea name='msg'></textarea>",
+			// 		title: "some title",
+			// 	})x;
+			// 	$(target).popover('show');
+			// 	console.log("opening");
+			// }
+		}
+
+		self.showInfo = function(data, event){
 			// get ticket id from event.target and check if its available in the data array
 			// if available check for updates
 			// if not get comments from server
@@ -161,6 +176,6 @@
 
 	}
 
-	ko.applyBindings(comments);
+	ko.applyBindings(new taskboard);
 
 })(window, window.document ,ko);
