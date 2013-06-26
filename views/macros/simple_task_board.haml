@@ -10,9 +10,9 @@
         %p="##{stream[:id]}"
         %p=stream[:Subject]
       - lanes.each do |lane|
-        %td
+        %td{data:{bind: "boxext :{ name :'box'}"}}
           - stream_cards(:stream => stream, :lane => lane).each do |card|  
-            .card-border
+            .card-border{draggable: "true", ticketId: "#{card[:id]}", data: {target: "#comment_modal", toggle: "modal", bind: "click : handleClick , cardext :{ name :'#{card[:id]}'}"}}
               .card{class: card[:age_class]}
                 %p="##{card[:id]}"
                 %p=card[:Owner]
@@ -22,9 +22,9 @@
   %tr
     %th="Miscellaneous Tasks"
     - lanes.each do |lane|
-      %td
+      %td{data:{bind: "boxext :{ name :'box'}"}}
         - misc_cards(:lane => lane).each do |card|  
-          .card-border
+          .card-border{draggable: "true", ticketId: "#{card[:id]}", data: {target: "#comment_modal", toggle: "modal", bind: "click : handleClick , cardext :{ name :'#{card[:id]}'}"}}
             .card{class: card[:age_class]}
               %p="##{card[:id]}"
               %p=card[:Owner]
@@ -32,7 +32,14 @@
               %p
                 %span.card-subject(title="#{card[:Subject]}")=card[:short_subject]
 
+#comment_modal.modal.hide.fade
+  .modal-header
+    %button.close{type: "button", data:{dismiss: "modal"}} x
+    %h3 Some heading
+  .modal-body
+    %p Some thing about the ticket
+    %p comments
+  .modal-footer
+    %button.btn.btn-primary{data: {dismiss: "modal"}} Close
 
-%script{src: "/js/ko.min-2.2.1.js?version=#{rand(5)}"}
-%script{src: "/js/taskboard.js?version=#{rand(5)}"}
     

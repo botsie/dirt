@@ -67,7 +67,7 @@ module Dirt
   end
 
   class BarChartMacro < Macro
-    def to_html
+    def to_html(project_name)
       # Get IDs of Parent Cards
       model = Dirt::BarChartMacroModel.new(@spec)
       content = haml :bar_chart, model     

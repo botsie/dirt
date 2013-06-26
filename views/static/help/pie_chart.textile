@@ -1,0 +1,17 @@
+h4. Pie Chart Macro
+
+* The group by column comes first in the SQL statement
+* The data column follows the group column
+* If more than one data column in received, only the 1st data column is used to generate the graph
+
+Example:
+
+<pre>
+<~
+{
+"type":"pie_chart",
+"caption":"Piechart Caption",
+"sql": "SELECT Owner AS Name, COUNT(id) AS Count  FROM expanded_tickets WHERE Queue IN('linux-hosting', 'linux-hosting-issues', 'vps-hosting', 'vps-hosting-issues') AND Status IN('new','open','stalled') GROUP BY Owner"
+}
+~>
+</pre>

@@ -67,7 +67,9 @@ module Dirt
           flag = 0
           if !oldstatuses.nil?
             oldstatuses.each do |oldstatus|
-              if oldstatus[:status_name] == newstatus["kanban"] && (oldstatus[:rt_status_id].to_i != newstatus["RT"].to_i || oldstatuses[:max_tickets].to_i != newstatus["max_tickets"])
+              oldstatus[:max_tickets] = 0 if oldstatus[:max_tickets].nil?
+              newstatus["max_tickets"] = 0 if newstatus["max_tickets"].nil?
+              if oldstatus[:status_name] == newstatus["kanban"] && (oldstatus[:rt_status_id].to_i != newstatus["RT"].to_i || oldstatus[:max_tickets].to_i != newstatus["max_tickets"].to_i)
                 Dirt::Status.where(:id => oldstatus[:id]).update(:rt_status_id => newstatus["RT"], :max_tickets => newstatus["max_tickets"])
                 flag = 1
               end

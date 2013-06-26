@@ -4,7 +4,7 @@ Sequel.migration do
       primary_key :id
       String :status_name, :null=>false
       Integer :project_id
-      Integer :rt_status_id
+      Integer :rt_status_id, :null=>false
       Integer :max_tickets
     end
   end

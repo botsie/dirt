@@ -23,7 +23,7 @@ module Dirt
           result.update(:status_name => args[:status_name], :rt_status_id => args[:rt_status_id], :max_tickets => args[:max_tickets])
         end
       else
-        self.where(:id => args[:id]).update(:status_name => args[:status_name], :rt_status_id => args[:rt_status_id], :max_tickets => args[:max_tickets])
+        self.where(:id => args[:id]).update(:status_name => args[:status_name], :rt_status_id => args[:rt_status_id], :max_tickets => args[:max_tickets].nil? ? 0 : args[:max_tickets])
       end
     end
 

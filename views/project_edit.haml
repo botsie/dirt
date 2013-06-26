@@ -72,9 +72,12 @@
             %td.pull-right
               %a.btn.btn-success{data: {bind: "click: $root.addStatus"}} Add Another Status
   .form-actions
-    %input.btn.btn-primary{type: "submit", value:"Save"}
-    %a.btn{href: "/projects"}="Cancel"
-
+    .pull-left
+      %input.btn.btn-primary{type: "submit", value:"Save"}
+      %a.btn{href: "/projects"}="Cancel"
+      %a.btn{href: "/static/help/create_project"}
+        %i.icon-question-sign
+        Help
 
 %script( type="text/javascript" src="/js/knockout-min-2.2.1.js")
 :javascript
