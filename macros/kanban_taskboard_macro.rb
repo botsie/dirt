@@ -234,6 +234,22 @@ module Dirt
         ((!defined? card[:status_name])||(card[:status_name]).nil?)
       end
     end
+
+    def statuses
+      return @statuses unless @statuses.nil?
+      @statuses = Dirt::Status.where(:project_id => @spec[:project_id]).all
+    end
+
+    def getlimitfor(specname)
+      statuses
+      @statuses.each do |status|
+        if status[:status_name].to_s.downcase == specname.to_s.downcase
+          return status[:max_tickets].to_i
+        end
+      end
+      return 0
+    end
+
   end
 
   class KanbanTaskBoardMacro < Macro

@@ -21,7 +21,7 @@
     %tr    
       - row.each do |col|
         - if(col.length<=1)
-          %td{colspan: lcm_col/span[i], style: "width: #{(940/lcm_col)*lcm_col/span[i]}px;", status_name: col[0] ,data:{bind: " boxext : { name :'box' }"}}
+          %td{colspan: lcm_col/span[i], style: "width: #{(940/lcm_col)*lcm_col/span[i]}px;", status_name: col[0] ,limit: getlimitfor(col[0]) ,data:{bind: " boxext : { name :'box' }"}}
             - getcardsfor(col[0]).each do |card|
               .card-border{draggable: "true", ticketId: "#{card[:id]}", data: {target: "#comment_modal", toggle: "modal", bind: "click: newcomment, cardext :{ name :'#{card[:id]}'}"}}
                 .card{class: card[:age_class]}
@@ -36,7 +36,7 @@
             .sn
         - if(col.length>1)
           -col[1].each do |subcat|
-            %td{colspan: lcm_col/span[i], style: "width: #{(940/lcm_col)*lcm_col/span[i]}px;", status_name: subcat[0] , data:{bind: " boxext : { name : 'box' }"}}
+            %td{colspan: lcm_col/span[i], style: "width: #{(940/lcm_col)*lcm_col/span[i]}px;", status_name: subcat[0], limit: getlimitfor(subcat[0]), data:{bind: " boxext : { name : 'box' }"}}
               - getcardsfor(subcat[0]).each do |card|
                 .card-border{draggable: "true", ticketId: "#{card[:id]}", data: {target: "#comment_modal", toggle: "modal", bind: "click: newcomment, cardext :{ name :'#{card[:id]}'}"}}
                   .card{class: card[:age_class]}
@@ -55,7 +55,7 @@
     %tr
       %th{class: "span12", colspan: "span12", style: "background-color: #efefef;"}Unclassified
     %tr
-      %td{class: "span12", colspan: "span12", data:{bind: "boxext :{ name :'box'}"}}
+      %td{class: "span12", colspan: "span12", limit: "0", data:{bind: "boxext :{ name :'box'}"}}
         - getunclassified.each do |card|
           .card-border{draggable: "true", ticketId: "#{card[:id]}", data: {target: "#comment_modal", toggle: "modal", bind: "click: newcomment, cardext :{ name :'#{card[:id]}'}"}}
             .card{class: card[:age_class]}

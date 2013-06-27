@@ -38,6 +38,7 @@ body>.container {
     font-size: 9px;
     margin: 2px;
     float: left;
+    z-index: 10;
 }
 
 .card {

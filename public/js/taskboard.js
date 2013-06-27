@@ -64,29 +64,48 @@
 						if(event.target.getAttribute("data-bind") != null)
 							if(event.target.getAttribute("data-bind").match(/boxext/).length > 0) flag=1; 
   					}
-  					if(flag) {
-  						event.target.appendChild(dragitem);
+  					var child = $(event.target).children(".card-border");
+  					var limit = event.target.getAttribute("limit");
+
+  					if(flag && child.length >= limit && limit!=0){
+  						flag = 0;
+  						var msg = document.createElement('div');
+  						msg.setAttribute("class", "alert alert-msg alert-error");
+  						msg.setAttribute("style", "z-index:10; float:left;");
+  						msg.innerHTML = "<button type='button' class='close' data-dismiss='alert'>&times;</button><strong>Warning!</strong> This queue has reached its limit.";
+  						event.target.appendChild(msg);
+  						window.setTimeout(function(){
+  							$(".alert-msg").fadeTo(500, 0).slideUp(500, function(){
+  								$(this).remove(); 
+  							});
+  						},2000);
+
+  					}else{
+	  					if(flag) {
+	  						event.target.appendChild(dragitem);
+	  					}
+
+	  					$("ajax-status").show();
+	  					// parameters to be sent to the restapi 
+	  					// projectid , statusname , ticketid, query
+
+	  					$.ajax({
+	  						url: "/api/v1.0/",
+	  						method: "get",
+	  						dataType: "JSON",
+	  						data: {
+	  							"query" : "status",
+	  							"ticketId" : dragitem.getAttribute('ticketId'),
+	  							"status" : event.target.getAttribute("status_name"),
+	  							"projectId" : appdata['project_id']
+	  						},
+	  						success: function(data){
+	  							$("ajax-status").hide();
+	  							//console.log(data)
+	  						}
+	  					});
   					}
 
-  					$("ajax-status").show();
-  					// parameters to be sent to the restapi 
-  					// projectid , statusname , ticketid, query
-
-  					$.ajax({
-  						url: "/api/v1.0/",
-  						method: "get",
-  						dataType: "JSON",
-  						data: {
-  							"query" : "status",
-  							"ticketId" : dragitem.getAttribute('ticketId'),
-  							"status" : event.target.getAttribute("status_name"),
-  							"projectId" : appdata['project_id']
-  						},
-  						success: function(data){
-  							$("ajax-status").hide();
-  							//console.log(data)
-  						}
-  					});
 
 				});
 			}
