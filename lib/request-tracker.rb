@@ -44,8 +44,10 @@ module Dirt
           return response['set-cookie'].split('; ')[0]
         elsif response.body.split('\n').first =~ /401 Credentials required/ then
           raise "Your username or password is incorrect"
+        elsif response.body.split('\n').first =~ /401 Credentials required/ then
+          raise "Your have insufficient RT privileges"
         else
-          raise response.body
+          raise "Got #{response.code} #{response.message} when trying to #{@base_url} body='#{response.body}'"
         end
       end
 

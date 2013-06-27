@@ -5,6 +5,7 @@ Sequel.migration do
       String :status_name, :null=>false
       Integer :project_id
       Integer :rt_status_id, :null=>false
+      Integer :max_tickets
     end
   end
 
