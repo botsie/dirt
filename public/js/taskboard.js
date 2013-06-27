@@ -54,9 +54,6 @@
 					//handle drop event
 					//get source container n event.target returns the current target container
 					event.stopPropagation();
-					if (event.stopPropagation) {
-							event.stopPropagation(); // stops the browser from redirecting.
-					}
 
 					var flag = 1;
   					
@@ -104,25 +101,18 @@
 		self.currentId = "";
 		
 		self.newcomment = function(data, event){
-			// var target  = $(event.target).closest(".card-border");
-			// if(typeof target.attr('ticketId') != 'undefined' && target.attr('ticketId') != null ){
-			// 	$(target).popover({
-			// 		html : "<textarea name='msg'></textarea>",
-			// 		title: "some title",
-			// 	})x;
-			// 	$(target).popover('show');
-			// 	console.log("opening");
-			// }
+			console.log("clicked me");
+			// show comment popover here..
 		}
 
 		self.showInfo = function(data, event){
 			// get ticket id from event.target and check if its available in the data array
 			// if available check for updates
 			// if not get comments from server
-			//console.log(event);
+			event.stopPropagation();
+
 			$("#taskboardModal").modal();
 			var currentId = this.currentId =  $(event.target).closest(".card-border").attr('ticketid');
-			
 
 			$("#taskboardLable").html("<a href='https://sysrt.ops.directi.com/Ticket/Display.html?id="+currentId+"'>#"+currentId+"</a>");
 
@@ -149,29 +139,10 @@
 					html += "<tr><td>Created</td><td>"+data['Created']+"</td></tr>";
 					html += "<tr><td>Last Updated</td><td>"+data['LastUpdated']+"</td></tr>";
 					html += "</table>";
-					// html += "<tr><td></td><td></td></tr>";
-					// for(var i in data){
-					// 	html += i+"::"+data[i]+"<br/>";
-					// }
 					$("#taskboardBody").html(html);
 					$("#taskboardBody").html(html);
 				}
 			});
-			// var flag = 0;
-			// var data = this.data;
-			// console.log(data.length);
-			// for(var i=0; i< data.length; i++){
-			// 	if(data[i].ticketId === currentId){
-			// 		console.log("matched");
-			// 		flag = 1;
-			// 		break;
-			// 	}
-			// }
-			// if(flag == 0){ //ticket comments have to be fetched from the server
-			// 	this.ticketId.push(currentId);
-			// } else { // ticket comments found, request server for updates
-
-			// }
 		}
 
 	}

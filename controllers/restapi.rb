@@ -108,7 +108,8 @@ module Dirt
     def comment(params)
       ticketId = params[:ticketId]
       msg = params[:msg]
-      res = Dirt::Application.http('ticket/'+ticketId+'comment', 'POST', {:content => {:comment => msg}})
+      server = Dirt::RT::Server.new(Dirt::CONFIG[:rt_url])
+      res = server.addcomment(message, ticketId, @session)
       return res
     end
 

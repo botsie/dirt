@@ -10,10 +10,16 @@ module Dirt
 
     def self.persist(args = {})
       if args[:id].empty?
-        project_id = Dirt::Project.where(:identifier => args[:project]).first.id
-        self.insert(:status_name => args[:status_name], :project_id => project_id)
+        project_id = Dirt::Project.where(:identifier => args[:project]).first.id if args[:project_id].nil?
+        status = self.where(:status_name => args[:status_name], :project_id => args[:project_id]).first
+
+        if status.nil?
+          self.insert(:status_name => args[:status_name], :project_id => args[:project_id], :rt_status_id => args[:rt_status_id].nil? ? 2 : args[:rt_status_id], :max_tickets => args[:max_tickets].nil? ? 0 : args[:max_tickets])
+        else
+          status.update(:rt_status_id => args[:rt_status_id].nil? ? 2 : args[:rt_status_id], :max_tickets => args[:max_tickets].nil? ? 0 : args[:max_tickets])
+        end
       else
-        self.where(:id => args[:id]).update(:status_name => args[:status_name])
+        self.where(:id => args[:id]).update(:status_name => args[:status_name], :rt_status_id => args[:rt_status_id].nil? ? 2 : args[:rt_status_id], :max_tickets => args[:max_tickets].nil? ? 0 : args[:max_tickets])
       end
     end
 

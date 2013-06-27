@@ -38,28 +38,6 @@ module Dirt
       data.inject({}) { |memo, (k,v)| memo[k.to_sym] = v; memo }
     end
 
-    def self.http(path, method, data='')
-      uri = URI(Dirt::CONFIG[:rt_url]+"/REST/1.0/"+path)
-      req = Net::HTTP.new(uri.host, uri.port)
-      req.use_ssl = true
-      headers = {'Cookie' => session[:rt_cookie]}
-      
-      if !data.nil?
-        reqdata = ''
-        data.each do |key,value|
-          reqdata += key+"="+value+"&"
-        end
-      end
-
-      if(method =='GET')
-        resp = req.get( url.path, reqdata, headers)
-      elsif(method == 'POST')
-        resp = req.post( url.path, reqdata, headers) 
-      end
-
-      return resp
-    end
-
     configure do
       set :logging, true
       # enable :sessions
