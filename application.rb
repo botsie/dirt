@@ -74,7 +74,9 @@ module Dirt
 
       if @user.nil? and not array_match(path, [/login/,/favicon/])
         redirect to("/login?redirect_to=#{path}")
-      end        
+      elsif session['user'].nil?
+        session['user'] = Dirt::User.persist(session[:user_id])
+      end
     end
     # -----------------------------------------------------------------
     # App Related Routes
@@ -90,7 +92,6 @@ module Dirt
       rescue => error
         redirect to("/login?redirect_to=#{params[:redirect_to]}&failure_message=#{error.message}")
       end
-      redirect to(params[:redirect_to])
     end
 
     get '/logout' do
