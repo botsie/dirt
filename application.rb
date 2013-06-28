@@ -74,8 +74,8 @@ module Dirt
 
       if @user.nil? and not array_match(path, [/login/,/favicon/])
         redirect to("/login?redirect_to=#{path}")
-      elsif session['user'].nil?
-        session['user'] = Dirt::User.persist(session[:user_id])
+      elsif session[:user].nil? && !@user.nil?
+        session[:user] = Dirt::User.persist(session[:user_id])
       end
     end
     # -----------------------------------------------------------------
@@ -92,6 +92,7 @@ module Dirt
       rescue => error
         redirect to("/login?redirect_to=#{params[:redirect_to]}&failure_message=#{error.message}")
       end
+      redirect to(params[:redirect_to])
     end
 
     get '/logout' do
@@ -170,6 +171,18 @@ module Dirt
       else
         'Api responds only to ajax request'
       end 
+    end
+
+    # -----------------------------------------------------------------
+    # Profile related routes
+    # -----------------------------------------------------------------
+
+    get '/profile/me' do
+      Dirt::ProfileController.show(params,session)
+    end
+
+    get '/profile/edit' do
+      Dirt::ProfileController.edit(params,session)
     end
 
     # -----------------------------------------------------------------

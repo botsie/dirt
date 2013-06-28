@@ -3,7 +3,8 @@ Sequel.migration do
     create_table(:users) do
       primary_key :id
       Boolean :editor
-      
+      String :pic_url
+      String :team_name
     end
   end
 

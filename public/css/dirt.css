@@ -132,6 +132,15 @@ body>.container {
   width: 13px;
 }
 
+#name {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+#team {
+  font-size: 16px;
+}
+
 /* Over ride bootstrap css */
 .wiki-page-content [class*=span], .wiki-page-content {
     margin-left: 0px;

@@ -1,0 +1,8 @@
+.container
+	.span3
+		%img{src: "/images/profile/pic/#{@session[:user][:pic_url]}"}
+	.span8
+		#name #{@session[:user][:uname].capitalize}
+		#team #{@session[:user][:team_name].capitalize}
+		.pull-left
+			%a.btn.btn-primary{href: "/profile/edit"}Edit

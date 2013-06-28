@@ -4,13 +4,12 @@ module Dirt
 
   class ProfileController < Dirt::Controller
     def show(params)
-      #respond to query variable
-      
+      haml :profile
     end
 
     def edit(params)
-    
+      haml :profile_edit
     end
-
+    
   end
 end

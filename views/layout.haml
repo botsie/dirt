@@ -18,7 +18,7 @@
           %ul.nav.pull-right
             - if(defined? @session[:user_id])
               %li
-                %a(href='#')
+                %a(href='/profile/me')
                   =@session[:user_id]
               %li.dropdown
                 %a.dropdown-toggle{data: {toggle: 'dropdown'}, id: "dLabel"}
@@ -26,9 +26,9 @@
                   Settings
                 %ul.dropdown-menu{role: "menu", aria: {labelledby:"dLabel"} }
                   -# %li
-                  -#  %a(href='/profile/settings') Profile
-                  -# %li
                   -#  %a(href="") History
+                  %li
+                    %a(href='/profile/edit') Settings
                   %li
                     %a(href="/static/help/home") Help
                   %li.divider
