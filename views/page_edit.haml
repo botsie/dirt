@@ -38,9 +38,11 @@
             %input.btn.btn-primary{type: "submit", value:"Save"}
 
 %script( type="text/javascript" src="/ace/ace.js")
-- if !session[:user][:editor].nil? && session[:user][:editor] == true
-  :javascript
-    $(function(){
+:javascript
+  $(function(){
+    var change = #{@session[:user][:editor].nil? ? false : @session[:user][:editor]} ;
+    change = change ? true : false;
+    if(change){
       var editor = ace.edit("ace-editor");
       var textarea = $("textarea[name=content]").hide();
       editor.getSession().setValue(textarea.val());
@@ -57,4 +59,5 @@
           $("form[name=page_form]").submit();
         }
       });
-    });
+    }
+  });
