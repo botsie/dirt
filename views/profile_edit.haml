@@ -21,6 +21,11 @@
 				%label.control-label{:for => "pic_file"} Profile Picture
 				.controls
 					%input.input-xlarge{type:"file", name:"pic_file"}
+			.control-group
+				%label.control-label{:for => "pic_file"} Enhanced text editor
+				.controls
+					%input{type:"radio", name:"text_editor", value: '1', checked: (not (true ^ session[:user][:editor])) ? true : false } Yes
+					%input{type:"radio", name:"text_editor", value: '0', checked: (not (false ^ session[:user][:editor])) ? true : false }No
 			.form-actions
 				.pull-left
 					%input.btn.btn-primary{type: "submit", value:"Save"}
