@@ -186,7 +186,12 @@ module Dirt
     end
 
     post '/profile/edit' do
-      Dirt::ProfileController.save(params,session)
+      begin
+        Dirt::ProfileController.save(params,session)
+      rescue => error
+        redirect to "profile/edit?error_msg=#{error.message}"
+      end
+      redirect to "profile/me"
     end
 
     # -----------------------------------------------------------------
