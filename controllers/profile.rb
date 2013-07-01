@@ -10,6 +10,9 @@ module Dirt
     def edit(params)
       haml :profile_edit
     end
-    
+
+    def save(params)
+      
+    end
   end
 end

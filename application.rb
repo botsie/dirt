@@ -185,6 +185,10 @@ module Dirt
       Dirt::ProfileController.edit(params,session)
     end
 
+    post '/profile/edit' do
+      Dirt::ProfileController.save(params,session)
+    end
+
     # -----------------------------------------------------------------
     # Static files related routes
     # -----------------------------------------------------------------

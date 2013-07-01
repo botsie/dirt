@@ -141,6 +141,11 @@ body>.container {
   font-size: 16px;
 }
 
+.profile-pic{
+  height: 215px;
+  width: 215px;
+}
+
 /* Over ride bootstrap css */
 .wiki-page-content [class*=span], .wiki-page-content {
     margin-left: 0px;

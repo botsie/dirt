@@ -1,0 +1,21 @@
+.container
+	.span3
+		%img.profile-pic{src: "/images/profile/pic/#{@session[:user][:pic_url]}"}
+	.span8
+		%form.form-horizontal{action: '/profile/edit', method: "post", enctype: "multipart/form-data"}
+			.control-group
+				%label.control-label{:for => "name"} Name
+				.controls
+					%input.input-xlarge{type:"text", name:"name", value:@session[:user][:uname], readonly: "true"}
+			.control-group
+				%label.control-label{:for => "team-name"} Team Name
+				.controls
+					%input.input-xlarge{type:"text", name:"team-name", value:@session[:user][:team_name]}
+			.control-group
+				%label.control-label{:for => "team-name"} Profile Picture
+				.controls
+					%input.input-xlarge{type:"file", name:"pic-file"}
+			.form-actions
+				.pull-left
+					%input.btn.btn-primary{type: "submit", value:"Save"}
+					%a.btn{href: "/profile/me"}="Cancel"
