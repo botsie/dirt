@@ -123,6 +123,15 @@ body>.container {
     visibility: hidden;
 }
 
+[draggable=true] {
+  -khtml-user-drag: element;
+}
+
+#ace-editor{
+  height: 490px;
+  border: solid #999 2px;
+}
+
 /* Over ride bootstrap css */
 .wiki-page-content [class*=span], .wiki-page-content {
     margin-left: 0px;
