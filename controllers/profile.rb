@@ -10,9 +10,6 @@ module Dirt
     end
 
     def edit(params)
-      p '\n\n\n\n\nn\n\n'
-      p session 
-      p '\n\n\n\n\nn\n\n' 
       @error_msg = params[:error_msg]
       haml :profile_edit
     end
@@ -30,7 +27,7 @@ module Dirt
         cp(tempfile.path, "./public/images/profile/pic/#{newname}")
       end
       team_name = params[:team_name]
-      editor_type = params[:editor]=="1" ? true : false
+      editor_type = params[:text_editor].to_s=="1" ? true : false
       if team_name != session[:user][:team_name] || newname != "" || editor_type != session[:user][:editor]
         session[:user][:team_name] = team_name
         session[:user][:editor] = editor_type
