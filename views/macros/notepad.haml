@@ -1,0 +1,12 @@
+%h5=caption
+.notepad
+	%form.form-horizontal{method: "post", action: "./save_notepad"}
+		%textarea.input-xlarge.span12{name: 'notepad_text', cols: 300, rows: 24}
+		.form-actions
+			.pull-left
+				%input.btn.btn-primary{type: "submit", value:"Generate Tickets"}
+				%a.btn{href: "/static/help/create_project"}
+					%i.icon-question-sign
+					Help
+
+

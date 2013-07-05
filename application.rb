@@ -157,6 +157,13 @@ module Dirt
       redirect "/projects/#{params[:project]}/pages/#{params[:page]}"
     end    
 
+    # post '/projects/:project/pages/:page/save_notepad' do 
+    # Since a project can only have one notepad, remove page attibute from params
+    post '/projects/:project/pages/save_notepad' do
+      Dirt::NotepadMacro.processNotepad(params, session)
+      redirect "/projects/#{params[:project]}/pages/index"
+    end
+
     # run! if app_file == $0
 
     # -----------------------------------------------------------------
