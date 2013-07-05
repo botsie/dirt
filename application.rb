@@ -10,6 +10,7 @@ require 'yaml'
 require 'uri'
 require 'json'
 require 'net/http'
+require 'rack'
 
 use Rack::Logger 
 
@@ -157,11 +158,14 @@ module Dirt
       redirect "/projects/#{params[:project]}/pages/#{params[:page]}"
     end    
 
-    # post '/projects/:project/pages/:page/save_notepad' do 
-    # Since a project can only have one notepad, remove page attibute from params
-    post '/projects/:project/pages/save_notepad' do
-      Dirt::NotepadMacro.processNotepad(params, session)
-      redirect "/projects/#{params[:project]}/pages/index"
+    get '/projects/:project/notepad' do 
+      Dirt::NotepadController.show(params,session)
+    end
+
+    post '/projects/:project/save_notepad' do
+      msg = Dirt::NotepadController.processNotepad(params, session)
+      msg = Rack::Utils.build_nested_query(msg)
+      redirect "/projects/#{params[:project]}/notepad?"+msg
     end
 
     # run! if app_file == $0
