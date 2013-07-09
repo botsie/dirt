@@ -21,6 +21,8 @@
 					//console.log("starting drag");
 					//console.log(event.target);
 					dragitem = event.target;
+					event.originalEvent.dataTransfer.setData("Text","Drop data");
+					return true;
 				});
 			}
 		},
@@ -33,6 +35,7 @@
 					//console.log("dragenter");
 					event.stopPropagation();
 					event.preventDefault();
+					return false;
 				});
 
 
@@ -40,6 +43,7 @@
 					//console.log("dragover");
 					event.stopPropagation();
 					event.preventDefault();
+					return false;
 				});
 
 
@@ -47,6 +51,7 @@
 					//console.log("dragleave");
 					event.stopPropagation();
 					event.preventDefault();
+					return false;
 				});
 
 
@@ -54,6 +59,7 @@
 					//handle drop event
 					//get source container n event.target returns the current target container
 					event.stopPropagation();
+					event.preventDefault();
 
 					var flag = 1;
   					
