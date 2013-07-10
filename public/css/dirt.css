@@ -183,3 +183,10 @@ body>.container {
           background-clip: padding-box;
 }
 
+.icon-gray{
+  opacity: 0.5;
+}
+
+.popover {
+  width: 300px;
+}

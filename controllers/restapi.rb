@@ -47,6 +47,8 @@ module Dirt
         status(params)
       when 'info'
         info(params)
+      when 'comment'
+        comment(params)
       else
         return {:status => "601" , :message => "Invalid 'query' field"}
       end
@@ -101,6 +103,8 @@ module Dirt
       if row.nil?
         return {:status => "604" , :message => "Query yielded an empyt set"}
       else 
+        row[:pic_url] = @session[:user][:pic_url]
+        row[:user_name] = @session[:user_id]
         return row
       end
     end
@@ -109,8 +113,13 @@ module Dirt
       ticketId = params[:ticketId]
       msg = params[:msg]
       server = Dirt::RT::Server.new(Dirt::CONFIG[:rt_url])
-      res = server.addcomment(message, ticketId, @session)
-      return res
+      res = server.addComment(ticketId, msg, @session)
+
+      if res.body.include? "Message recorded"
+        return {:status => "600" , :message => "Comment added"}
+      else
+        return {:status => "602" , :message => "Save failed", :error => res.body}
+      end
     end
 
 

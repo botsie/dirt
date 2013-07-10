@@ -47,7 +47,7 @@ module Dirt
       end
 
       def addComment(ticketId, message , session)
-        message.gsub("\n", "\n ")
+        message = message.gsub("\n", "\n ")
         content = "id: "+ticketId +"\n"+
                   "Action: comment\n" +
                   "Text: "+message

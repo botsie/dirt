@@ -121,14 +121,10 @@
 	var taskboard = function(){
 		var self = this;
 
-		self.data = ko.observableArray([]);
 		self.ticketId = new Array;
 		self.currentId = "";
-		
-		self.newcomment = function(data, event){
-			console.log("clicked me");
-			// show comment popover here..
-		}
+		self.comment_msg = ko.observable();
+		self.ajax = false;
 
 		self.showInfo = function(data, event){
 			// get ticket id from event.target and check if its available in the data array
@@ -137,7 +133,8 @@
 			event.stopPropagation();
 
 			$("#taskboardModal").modal();
-			var currentId = this.currentId =  $(event.target).closest(".card-border").attr('ticketid');
+			var currentId = $(event.target).closest(".card-border").attr('ticketid');
+			self.currentId = currentId;
 
 			$("#taskboardLable").html("<a href='https://sysrt.ops.directi.com/Ticket/Display.html?id="+currentId+"'>#"+currentId+"</a>");
 
@@ -154,7 +151,7 @@
 					// var html = "";
 					$("#taskboardLable").html("<a href='https://sysrt.ops.directi.com/Ticket/Display.html?id="+currentId+"'>#"+currentId+"</a> <span>: "+data['Subject']+"</span>");
 					var html = "<table class='table table-striped'>";
-					html += "<tr><td>Ticket Id</td><td><a href='https://sysrt.ops.directi.com/Ticket/Display.html?id="+data['id']+"'>#"+data['id']+"</a></td></tr>";
+					html += "<tr><td>Ticket Id</td><td><a target='_blank' href='https://sysrt.ops.directi.com/Ticket/Display.html?id="+data['id']+"'>#"+data['id']+"</a></td></tr>";
 					html += "<tr><td>Queue Name</td><td>"+data['Queue']+"</td></tr>";
 					html += "<tr><td>Subject</td><td>"+data['Subject']+"</td></tr>";
 					html += "<tr><td>Prority</td><td>"+data['Prority']+"</td></tr>";
@@ -164,14 +161,157 @@
 					html += "<tr><td>Created</td><td>"+data['Created']+"</td></tr>";
 					html += "<tr><td>Last Updated</td><td>"+data['LastUpdated']+"</td></tr>";
 					html += "</table>";
+					html += "<div id='comment_status_container'></div>";
+					html += "<div class='span9'><form name='comment-form' class='form-horizontal' data-bind='submit: submit_comment'>";
+					html += "<div class='control-group'><label class='control-label' for='comment_msg'><img src='/images/profile/pic/"+data['pic_url']+"' style='height:60px; width:60px;'></label>";
+					html += "<div class='controls'><textarea class='input-xlarge span6' id='comment_msg' name='comment_msg' cols=200 rows=4 data-bind='value: comment_msg' placeholder='Posting as "+data['user_name']+"'></textarea>";
+					html += "<hr><input type='submit' class='btn btn-primary' value='Comment'></div>"
+					html += "</form></div></div>";
 					$("#taskboardBody").html(html);
-					$("#taskboardBody").html(html);
+					bindagain();
 				}
 			});
 		}
 
+		//This is for the comment box in the modal view
+		self.submit_comment = function(data){
+			if(!self.ajax){
+				self.ajax = true;
+				$.ajax({
+					url: '/api/v1.0/',
+					method: 'get',
+					dataType : 'JSON',
+					data: {
+						"query": 'comment',
+						"ticketId": self.currentId,
+						"msg": self.comment_msg()
+					}, 
+					success: function(data){
+						self.ajax = false;
+						if(data['status'] == "600"){
+							self.comment_msg(null);
+							var msg = document.createElement('div');
+	  						msg.setAttribute("class", "alert alert-success comment_status");
+	  						msg.setAttribute("style", "z-index:10; float:left;");
+	  						msg.innerHTML = "<button type='button' class='close' data-dismiss='alert'>&times;</button><strong>Success!</strong> Comment posted successfully";
+	  						$("#comment_status_container").append(msg);
+	  						window.setTimeout(function(){
+	  							$(".comment_status").fadeTo(500, 0).slideUp(500, function(){
+	  								$(this).remove(); 
+	  							});
+	  						},2000);
+						} else {
+							var msg = document.createElement('div');
+	  						msg.setAttribute("class", "alert alert-error comment_status");
+	  						msg.setAttribute("style", "z-index:10;");
+	  						msg.innerHTML = "<button type='button' class='close' data-dismiss='alert'>&times;</button><strong>Warning!</strong> Comment could not be saved";
+	  						$("#comment_status_container").append(msg);
+	  						window.setTimeout(function(){
+	  							$(".comment_status").fadeTo(500, 0).slideUp(500, function(){
+	  								$(this).remove(); 
+	  							});
+	  						},2000);
+						}
+					}
+				});
+			}
+		}
+
+		self.post_comment = function(data){
+			if(!self.ajax){
+				self.ajax = true;
+				$.ajax({
+					url: '/api/v1.0/',
+					method: 'get',
+					dataType : 'JSON',
+					data: {
+						"query": 'comment',
+						"ticketId": $($($("#popover_comment_form").parents(".popover")[0]).siblings("i")[0]).attr("ticketId"),
+						"msg": self.comment_msg()
+					}, 
+					success: function(data){
+						self.ajax = false;
+						if(data["status"]=="600"){
+							self.comment_msg(null)
+							var msg = document.createElement('div');
+	  						msg.setAttribute("class", "alert alert-success comment_status");
+	  						msg.setAttribute("style", "z-index:10; float:left;");
+	  						msg.innerHTML = "<button type='button' class='close' data-dismiss='alert'>&times;</button><strong>Success!</strong> Comment posted successfully";
+	  						$("#comment_status_container").append(msg);
+	  						window.setTimeout(function(){
+	  							$(".comment_status").fadeTo(500, 0).slideUp(500, function(){
+	  								$(this).remove(); 
+	  							});
+	  						},2000);
+						} else {
+							var msg = document.createElement('div');
+	  						msg.setAttribute("class", "alert alert-error comment_status");
+	  						msg.setAttribute("style", "z-index:10;");
+	  						msg.innerHTML = "<button type='button' class='close' data-dismiss='alert'>&times;</button><strong>Warning!</strong> Comment could not be saved";
+	  						$("#comment_status_container").append(msg);
+	  						window.setTimeout(function(){
+	  							$(".comment_status").fadeTo(500, 0).slideUp(500, function(){
+	  								$(this).remove(); 
+	  							});
+	  						},2000);
+						}
+					}
+				});
+
+			}
+		}
+
 	}
 
-	ko.applyBindings(new taskboard);
+	// callback binding for popover
+	var pt = $.fn.popover.Constructor.prototype.show;
+	$.fn.popover.Constructor.prototype.show = function () {
+		pt.call(this);
+		if (this.options.afterShowed) {
+			this.options.afterShowed();
+		}
+	}
+
+	$(".icon-comment").popover({
+		html: true,
+		title: "Post a comment",
+		content: function() {
+			var html = "<div id='comment_status_container'></div>";
+			html += "<form name='comment-form' data-bind='submit: post_comment' id='popover_comment_form'>";
+			html += "<textarea id='comment_msg' style='width: 254px;' rows='5' name='comment_msg' data-bind='value: comment_msg'></textarea>";
+			html += "<input type='submit' onclick='submitForm()' class='btn btn-primary btn-mini' value='Comment'>"
+			html += "</form>";
+			return html;
+		},
+		afterShowed: function() {
+			bindagain();
+		}
+	});	
+
+	$('body').on('click', function (e) {
+	    $('.icon-comment').each(function () {
+	        if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {
+	            $(this).popover('hide');
+	        }
+	    });
+	});
+
+	$(document).on('keydown', function(e){
+		$('.icon-comment').each(function () {
+	        if (e.keyCode === 27) {
+	            $(this).popover('hide');
+	        }
+	    });
+	});
+
+	var bindtaskboard = new taskboard;
+	var bindagain = function(){
+		ko.applyBindings(bindtaskboard);
+	}
+	bindagain();
 
 })(window, window.document ,ko);
+
+function submitForm(){
+	$("#popover_comment_form").submit();
+}

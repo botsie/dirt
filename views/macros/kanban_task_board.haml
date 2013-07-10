@@ -23,13 +23,15 @@
         - if(col.length<=1)
           %td{colspan: lcm_col/span[i], style: "width: #{(940/lcm_col)*lcm_col/span[i]}px;", status_name: col[0] ,limit: getlimitfor(col[0]) ,data:{bind: " boxext : { name :'box' }"}}
             - getcardsfor(col[0]).each do |card|
-              .card-border{draggable: "true", ticketId: "#{card[:id]}", data: {target: "#comment_modal", toggle: "modal", bind: "click: newcomment, cardext :{ name :'#{card[:id]}'}"}}
+              .card-border{draggable: "true", ticketId: "#{card[:id]}", data: {target: "#comment_modal", toggle: "modal", bind: "cardext :{ name :'#{card[:id]}'}"}}
                 .card{class: card[:age_class]}
                   .pull-left
                     %p="##{card[:id]}"
                   .pull-right
                     %i.icon-eye{ticketId: "#{card[:id]}", data: {bind: "click : showInfo"}}
                   %p=card[:Owner]
+                  .pull-right
+                    %i.icon-comment.icon-gray{ticketId: "#{card[:id]}"}
                   -# %p=card[:LastUpdated]
                   %p
                     %span.card-subject(title="#{card[:Subject]}")=card[:short_subject]
@@ -38,13 +40,15 @@
           -col[1].each do |subcat|
             %td{colspan: lcm_col/span[i], style: "width: #{(940/lcm_col)*lcm_col/span[i]}px;", status_name: subcat[0], limit: getlimitfor(subcat[0]), data:{bind: " boxext : { name : 'box' }"}}
               - getcardsfor(subcat[0]).each do |card|
-                .card-border{draggable: "true", ticketId: "#{card[:id]}", data: {target: "#comment_modal", toggle: "modal", bind: "click: newcomment, cardext :{ name :'#{card[:id]}'}"}}
+                .card-border{draggable: "true", ticketId: "#{card[:id]}", data: {target: "#comment_modal", toggle: "modal", bind: "cardext :{ name :'#{card[:id]}'}"}}
                   .card{class: card[:age_class]}
                     .pull-left
                       %p="##{card[:id]}"
                     .pull-right
                       %i.icon-eye{ticketId: "#{card[:id]}", data: {bind: "click : showInfo"}}
                     %p=card[:Owner]
+                    .pull-right
+                      %i.icon-comment.icon-gray{ticketId: "#{card[:id]}"}
                     -# %p=card[:LastUpdated]
                     %p
                       %span.card-subject(title="#{card[:Subject]}")=card[:short_subject]
@@ -57,13 +61,15 @@
     %tr
       %td{class: "span12", colspan: "span12", limit: "0", data:{bind: "boxext :{ name :'box'}"}}
         - getunclassified.each do |card|
-          .card-border{draggable: "true", ticketId: "#{card[:id]}", data: {target: "#comment_modal", toggle: "modal", bind: "click: newcomment, cardext :{ name :'#{card[:id]}'}"}}
+          .card-border{draggable: "true", ticketId: "#{card[:id]}", data: {target: "#comment_modal", toggle: "modal", bind: "cardext :{ name :'#{card[:id]}'}"}}
             .card{class: card[:age_class]}
               .pull-left
                 %p="##{card[:id]}"
               .pull-right
                 %i.icon-eye{ticketId: "#{card[:id]}", data: {bind: "click : showInfo"}}
               %p=card[:Owner]
+              .pull-right
+                %i.icon-comment.icon-gray{ticketId: "#{card[:id]}"}
               -# %p=card[:LastUpdated]
               %p
                 %span.card-subject(title="#{card[:Subject]}")=card[:short_subject]
@@ -76,7 +82,6 @@
     .modal-body#taskboardBody
     .modal-footer
       %button.btn.btn-primary{data:{dismiss: "modal"}, aria:{hidden: "true"}}Close
-
 
 #ajax-status
   Saving 
