@@ -54,10 +54,11 @@ module Dirt
         return http("/ticket/#{ticketId}/comment", "POST", {:content => content}, session[:rt_cookie])
       end
       
-      def createTicket(subject, content, session)
-        content.gsub("\n", "\n ")
+      def createTicket(subject, session, owner=nil)
         time = Time.new.to_s
         current_time = time[0 , time.length-6]
+
+        owner = owner.nil? ? "" : owner
 
         # Please don't change this format
         # No other format works except for this one
@@ -67,7 +68,7 @@ module Dirt
                   "Subject: "+subject +"\n"+
                   "Cc: \n" +
                   "AdminCc: \n" +
-                  "Owner: \n" +
+                  "Owner: "+owner+"\n" +
                   "Status: new\n" +
                   "Priority: 0\n" +
                   "InitialPriority: 0\n" +
@@ -75,7 +76,7 @@ module Dirt
                   "TimeEstimated: 0\n"+
                   "Starts: "+current_time+"\n"+
                   "Due: "+current_time+"\n"+
-                  "Text: "+content +"\n"
+                  "Text: \n"
         return http("/ticket/new", "POST", {:content => content}, session[:rt_cookie])
       end
 

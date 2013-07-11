@@ -10,14 +10,16 @@
 	.alert.alert-error
 		%button.close{type: "button", data:{dismiss:"alert"}} &times;
 		- @error_msg.each do |msg|
-			%i.icon-exclamation-sign
-			= msg
+			.new
+				%i.icon-exclamation-sign
+				= msg
 - if not @success_msg.nil?
 	.alert.alert-success
 		%button.close{type: "button", data:{dismiss:"alert"}} &times;
 		- @success_msg.each do |msg|
-			%i.icon-thumbs-up
-			= msg
+			.new
+				%i.icon-thumbs-up
+				= msg
 
 .content
 	.wiki-page-content.span12
