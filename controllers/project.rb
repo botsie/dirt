@@ -33,7 +33,8 @@ module Dirt
         :name => params[:name],
         :identifier => params[:identifier],
         :description => params[:description],
-        :tab_spec => tabs.to_json
+        :tab_spec => tabs.to_json,
+        :taskboard => params[:taskboard]
         )
 
       oldstatuses = Dirt::Status.where(:project_id => params[:id]).all

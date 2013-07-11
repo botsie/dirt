@@ -71,6 +71,10 @@
             %td
             %td.pull-right
               %a.btn.btn-success{data: {bind: "click: $root.addStatus"}} Add Another Status
+  .control-group
+    %label.control-label{:for => "taskboard"} Taskboard
+    .controls
+      %textarea.input-xlarge.span8{name:"taskboard", placeholder:"Taskboard description goes here", rows:"10"}=@project[:taskboard]
   .form-actions
     .pull-left
       %input.btn.btn-primary{type: "submit", value:"Save"}

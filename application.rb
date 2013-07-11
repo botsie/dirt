@@ -168,6 +168,9 @@ module Dirt
       redirect "/projects/#{params[:project]}/notepad?"+msg
     end
 
+    get '/projects/:project/taskboard' do 
+      Dirt::TaskboardController.show(params,session)
+    end
     # run! if app_file == $0
 
     # -----------------------------------------------------------------
