@@ -54,7 +54,8 @@ module Dirt
 
       use Rack::Session::Cookie, :key => 'rack.session',
                                  :path => '/',
-                                 :secret => 'qwedsa123'
+                                 :secret => 'qwedsa123',
+                                 :expire_after => 60*60*12
 
       if Dirt::CONFIG[:log_sql]
         sql_log_file = Dirt::CONFIG[:sql_log_file]
