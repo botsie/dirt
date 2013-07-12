@@ -9,6 +9,8 @@ require 'logger'
 require 'yaml'
 require 'uri'
 require 'json'
+require 'net/http'
+require 'rack'
 
 use Rack::Logger 
 
@@ -52,7 +54,8 @@ module Dirt
 
       use Rack::Session::Cookie, :key => 'rack.session',
                                  :path => '/',
-                                 :secret => 'qwedsa123'
+                                 :secret => 'qwedsa123',
+                                 :expire_after => 60*60*12
 
       if Dirt::CONFIG[:log_sql]
         sql_log_file = Dirt::CONFIG[:sql_log_file]
@@ -73,7 +76,9 @@ module Dirt
 
       if @user.nil? and not array_match(path, [/login/,/favicon/])
         redirect to("/login?redirect_to=#{path}")
-      end        
+      elsif session[:user].nil? && !@user.nil?
+        session[:user] = Dirt::User.persist(session[:user_id])
+      end
     end
     # -----------------------------------------------------------------
     # App Related Routes
@@ -154,6 +159,19 @@ module Dirt
       redirect "/projects/#{params[:project]}/pages/#{params[:page]}"
     end    
 
+    get '/projects/:project/notepad' do 
+      Dirt::NotepadController.show(params,session)
+    end
+
+    post '/projects/:project/save_notepad' do
+      msg = Dirt::NotepadController.processNotepad(params, session)
+      msg = Rack::Utils.build_nested_query(msg)
+      redirect "/projects/#{params[:project]}/notepad?"+msg
+    end
+
+    get '/projects/:project/taskboard' do 
+      Dirt::TaskboardController.show(params,session)
+    end
     # run! if app_file == $0
 
     # -----------------------------------------------------------------
@@ -168,6 +186,27 @@ module Dirt
       else
         'Api responds only to ajax request'
       end 
+    end
+
+    # -----------------------------------------------------------------
+    # Profile related routes
+    # -----------------------------------------------------------------
+
+    get '/profile/me' do
+      Dirt::ProfileController.show(params,session)
+    end
+
+    get '/profile/edit' do
+      Dirt::ProfileController.edit(params,session)
+    end
+
+    post '/profile/edit' do
+      begin
+        Dirt::ProfileController.save(params,session)
+      rescue => error
+        redirect to "profile/edit?error_msg=#{error.message}"
+      end
+      redirect to "profile/me"
     end
 
     # -----------------------------------------------------------------

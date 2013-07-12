@@ -60,6 +60,8 @@
 
 :javascript
 	$('.tree-toggle').parent().children('ul.tree').toggle();
+	var link = $('a[href="'+window.location.pathname+'"]');
+	link.parents('.tree').toggle()
 	$('.tree-toggle').click(function () {
 		$(this).parent().children('ul.tree').toggle(200);
 	});

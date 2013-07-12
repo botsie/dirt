@@ -1,0 +1,32 @@
+.container
+	.span3
+		%img.profile-pic{src: "/images/profile/pic/#{@session[:user][:pic_url]}"}
+	.span8
+		- if not @error_msg.nil?
+			.span8
+				.alert.alert-error
+					%button.close{data: {dismiss: "alert"}} &times;
+					%h4 Warning
+					#{@error_msg}
+		%form.form-horizontal{action: '/profile/edit', method: "post", enctype: "multipart/form-data"}
+			.control-group
+				%label.control-label{:for => "name"} Name
+				.controls
+					%input.input-xlarge{type:"text", name:"name", value:@session[:user][:uname], readonly: "true"}
+			.control-group
+				%label.control-label{:for => "team_name"} Team Name
+				.controls
+					%input.input-xlarge{type:"text", name:"team_name", value:@session[:user][:team_name]}
+			.control-group
+				%label.control-label{:for => "pic_file"} Profile Picture
+				.controls
+					%input.input-xlarge{type:"file", name:"pic_file"}
+			.control-group
+				%label.control-label{:for => "pic_file"} Enhanced text editor
+				.controls
+					%input{type:"radio", name:"text_editor", value: '1', checked: (not (true ^ session[:user][:editor])) ? true : false } Yes
+					%input{type:"radio", name:"text_editor", value: '0', checked: (not (false ^ session[:user][:editor])) ? true : false }No
+			.form-actions
+				.pull-left
+					%input.btn.btn-primary{type: "submit", value:"Save"}
+					%a.btn{href: "/profile/me"}="Cancel"
