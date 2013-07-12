@@ -54,6 +54,8 @@ module Dirt
         @error_message = "Invalid Tab Specification, Using Default"
       end
 
+      tab_spec.push({:caption=>"Taskboard",:page=>"../taskboard"})
+      tab_spec.push({:caption=>"Notepad",:page=>"../notepad"})
       tab_spec.each {|t| t[:page] == page_name ? t[:class] = "active" : t[:class] = ""}
       return tab_spec
     end

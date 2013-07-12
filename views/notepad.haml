@@ -1,0 +1,53 @@
+%h4 Notepad
+
+.tab-bar
+	%ul.nav.nav-tabs
+		- @tab_spec.each do |tab|
+			%li{class: "#{tab[:class]}"}
+				%a{href: "/projects/#{@project}/pages/#{tab[:page]}"}=tab[:caption]
+
+- if not @error_msg.nil?
+	.alert.alert-error
+		%button.close{type: "button", data:{dismiss:"alert"}} &times;
+		- @error_msg.each do |msg|
+			.new
+				%i.icon-exclamation-sign
+				= msg
+- if not @success_msg.nil?
+	.alert.alert-success
+		%button.close{type: "button", data:{dismiss:"alert"}} &times;
+		- @success_msg.each do |msg|
+			.new
+				%i.icon-thumbs-up
+				= msg
+
+.content
+	.wiki-page-content.span12
+		.notepad
+			%form.form-horizontal{method: "post", action: "/projects/#{@project}/save_notepad"}
+				%textarea.input-xlarge.span12{name: 'notepad_text', cols: 300, rows: 24}
+				#ace-editor
+				.form-actions
+					.pull-left
+						%input.btn.btn-primary{type: "submit", value:"Generate Tickets"}
+						%a.btn{href: "/static/help/create_project"}
+							%i.icon-question-sign
+							Help
+
+%script( type="text/javascript" src="/ace/ace.js")
+:javascript
+	$(function(){
+		var change = #{@session[:user][:editor].nil? ? false : @session[:user][:editor]} ;
+		change = change ? true : false;
+		if(change){
+			var editor = ace.edit("ace-editor");
+			var textarea = $("textarea[name=notepad_text]").hide();
+			editor.getSession().setValue(textarea.val());
+			editor.setTheme('ace/theme/github');
+			editor.getSession().on('change', function(){
+				textarea.val(editor.getSession().getValue());
+			});
+		} else {
+			$("#ace-editor").hide();
+		}
+	});

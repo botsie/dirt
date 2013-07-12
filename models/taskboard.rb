@@ -1,20 +1,9 @@
 #!/usr/bin/env ruby
 
-require 'json'
-require 'haml'
-require 'chronic'
-
 module Dirt
-
-  class KanbanTaskBoardMacroModel
+  class Taskboard < Sequel::Model(Dirt::DIRT_DB)
     def initialize(spec)
       @spec = spec
-    end
-
-    def caption
-      caption = @spec['caption'] 
-      caption ||= "Taskboard"
-      return caption
     end
 
     def grp_seq
@@ -222,6 +211,10 @@ module Dirt
       return @cards
     end
 
+    def unclassified_present
+      return @unclassified_present
+    end
+    
     def getcardsfor(specname)
       specname.to_s.downcase
       @cards.select do |card|
@@ -234,17 +227,21 @@ module Dirt
         ((!defined? card[:status_name])||(card[:status_name]).nil?)
       end
     end
-  end
 
-  class KanbanTaskBoardMacro < Macro
-    def to_html(project_name)
-      # Get IDs of Parent Cards
-      @spec[:project_id] = Dirt::Project.where(:identifier => project_name).first[:id]
-      model = Dirt::KanbanTaskBoardMacroModel.new(@spec)
-      model.cards
-      content = haml :kanban_task_board, model     
-      return content
-    end    
+    def statuses
+      return @statuses unless @statuses.nil?
+      @statuses = Dirt::Status.where(:project_id => @spec[:project_id]).all
+    end
+
+    def getlimitfor(specname)
+      statuses
+      @statuses.each do |status|
+        if status[:status_name].to_s.downcase == specname.to_s.downcase
+          return status[:max_tickets].to_i
+        end
+      end
+      return 0
+    end
   end
 
 end

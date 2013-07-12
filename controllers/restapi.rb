@@ -25,6 +25,8 @@
   info - gets information about a ticket from rt
 =end
 
+
+
 module Dirt
 
   class RestapiController < Dirt::Controller
@@ -45,6 +47,8 @@ module Dirt
         status(params)
       when 'info'
         info(params)
+      when 'comment'
+        comment(params)
       else
         return {:status => "601" , :message => "Invalid 'query' field"}
       end
@@ -76,8 +80,13 @@ module Dirt
       if row.nil?
         result = Dirt::StatusTicket.insert(:ticket_id => params[:ticketId], :status_id => statusId)
       else
-        result = row.update(:status_id => statusId)
+        Dirt::StatusTicket.where(:ticket_id => params[:ticketId]).update(:status_id => statusId)
+        result = Dirt::StatusTicket.where(:ticket_id => params[:ticketId]).first
       end
+
+      # Done with dirt update - update rt db
+
+      # Dirt::Application.http('/ticket/'+params[:ticketId]+"/edit", 'POST', {:Status => statusrow[:rt_status_name]})
 
       if result.nil?
         return {:status => "601" , :message => "Save failed"}
@@ -94,9 +103,25 @@ module Dirt
       if row.nil?
         return {:status => "604" , :message => "Query yielded an empyt set"}
       else 
+        row[:pic_url] = @session[:user][:pic_url]
+        row[:user_name] = @session[:user_id]
         return row
       end
     end
+
+    def comment(params)
+      ticketId = params[:ticketId]
+      msg = params[:msg]
+      server = Dirt::RT::Server.new(Dirt::CONFIG[:rt_url])
+      res = server.addComment(ticketId, msg, @session)
+
+      if res.body.include? "Message recorded"
+        return {:status => "600" , :message => "Comment added"}
+      else
+        return {:status => "602" , :message => "Save failed", :error => res.body}
+      end
+    end
+
 
   end
 end

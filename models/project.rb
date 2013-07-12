@@ -19,13 +19,15 @@ module Dirt
           :name => args[:name],
           :identifier => args[:identifier],
           :description => args[:description],
-          :tab_spec => args[:tab_spec]
+          :tab_spec => args[:tab_spec],
+          :taskboard => args[:taskboard]
           )
       else
         self.where(:id => args[:id]).update(
           :name => args[:name],
           :description => args[:description],
-          :tab_spec => args[:tab_spec]
+          :tab_spec => args[:tab_spec],
+          :taskboard => args[:taskboard]
           )
       end
     end

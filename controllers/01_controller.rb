@@ -10,7 +10,7 @@ module Dirt
 
     attr_accessor :tab_spec , :session
 
-    def initialize (session)
+    def initialize (session=nil)
       @session = session
     end
 
@@ -38,5 +38,10 @@ module Dirt
         template_engine.render(self)
       end
     end
+
+    def genRandom()
+      (0...8).map{(65+rand(26)).chr}.join
+    end
+    
   end 
 end

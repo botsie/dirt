@@ -38,6 +38,7 @@ body>.container {
     font-size: 9px;
     margin: 2px;
     float: left;
+    z-index: 10;
 }
 
 .card {
@@ -123,6 +124,28 @@ body>.container {
     visibility: hidden;
 }
 
+.icon-eye {
+  display: inline-block;
+  background-image: url("/images/btn-sprite.png");
+  background-position: 0px 0px;
+  height: 13px;
+  width: 13px;
+}
+
+#name {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+#team {
+  font-size: 16px;
+}
+
+.profile-pic{
+  height: 215px;
+  width: 215px;
+}
+
 [draggable=true] {
   -khtml-user-drag: element;
 }
@@ -158,4 +181,12 @@ body>.container {
   -webkit-background-clip: padding-box;
      -moz-background-clip: padding-box;
           background-clip: padding-box;
+}
+
+.icon-gray{
+  opacity: 0.5;
+}
+
+.popover {
+  width: 300px;
 }
