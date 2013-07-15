@@ -1,1 +1,6 @@
-h2. edit a page
+h2. Edit a Page
+
+To edit a page
+* click the 'Edit' button on the top-right corner of that page
+
+Refer to Create a page for more details
