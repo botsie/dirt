@@ -1,6 +1,8 @@
 h1. Help Page for DiRT
 
-References:
+
+
+h4. References:
 
 "Create a project":/static/help/create_project
 "Edit a projcet":/static/help/edit_project
