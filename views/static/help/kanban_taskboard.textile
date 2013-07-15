@@ -1,5 +1,6 @@
 h4. Kanban Taskboard Macro
 
+* Kanban taskboard can be configured on the project settings page
 * Each column in a row must be added as an array element
 * To add sub columns pass an array of array elements with the parent column name
 * Add a query using the following syntax:
@@ -9,8 +10,6 @@ Example:
 <pre>
 <~
 {
-"type":"kanban_task_board",
-"caption":"Taskboard",
 "group_sequence":[
   [ ["spec1"] ],
   [ ["spec2"], ["spec3"] ],
@@ -25,4 +24,3 @@ Example:
 </pre>
 
 p. Note that queues *must* be passed an Array, even if it is a single item array.
-

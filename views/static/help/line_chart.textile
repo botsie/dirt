@@ -1,5 +1,7 @@
 h4. Line Chart Macro
 
+p. Line Chart Macro can be used to add a dynamic line chart on a page
+
 * The group by column comes first in the SQL statement
 * The data column follows the group column
 * If more than one data column in received, only the 1st data column is used to generate the graph
