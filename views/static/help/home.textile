@@ -8,6 +8,7 @@ h4. References:
 "Edit a projcet":/static/help/edit_project
 "Create a page":/static/help/create_page
 "Edit a page":/static/help/edit_page
+"Notepad":/static/help/notepad
 "Kanban Taskboard":/static/help/kanban_taskboard
 "Simple Taskboard":/static/help/simple_taskboard
 "Line Chart":/static/help/line_chart

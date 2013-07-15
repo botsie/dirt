@@ -1,6 +1,6 @@
 h2. Create a Project
 
-To create a project
+Create a Project
 
 Click the new button on the top-right corner of the project list page
 You will be able to define
@@ -23,7 +23,6 @@ It has the following requirements
 Example:
 
 <pre>
-<~
 {
 "group_sequence":[
   [ ["spec1"] ],
@@ -35,7 +34,6 @@ Example:
 "queues":["linux-hosting","linux-hosting-issues","vps-hosting", "vps-hosting-issues"],
 "resolved_after":"last week monday"
 }
-~>
 </pre>
 
 p. Note that queues *must* be passed an Array, even if it is a single item array.

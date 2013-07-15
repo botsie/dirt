@@ -1,5 +1,8 @@
 h4. Aging Macro
 
+It gives the count of age of tickets in the queues mentioned.
+
+
 Example:
 
 <pre>

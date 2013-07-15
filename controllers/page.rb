@@ -57,6 +57,12 @@ module Dirt
       tab_spec.push({:caption=>"Taskboard",:page=>"../taskboard"})
       tab_spec.push({:caption=>"Notepad",:page=>"../notepad"})
       tab_spec.each {|t| t[:page] == page_name ? t[:class] = "active" : t[:class] = ""}
+      
+      len = tab_spec.length
+      2.times do |t|
+        tab_spec[len-1-t][:class]+=" pull-right"
+      end
+
       return tab_spec
     end
   end
