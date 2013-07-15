@@ -1,5 +1,7 @@
 h4. Bar Chart Macro
 
+p. Bar Chart Macro can be used to add a dynamic bar chart on a page
+
 * The group by column comes first in the SQL statement
 * The data column follows the group column
 * More than one data column can be plotted if 'group-sequence' is defined

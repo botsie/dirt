@@ -1,1 +1,6 @@
-h2. edit a project
+h2. Edit a Project
+
+To edit a page
+* click the 'Edit' button on the right of the project tile
+
+Refer to Create a Project for more details

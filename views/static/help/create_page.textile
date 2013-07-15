@@ -1,1 +1,9 @@
-h2. create a page
+h2. Create a Page
+
+To create a page
+
+* Add page caption and page name in the project settings page
+* Naviagate to the corresponding page and the click to the newly created tab
+* You will be able to add contents and other elements to the page
+
+p. Refer Macros for more details
