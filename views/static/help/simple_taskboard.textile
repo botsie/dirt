@@ -1,5 +1,7 @@
 h4. Simple Taskboard Macro
 
+Simple taskboard creates a simple table type of view of the tickets in the queues mentioned in the description.
+
 Example:
 
 <pre>

@@ -7,6 +7,7 @@ require 'chronic'
 module Dirt
   class NotepadController < Dirt::Controller
     def show(params)
+      @queues = Dirt::RT_DB[:queues].select(:name).distinct.all
       @project = params[:project]
       @error_msg = params[:error_msg]
       @success_msg = params[:success_msg]
@@ -19,6 +20,7 @@ module Dirt
       error_msg = Array.new
       success_msg = Array.new
       infotext = params[:notepad_text];
+      queue = params[:queue_name]
 
       parent = nil
       child = nil
@@ -49,7 +51,7 @@ module Dirt
           elsif heir.nil?
             error_msg.push('Ticket heirarchy not defined - syntax error - ticket ignored')
           else
-            response = rt_server.createTicket(ticket_subject, session, owner)
+            response = rt_server.createTicket(ticket_subject, session, queue, owner)
             
             response.body.gsub!(/^#\sTicket\s([0-9]*)\screated./) do
               ticketId = $1

@@ -1,0 +1,29 @@
+h4. Notepad
+
+Notepad can be used to create RT tickets on the fly.
+Owners can also be assigned to the newly created tickets.
+
+h5. Syntax:
+
+h6. Creating a ticket
+
+* The number of stars in front of the subject defines the heirarchy of the ticket
+* The owner is defined by adding @ and the owner name. Eg. @biju.ch
+* Currently Notepad supports a heirarchy of 3 (ie. max 3 stars)
+
+h6. Adding a comment
+
+* Add a comment by including a hyphen '-'
+* The comment message is added to ticket which preceeds the comment line
+* After successful creation of the ticket a mail is sent to all the people concerned.
+
+Example: 
+
+<pre>
+* Ticket Subject @owner.id
+- Comment on the ticket
+** Child Ticket Subject @owner.id
+- Comment on child ticket
+*** Grandchild ticket subject @owner.id
+- Comment on Grand child
+</pre>
