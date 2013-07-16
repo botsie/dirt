@@ -25,6 +25,12 @@
 	.wiki-page-content.span12
 		.notepad
 			%form.form-horizontal{method: "post", action: "/projects/#{@project}/save_notepad"}
+				.control-group
+					%label.control-label{:for => "queue_name"} Queue Name
+					.controls
+						%select{name: "queue_name"}
+							- @queues.each do |queue|
+								%option{value: "#{queue[:name]}"}=queue[:name]
 				%textarea.input-xlarge.span12{name: 'notepad_text', cols: 300, rows: 24}
 				#ace-editor
 				.form-actions

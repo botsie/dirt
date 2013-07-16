@@ -54,16 +54,17 @@ module Dirt
         return http("/ticket/#{ticketId}/comment", "POST", {:content => content}, session[:rt_cookie])
       end
       
-      def createTicket(subject, session, owner=nil)
+      def createTicket(subject, session, queue, owner=nil)
         time = Time.new.to_s
         current_time = time[0 , time.length-6]
 
         owner = owner.nil? ? "" : owner
+        queue = queue=="" ? "General" : queue
 
         # Please don't change this format
         # No other format works except for this one
         content = "id: ticket/new\n"+
-                  "Queue: General"+"\n"+
+                  "Queue: "+queue+"\n"+
                   "Requestor: " + session[:user_id]+"\n" +
                   "Subject: "+subject +"\n"+
                   "Cc: \n" +
