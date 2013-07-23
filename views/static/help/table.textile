@@ -1,5 +1,7 @@
 h4. Table Macro
 
+It displays the result of a query in a table
+
 * Add a query using the following syntax:
 
 <pre>

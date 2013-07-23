@@ -8,7 +8,6 @@ h4. Kanban Taskboard Macro
 Example:
 
 <pre>
-<~
 {
 "group_sequence":[
   [ ["spec1"] ],
@@ -20,7 +19,6 @@ Example:
 "queues":["linux-hosting","linux-hosting-issues","vps-hosting", "vps-hosting-issues"],
 "resolved_after":"last week monday"
 }
-~>
 </pre>
 
 p. Note that queues *must* be passed an Array, even if it is a single item array.
