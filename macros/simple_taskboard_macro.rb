@@ -162,7 +162,9 @@ module Dirt
     def shorten(str)
       max_length = 27
       if str.length > max_length
-        str.insert(14,"- ") if str.index(' ')>14
+        if str.index(' ').nil? or str.index(' ') > 14 
+          str.insert(14,"- ")
+        end  
         return str[0..max_length] << "..."
       else
         return str
