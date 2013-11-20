@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 module Dirt
-  class Taskboard < Sequel::Model(Dirt::DIRT_DB)
+  class Taskboard 
     def initialize(spec)
       @spec = spec
     end
