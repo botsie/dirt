@@ -11,24 +11,28 @@ h1. TODO List
 # App configuration
 # Log configuration
 # Config search path
-# Placeholder text in add project screen
-# Increase the size of the tabspec text entry
-# Project plan to ticket hierarchy
+# -Placeholder text in add project screen-
+# -Increase the size of the tabspec text entry-
+# -Project plan to ticket hierarchy-
 # View tickets
 # Make tickets clickable
-# Pie Chart macro
-# Bar/Line chart macro
+# -Pie Chart macro-
+# -Bar/Line chart macro-
 # Layout macros or tags
 # Value macro
 # Edit Tickets
-# Reply/Comment on Tickets
+# -Reply/Comment on Tickets-
 # Simplify installation
 # FB macro
 # Handle errors better
-# Online Help
+# -Online Help-
 # Default Queues for queries
-# User authentication
-# User profile
+# -User authentication-
+# -User profile-
 # Interpolate current logged in user into SQLs
 # Add RT db changes to migrations
-# Use ACE to edit wiki
+# -Use ACE to edit wiki-
+# Display limits on kanban taskboard
+# Clean up navigation -- make it easier to access project settings
+# Direct lik to online help
+# Role based ACLs
