@@ -215,10 +215,10 @@ module Dirt
       return @unclassified_present
     end
     
-    def getcardsfor(specname)
-      specname.to_s.downcase
+    def getcardsfor(kanban_status)
+      kanban_status = kanban_status.to_s.downcase
       @cards.select do |card|
-        (card[:status_name].to_s.downcase == specname)
+        (card[:status_name].to_s.downcase == kanban_status)
       end
     end
    
