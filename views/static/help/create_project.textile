@@ -13,14 +13,27 @@ You will be able to define
 * Kanban taskboard
 
 h4. Kanban Taskboard
-Its a highly customisable taskboard.
 
-It has the following requirements
+* Kanban taskboard should be configured on the project settings page
+* The group_sequence key controls the layout of the Kanban board. It is an array of rows.
 * Each column in a row must be added as an array element
 * To add sub columns pass an array of array elements with the parent column name
 * Add a query using the following syntax:
 
-Example:
+p. Example of a simple taskboard:
+
+<pre>
+{
+"group_sequence":[
+  [["To Do"], ["Doing"], ["Done"] ],
+  [["Blocked"]]
+  ],
+"queues":["linux-hosting","linux-hosting-issues","vps-hosting", "vps-hosting-issues"],
+"resolved_after":"last week monday"
+}
+</pre>
+
+p. A more contrived example illustrates sub-columns:
 
 <pre>
 {
@@ -30,7 +43,6 @@ Example:
   [ ["spec4"], ["spec5"], ["spec6"] ],
   [ ["spec7", [ ["subspec1"], ["subspec2"], ["subspec3"] ] ] ],
   [ ["spec8"], ["spec9", [ ["subspec1"], ["subspec2"], ["subspec3"] ] ], ["spec10"] ]
-  ],
 "queues":["linux-hosting","linux-hosting-issues","vps-hosting", "vps-hosting-issues"],
 "resolved_after":"last week monday"
 }

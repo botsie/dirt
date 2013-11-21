@@ -1,13 +1,24 @@
-h4. Kanban Taskboard Macro
+h4. Kanban Taskboard
 
-* Kanban taskboard can be configured on the project settings page
+* Kanban taskboard should be configured on the project settings page
+* The group_sequence key controls the layout of the Kanban board. It is an array of rows.
 * Each column in a row must be added as an array element
 * To add sub columns pass an array of array elements with the parent column name
 * Add a query using the following syntax:
 
-Example:
+p. Example:
 
-<pre>
+{
+"group_sequence":[
+  [["To Do"], ["Doing"], ["Done"] ],
+  [["Blocked"]]
+  ],
+"queues":["linux-hosting","linux-hosting-issues","vps-hosting", "vps-hosting-issues"],
+"resolved_after":"last week monday"
+}
+
+p. A more contrived example illustrates sub-columns:
+
 {
 "group_sequence":[
   [ ["spec1"] ],
@@ -15,10 +26,8 @@ Example:
   [ ["spec4"], ["spec5"], ["spec6"] ],
   [ ["spec7", [ ["subspec1"], ["subspec2"], ["subspec3"] ] ] ],
   [ ["spec8"], ["spec9", [ ["subspec1"], ["subspec2"], ["subspec3"] ] ], ["spec10"] ]
-  ],
 "queues":["linux-hosting","linux-hosting-issues","vps-hosting", "vps-hosting-issues"],
 "resolved_after":"last week monday"
 }
-</pre>
 
 p. Note that queues *must* be passed an Array, even if it is a single item array.
