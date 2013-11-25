@@ -64,7 +64,7 @@ module Dirt
         return {:status => "608" , :message => "'status' cannot be nil"}
       end
 
-      status = params[:status].downcase
+      status = params[:status]
       
       statusrow = Dirt::Status.where(:status_name => status, :project_id => params[:projectId]).first
       
