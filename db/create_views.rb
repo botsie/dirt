@@ -66,17 +66,19 @@ SELECT
   Tickets.Started,
   Tickets.Due,
   Tickets.Resolved,
-  Tickets.LastUpdatedBy,
+  Tickets.LastUpdatedBy AS last_updated_by_id,
   Tickets.LastUpdated,
   Tickets.Creator AS creator_id,
   Tickets.Created,
   Tickets.Disabled,
   Queues.Name AS Queue,
   Owners.Name AS Owner,
-  Creators.Name AS Creator
-FROM Tickets, Queues, Users AS Owners, Users AS Creators
+  Creators.Name AS Creator,
+  Updaters.Name AS LastUpdatedBy
+FROM Tickets, Queues, Users AS Owners, Users AS Creators, Users AS Updaters
 WHERE Tickets.Queue = Queues.id
   AND Tickets.Owner = Owners.id
-  AND Tickets.Creator = Creators.id;  
+  AND Tickets.Creator = Creators.id
+  AND Tickets.LastUpdatedBy = Updaters.id;  
 }
 puts expanded_tickets
