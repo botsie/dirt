@@ -17,10 +17,10 @@
         - row.each do |col|
           - if(col.length<=1)
             %th{ colspan: @model.lcm_col/@model.span[i], style: "width: #{(940/@model.lcm_col)*@model.lcm_col/@model.span[i]}px; background-color: #efefef;", rowspan: @model.rowspan[i]}
-              ="#{col[0]} (#{@model.getcardsfor(col[0]).count}/#{@model.getlimitfor(col[0])})"
+              ="#{col[0]} (Limit: #{@model.getlimitfor(col[0])})"
           - if(col.length>1)
             %th{ colspan: col[1].length*@model.lcm_col/@model.span[i], style: "width: #{(940/@model.lcm_col)*col[1].length*@model.lcm_col/@model.span[i]}px; background-color: #efefef;", rowspan: "1"}
-              ="#{col[0]} (#{@model.getcardsfor(col[0]).count}/#{@model.getlimitfor(col[0])})"
+              ="#{col[0]} (Limit: #{@model.getlimitfor(col[0])})"
       - if @model.rowspan[i] > 1
         %tr
           - row.each do |col|
