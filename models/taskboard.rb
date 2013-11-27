@@ -224,7 +224,7 @@ module Dirt
    
     def getunclassified
       @cards.select do |card|
-        ((!defined? card[:status_name])||(card[:status_name]).nil?)
+        ((!defined? card[:status_name]) || (card[:status_name]).nil? || card[:status_name] == "")
       end
     end
 
