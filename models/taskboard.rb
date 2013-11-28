@@ -205,7 +205,6 @@ module Dirt
         end
         if @cards[i][:id] == value[:ticket_id]
           @cards[i].merge!({:status_id => value[:status_id], :status_name => value[:status_name], :project_id => value[:project_id]})
-          p @cards[i]
         end
       end
       return @cards
@@ -224,8 +223,12 @@ module Dirt
    
     def getunclassified
       @cards.select do |card|
-        ((!defined? card[:status_name]) || (card[:status_name]).nil? || card[:status_name] == "")
+        ( ( no_kanban_status? card ) && (card[:Status] != "resolved"))
       end
+    end
+
+    def no_kanban_status?(card)
+      ((!defined? card[:status_name]) || (card[:status_name]).nil? || card[:status_name] == "")
     end
 
     def statuses
