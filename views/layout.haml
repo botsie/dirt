@@ -27,8 +27,11 @@
                 %ul.dropdown-menu{role: "menu", aria: {labelledby:"dLabel"} }
                   -# %li
                   -#  %a(href="") History
+                  - if (defined? @project)
+                    %li
+                      %a(href="/projects/#{@project}/edit") Project
                   %li
-                    %a(href='/profile/edit') Settings
+                    %a(href='/profile/me') User 
                   %li
                     %a(href="/static/help/home") Help
                   %li.divider
