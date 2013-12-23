@@ -31,8 +31,14 @@ module Dirt
       
       if infotext==""
         error_msg.push('Notes not found')
+        return {:error_msg => error_msg, :success_msg => success_msg}
       end
       
+      if !session[params[:project]][:notepad].nil? && !session[params[:project]][:notepad].empty? && session[params[:project]][:notepad] == infotext
+        error_msg.push("This notes was already saved and tickets were created")
+        return {:error_msg => error_msg, :success_msg => success_msg}
+      end
+            
       infotext.each_line do |line|
         line.gsub!(/^(\**)\s?([a-zA-Z0-9\$%_\*\+\s\.]*)\s?(@([a-zA-Z0-9_\.]*))?/) do |match|
           heir = $1
@@ -97,6 +103,8 @@ module Dirt
         end
       end
 
+      session[params[:project]][:notepad] = infotext
+      
       msg = {:error_msg => error_msg, :success_msg => success_msg}
       return msg
     end
