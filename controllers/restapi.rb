@@ -86,7 +86,8 @@ module Dirt
 
       # Done with dirt update - update rt db
 
-      # Dirt::Application.http('/ticket/'+params[:ticketId]+"/edit", 'POST', {:Status => statusrow[:rt_status_name]})
+      server = Dirt::RT::Server.new(Dirt::CONFIG[:rt_url])
+      server.http('/ticket/'+params[:ticketId]+"/edit", 'POST', {:Status => statusrow[:rt_status_name]})
 
       if result.nil?
         return {:status => "601" , :message => "Save failed"}
