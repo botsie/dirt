@@ -26,10 +26,11 @@
 =end
 
 
-
 module Dirt
 
   class RestapiController < Dirt::Controller
+
+
     def show(params)
       #respond to query variable
       if params[:query].nil?
@@ -55,6 +56,15 @@ module Dirt
     end
 
     def status(params)
+      rt_status = {
+        1 => "new",
+        2 => "open",
+        3 => "stalled",
+        4 => "resolved",
+        5 => "rejected",
+        6 => "deleted"
+      }
+
       #change status of a ticket using ticketId
       #sets new statusId and status
       if params[:projectId].nil?
@@ -86,7 +96,9 @@ module Dirt
 
       # Done with dirt update - update rt db
 
-      # Dirt::Application.http('/ticket/'+params[:ticketId]+"/edit", 'POST', {:Status => statusrow[:rt_status_name]})
+      rt_status_name = rt_status[statusrow[:rt_status_id]]
+      server = Dirt::RT::Server.new(Dirt::CONFIG[:rt_url])
+      server.http('/ticket/'+params[:ticketId]+"/edit", 'POST', {:content => "Status: #{rt_status_name}\n"}, session[:rt_cookie])
 
       if result.nil?
         return {:status => "601" , :message => "Save failed"}
