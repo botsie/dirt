@@ -24,7 +24,11 @@ module Dirt
       @spec[:project_id] = project[:id]
       @model = Dirt::Taskboard.new(@spec)
       @model.cards
-      haml :taskboard
+      text = haml :taskboard
+
+      text.gsub(/#([0-9]+)/) do |m|
+        %Q{<a href="#{Dirt::CONFIG[:rt_url]}/Ticket/Display.html?id=#{$1}" target="_blank">##{$1}</a>}
+      end 
     end    
   end
 end
