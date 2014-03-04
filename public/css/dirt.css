@@ -2,17 +2,17 @@ body {
     padding-top: 40px;
 }
 
-/*
-@font-face {
+
+/*@font-face {
     font-family: "Pacifico";
     src: url(/css/Pacifico.ttf) format("truetype");
 }
 */
 
 .navbar-inverse .head_title{
-/*    font-family: "Pacifico";*/
-    color: #ccc;
-    font-size: 25px;
+    font-family: "Impact","Arial Bold","Helvetica",sans-serif;
+    color: #FFFFFF;
+    font-size: 30px;
     margin-left: 10px;
 }
 
@@ -25,17 +25,18 @@ body>.container {
 }
 
 .card-border {
-    border-right: 1px solid #D0D0D0;
-    border-left: 1px solid #D0D0D0;
-    border-top: 1px solid #D0D0D0;
-    border-bottom: 1px solid #D0D0D0;    
+    border-right: 0px solid #D1D1D1;
+    border-left: 0px solid #D1D1D1;
+    border-top: 0px solid #D1D1D1;
+    border-bottom: 0px solid #D1D1D1;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.4);   
     -webkit-border-radius: 0px 0px 0px 0px;
     -moz-border-radius: 0px 0px 0px 0px;
     border-radius: 0px 0px 0px 0px;
-    width: 82px;
-    height: 69px;
+    width: 122px;
+    height: 65px;
     padding: 0px;
-    font-size: 9px;
+    /*font-size: 12px;*/
     margin: 2px;
     float: left;
     z-index: 10;
@@ -44,16 +45,21 @@ body>.container {
 .card {
     margin: 0px;
     padding: 3px;
-    background: #ffffed;
-    font-size: 9px;
-    width: 67px;
-    height: 63px;
+    background: #FFFFD0;
+    /*font-size: 12px;*/
+    width: 112px;
+    height: 59px;
 }
 
 .card p {
-    font-size: 9px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 0.70em;
     line-height: 125%;
     margin: 0.3em
+}
+
+.card-text {
+    width: 75%;
 }
 
 .col {
@@ -84,15 +90,15 @@ body>.container {
 }
 
 .old {
-    border-left: 1em solid #DF4F49;
+    border-left: 3px solid #DF4F49;
 }
 
 .this-month {
-    border-left: 1em solid #FAA732;
+    border-left: 3px solid #FAA732;
 }
 
 .this-week {
-    border-left: 1em solid #5BB75B;
+    border-left: 3px solid #5BB75B;
 }
 
 .kanban th {

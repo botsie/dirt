@@ -1,87 +1,88 @@
-%h4="#{(@project_id) ? 'Edit '+@project_id : 'New Project' }"
-%form.form-horizontal{action: @post_target, method: "post"}
-  .control-group
-    %label.control-label{:for => "name"} Name
-    .controls
-      %input.input-xlarge{type:"text", name:"name", value:@project[:name], placeholder:"Project Name"}
-      %p.help-block Name of the project (Eg: Linux Hosting)
-      %input{type:"hidden", name:"id", value:@project[:id]}
-  .control-group
-    %label.control-label{:for => "identifier"} Indentifier
-    .controls
-      %input.input-xlarge{type:"text", name:"identifier", disabled:@disable_identifier, value:@project[:identifier], placeholder:"Project Identifier"}
-      %p.help-block Short Identifier (Eg: lxhost)  
-  .control-group
-    %label.control-label{:for => "description"} Description
-    .controls
-      %textarea.input-xlarge.span8{name:"description", placeholder:"Project Description goes here..", rows:"3"}=@project[:description]
-  .control-group
-    %label.control-label{:for => "tab_spec"} Tab Configuration
-    .controls
-      .row-fluid
-        %table.table-striped.table-condensed
-          %thead
-            %tr
-              %th Page Caption
-              %th Page Name
-              %th
-          %tbody{data: {bind: "foreach : pages"}}
-            %tr
-              %td
-                %input{type: "text", data: {bind: "value: caption , attr: {name: 'pages[][caption]'}"}}
-              %td
-                %input{type: "text", data: {bind: "value: page , attr: {name: 'pages[][page]'}"}}
-              %td
-                .pull-right
-                  %a.close{data: {bind: "click: $root.removePage"}} &times;
-          %tr
-            %td
-            %td.pull-right
-              %a.btn.btn-success{data: {bind: "click: $root.addPage"}} Add Another Page
-  .control-group
-    %label.control-label{:for => "status"} Status Map
-    .controls
-      .row-fluid
-        %table.table-striped.table-condensed
-          %thead
-            %tr
-              %th Kanban Status
-              %th RT Status
-              %th Max no.of tickets
-              %th
-          %tbody{data: {bind: "foreach : statuses"}}
+.container
+  %h4="#{(@project_id) ? 'Edit '+@project_id : 'New Project' }"
+  %form.form-horizontal{action: @post_target, method: "post"}
+    .control-group
+      %label.control-label{:for => "name"} Name
+      .controls
+        %input.input-xlarge{type:"text", name:"name", value:@project[:name], placeholder:"Project Name"}
+        %p.help-block Name of the project (Eg: Linux Hosting)
+        %input{type:"hidden", name:"id", value:@project[:id]}
+    .control-group
+      %label.control-label{:for => "identifier"} Identifier
+      .controls
+        %input.input-xlarge{type:"text", name:"identifier", disabled:@disable_identifier, value:@project[:identifier], placeholder:"Project Identifier"}
+        %p.help-block Short Identifier (Eg: lxhost)  
+    .control-group
+      %label.control-label{:for => "description"} Description
+      .controls
+        %textarea.input-xlarge.span8{name:"description", placeholder:"Project Description goes here..", rows:"3"}=@project[:description]
+    .control-group
+      %label.control-label{:for => "tab_spec"} Tab Configuration
+      .controls
+        .row-fluid
+          %table.table-striped.table-condensed
+            %thead
+              %tr
+                %th Page Caption
+                %th Page Name
+                %th
+            %tbody{data: {bind: "foreach : pages"}}
+              %tr
+                %td
+                  %input{type: "text", data: {bind: "value: caption , attr: {name: 'pages[][caption]'}"}}
+                %td
+                  %input{type: "text", data: {bind: "value: page , attr: {name: 'pages[][page]'}"}}
+                %td
+                  .pull-right
+                    %a.close{data: {bind: "click: $root.removePage"}} &times;
             %tr
               %td
-                %input{type: "text", data: {bind: "value: kanban , attr: {name: 'statuses[][kanban]'}"}}
+              %td.pull-right
+                %a.btn.btn-success{data: {bind: "click: $root.addPage"}} Add Another Page
+    .control-group
+      %label.control-label{:for => "status"} Status Map
+      .controls
+        .row-fluid
+          %table.table-striped.table-condensed
+            %thead
+              %tr
+                %th Kanban Status
+                %th RT Status
+                %th Max no.of tickets
+                %th
+            %tbody{data: {bind: "foreach : statuses"}}
+              %tr
+                %td
+                  %input{type: "text", data: {bind: "value: kanban , attr: {name: 'statuses[][kanban]'}"}}
+                %td
+                  %select{type: "text", data: {bind: "value: RT , attr: {name: 'statuses[][RT]'}"}}
+                    %option{value: '1'}New
+                    %option{value: '2'}Open
+                    %option{value: '3'}Stalled
+                    %option{value: '4'}Resolved
+                    %option{value: '5'}Rejected
+                    %option{value: '6'}Deleted
+                %td
+                  %input{type: "number", data: {bind: "value: max_tickets, attr: {name: 'statuses[][max_tickets]', style: 'width : 140px;'}"}}
+                %td
+                  .pull-right
+                    %a.close{data: {bind: "click: $root.removeStatus"}} &times;
+            %tr
               %td
-                %select{type: "text", data: {bind: "value: RT , attr: {name: 'statuses[][RT]'}"}}
-                  %option{value: '1'}New
-                  %option{value: '2'}Open
-                  %option{value: '3'}Stalled
-                  %option{value: '4'}Resolved
-                  %option{value: '5'}Rejected
-                  %option{value: '6'}Deleted
               %td
-                %input{type: "number", data: {bind: "value: max_tickets, attr: {name: 'statuses[][max_tickets]', style: 'width : 140px;'}"}}
-              %td
-                .pull-right
-                  %a.close{data: {bind: "click: $root.removeStatus"}} &times;
-          %tr
-            %td
-            %td
-            %td.pull-right
-              %a.btn.btn-success{data: {bind: "click: $root.addStatus"}} Add Another Status
-  .control-group
-    %label.control-label{:for => "taskboard"} Taskboard
-    .controls
-      %textarea.input-xlarge.span8{name:"taskboard", placeholder:"Taskboard description goes here", rows:"10"}=@project[:taskboard]
-  .form-actions
-    .pull-left
-      %input.btn.btn-primary{type: "submit", value:"Save"}
-      %a.btn{href: "/projects"}="Cancel"
-      %a.btn{href: "/static/help/create_project"}
-        %i.icon-question-sign
-        Help
+              %td.pull-right
+                %a.btn.btn-success{data: {bind: "click: $root.addStatus"}} Add Another Status
+    .control-group
+      %label.control-label{:for => "taskboard"} Taskboard
+      .controls
+        %textarea.input-xlarge.span8{name:"taskboard", placeholder:"Taskboard description goes here", rows:"10"}=@project[:taskboard]
+    .form-actions
+      .pull-left
+        %input.btn.btn-primary{type: "submit", value:"Save"}
+        %a.btn{href: "/projects"}="Cancel"
+        %a.btn{href: "/static/help/create_project"}
+          %i.icon-question-sign
+          Help
 
 %script( type="text/javascript" src="/js/knockout-min-2.2.1.js")
 :javascript

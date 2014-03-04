@@ -51,7 +51,7 @@ module Dirt
     end
 
     def shorten(str)
-      max_length = 27
+      max_length = 35
       if str.length > max_length
         str.insert(14,"- ") if str.index(' ')>14 || str.index(' ')<7 
         return str[0..max_length] << "..."

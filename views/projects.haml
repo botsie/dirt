@@ -1,26 +1,27 @@
-%h3.span12 Projects
-.span12
-  %a.pull-right.span1.btn{href: "/projects/new"}
-    %i.icon-plus-sign
-    New
-%hr.span12.row
+.container
+  %h3.span12 Projects
+  .span12
+    %a.pull-right.span1.btn{href: "/projects/new"}
+      %i.icon-plus-sign
+      New
+  %hr.span12.row
 
-.row.span12
-  - @projects.each do |project|
-    .project-listing.well
-      .row
-        .project-label.span7
-          %h4
-            %a{href: "/projects/#{project[:identifier]}"}=project[:name]
-        %a.pull-right.span1.btn{href: "/projects/#{project[:identifier]}/edit"}
-          %i.icon-edit
-          Edit
-        %a.pull-right.span1.btn{href: "/projects/#{project[:identifier]}/delete"}
-          %i.icon-remove
-          Delete
-      %p=project[:description]
-%hr/
-.row.span12
-  %a.pull-right.span1.btn{href: "/projects/new"}
-    %i.icon-plus-sign
-    New
+  .row.span12
+    - @projects.each do |project|
+      .project-listing.well
+        .row
+          .project-label.span7
+            %h4
+              %a{href: "/projects/#{project[:identifier]}"}=project[:name]
+          %a.pull-right.span1.btn{href: "/projects/#{project[:identifier]}/edit"}
+            %i.icon-edit
+            Edit
+          %a.pull-right.span1.btn{href: "/projects/#{project[:identifier]}/delete"}
+            %i.icon-remove
+            Delete
+        %p=project[:description]
+  %hr/
+  .row.span12
+    %a.pull-right.span1.btn{href: "/projects/new"}
+      %i.icon-plus-sign
+      New
