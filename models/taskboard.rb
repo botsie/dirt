@@ -51,9 +51,9 @@ module Dirt
     end
 
     def shorten(str)
-      max_length = 35
+      max_length = 50
       if str.length > max_length
-        str.insert(14,"- ") if str.index(' ')>14 || str.index(' ')<7 
+        # str.insert(14,"- ") if str.index(' ')>14 || str.index(' ')<7 
         return str[0..max_length] << "..."
       else
         return str
@@ -181,6 +181,7 @@ module Dirt
         card_ids.push(ticket[:id])
         ticket[:short_subject] = shorten(ticket[:Subject])
         ticket[:age_class] = classify(ticket[:LastUpdated])
+        ticket[:origin] = origin(ticket[:id])
         ticket
       end
 
@@ -208,6 +209,10 @@ module Dirt
         end
       end
       return @cards
+    end
+
+    def origin(id)
+      "#{Dirt::CONFIG[:rt_url]}/Ticket/Display.html?id=#{id}"
     end
 
     def unclassified_present

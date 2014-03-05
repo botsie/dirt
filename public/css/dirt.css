@@ -27,39 +27,61 @@ body>.container {
 .card-border {
     border-right: 0px solid #D1D1D1;
     border-left: 0px solid #D1D1D1;
-    border-top: 0px solid #D1D1D1;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
     border-bottom: 0px solid #D1D1D1;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.4);   
-    -webkit-border-radius: 0px 0px 0px 0px;
-    -moz-border-radius: 0px 0px 0px 0px;
-    border-radius: 0px 0px 0px 0px;
-    width: 122px;
-    height: 65px;
+    box-shadow: 0 1px 2px 0px rgba(0,0,0,0.4);   
+    width: 250px;
+    height: 60px;
     padding: 0px;
-    /*font-size: 12px;*/
-    margin: 2px;
+    margin: 3px;
     float: left;
     z-index: 10;
+    /*font-size: 12px;*/
+    /*-webkit-border-radius: 0px 0px 0px 0px;*/
+    /*-moz-border-radius: 0px 0px 0px 0px;*/
+    /*border-radius: 0px 0px 0px 0px;*/
 }
 
 .card {
     margin: 0px;
     padding: 3px;
-    background: #FFFFD0;
+    background: #FFFFD5;
     /*font-size: 12px;*/
-    width: 112px;
-    height: 59px;
+    width: 241px;
+    height: 54px;
 }
 
 .card p {
     font-family: 'Open Sans', sans-serif;
-    font-size: 0.70em;
+    font-size: 11px;
     line-height: 125%;
     margin: 0.3em
 }
 
 .card-text {
     width: 75%;
+}
+
+.card-subject {
+    /*border-bottom: 1px dotted #333;*/
+    position: relative;
+    cursor: pointer;
+}
+
+.card-owner {
+    text-align: right;
+}
+
+.old {
+    border-left: 3px solid #DF4F49;
+}
+
+.this-month {
+    border-left: 3px solid #FAA732;
+}
+
+.this-week {
+    border-left: 3px solid #5BB75B;
 }
 
 .col {
@@ -83,23 +105,6 @@ body>.container {
     border-bottom: 1px solid #bbb;
 }
 
-.card-subject {
-    border-bottom: 1px dotted #333;
-    position: relative;
-    cursor: pointer;
-}
-
-.old {
-    border-left: 3px solid #DF4F49;
-}
-
-.this-month {
-    border-left: 3px solid #FAA732;
-}
-
-.this-week {
-    border-left: 3px solid #5BB75B;
-}
 
 .kanban th {
     text-align: center;
@@ -114,13 +119,13 @@ body>.container {
     padding: 0px;
 }
 
-.sn {
+/*.sn {
     min-height: 79px;
     width: 0px;
     display: block;
     float: left;
 }
-
+*/
 #ajax-status {
     position: fixed;
     top: 43px ;
@@ -195,4 +200,9 @@ body>.container {
 
 .popover {
   width: 300px;
+}
+
+.kanban {
+  margin-left: 0px;
+  overflow: auto;
 }

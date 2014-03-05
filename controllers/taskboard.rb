@@ -25,6 +25,13 @@ module Dirt
       @model = Dirt::Taskboard.new(@spec)
       @model.cards
       haml :taskboard
-    end    
+    end 
+
+    def render_card(card)
+      template = File.read('views/card.haml')
+      template_engine = Haml::Engine.new(template, :format => :html5)
+      template_engine.render(self, :card => card)
+    end
+   
   end
 end
