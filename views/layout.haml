@@ -17,7 +17,7 @@
           -#     %form.navbar-search.pull-left
           -#       %input.search-query{placeholder: "Search", type: "text"}
           %ul.nav.pull-right
-            - if(defined? @session[:user_id])
+            - if(defined? @session and not session.nil? and not @session[:user_id].nil?)
               %li
                 %a(href='/profile/me')
                   =@session[:user_id]
@@ -39,7 +39,7 @@
                   %li
                     %a(href='/logout') Logout
 
-            - if(!defined? @session[:user_id])
+            - if(not defined? @session or session.nil? or @session[:user_id].nil?)
               %li
                 %a(href='/login') Login
 
@@ -47,6 +47,7 @@
       =yield
     
       #footer
+        %br
         %hr
         %p.small
           %a{href:"http://www.github.com/botsie/dirt"} Dirt 

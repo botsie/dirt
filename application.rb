@@ -74,7 +74,7 @@ module Dirt
       @user = Dirt::User.get(session[:user_id])
       path = request.path_info
 
-      if @user.nil? and not array_match(path, [/login/,/favicon/])
+      if @user.nil? and not array_match(path, [/login/,/favicon/,/kanbanboard/,/v2.0/])
         redirect to("/login?redirect_to=#{path}")
       elsif session[:user].nil? && !@user.nil?
         session[:user] = Dirt::User.persist(session[:user_id])

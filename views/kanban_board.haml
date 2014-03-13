@@ -1,73 +1,76 @@
-%h4=@project
-.tab-bar
-  %ul.nav.nav-tabs
-    - @tab_spec.each do |tab|
-      %li{class: "#{tab[:class]}"}
-        %a{href: "/projects/#{@project}/pages/#{tab[:page]}"}=tab[:caption]
+%h4="#{@project_name} Kanban Board"
+- if not session[:user].nil?
+  .tab-bar
+    %ul.nav.nav-tabs
+      - @tab_spec.each do |tab|
+        %li{class: "#{tab[:class]}"}
+          %a{href: "/projects/#{@project}/pages/#{tab[:page]}"}=tab[:caption]
 
 - if not @error_msg.nil?
   =@error_msg
 - else
-  %h4="Kanban Board"
+  .row
+    %table.table.table-bordered.table-condensed.kanban
+      %tr.kanban-header(data-bind="foreach: activeStatuses")
+        %th(data-bind="text: name, attr: { colspan: $root.activeColumnSpan, width: '300px' }")
+      %tr(data-bind="foreach: activeStatuses")
+        %td(data-bind="foreach: childCards, attr: { colspan: $root.activeColumnSpan, width: '300px' }")
+          .card-border
+            %div(data-bind="attr: { class : 'card ' + age_class() }")
+              .row-fluid
+                .span11
+                  %p
+                    %span.card-subject(data-bind="attr : {title: subject}, text: short_subject")
+              /   .span1
+              /     %i.icon-eye{ticketId: "#{card[:id]}", data: {bind: "click : showInfo"}}
+              /     %i.icon-comment.icon-gray{ticketId: "#{card[:id]}"}
+              .row-fluid
+                .card-id.span6.pull-left
+                  %p
+                    %a(data-bind="attr: {href : origin}, text: '#' + id" )
+                .card-owner.span6.pull-right
+                  %p(data-bind="text: owner")
+      %tr.kanban-header(data-bind="foreach: passiveStatuses")
+        %th(data-bind="text: name, attr: { colspan: $root.passiveColumnSpan }")
+      %tr(data-bind="foreach: passiveStatuses")
+        %td(data-bind="foreach: childCards, attr: { colspan: $root.passiveColumnSpan }")
+          .card-border
+            %div(data-bind="attr: { class : 'card ' + age_class() }")
+              .row-fluid
+                .span11
+                  %p
+                    %span.card-subject(data-bind="attr : {title: subject}, text: short_subject")
+              /   .span1
+              /     %i.icon-eye{ticketId: "#{card[:id]}", data: {bind: "click : showInfo"}}
+              /     %i.icon-comment.icon-gray{ticketId: "#{card[:id]}"}
+              .row-fluid
+                .card-id.span6.pull-left
+                  %p
+                    %a(data-bind="attr: {href : origin}, text: '#' + id" )
+                .card-owner.span6.pull-right
+                  %p(data-bind="text: owner")
 
-  %table.table.table-bordered.table-condensed.kanban
-    / %tr(data-bind="foreach: active_rt_statuses")
-    /   %th(data-bind="text: name, attr: { colspan: kanban_statuses.length }")
-    %tr.kanban-header(data-bind="foreach: activeStatuses")
-      %th(data-bind="text: name, attr: { colspan: $root.activeColumnSpan, width: $root.activeColumnWidth }")
-    %tr(data-bind="foreach: activeStatuses")
-      %td(data-bind="foreach: childCards, attr: { colspan: $root.activeColumnSpan, width: $root.activeColumnWidth }")
-        .card-border
-          %div(data-bind="attr: { class : 'card ' + age_class() }")
-            .row-fluid
-              .span11
-                %p
-                  %span.card-subject(data-bind="attr : {title: subject}, text: short_subject")
-            /   .span1
-            /     %i.icon-eye{ticketId: "#{card[:id]}", data: {bind: "click : showInfo"}}
-            /     %i.icon-comment.icon-gray{ticketId: "#{card[:id]}"}
-            .row-fluid
-              .card-id.span6.pull-left
-                %p
-                  %a(data-bind="attr: {href : origin}, text: '#' + id" )
-              .card-owner.span6.pull-right
-                %p(data-bind="text: owner")
-    %tr.kanban-header(data-bind="foreach: passiveStatuses")
-      %th(data-bind="text: name, attr: { colspan: $root.passiveColumnSpan }")
-    %tr(data-bind="foreach: passiveStatuses")
-      %td(data-bind="foreach: childCards, attr: { colspan: $root.passiveColumnSpan }")
-        .card-border
-          %div(data-bind="attr: { class : 'card ' + age_class() }")
-            .row-fluid
-              .span11
-                %p
-                  %span.card-subject(data-bind="attr : {title: subject}, text: short_subject")
-            /   .span1
-            /     %i.icon-eye{ticketId: "#{card[:id]}", data: {bind: "click : showInfo"}}
-            /     %i.icon-comment.icon-gray{ticketId: "#{card[:id]}"}
-            .row-fluid
-              .card-id.span6.pull-left
-                %p
-                  %a(data-bind="attr: {href : origin}, text: '#' + id" )
-              .card-owner.span6.pull-right
-                %p(data-bind="text: owner")
-
-  .backlog(data-bind="foreach: backlog")
-    .card-border
-      %div(data-bind="attr: { class : 'card ' + age_class() }")
-        .row-fluid
-          .span11
-            %p
-              %span.card-subject(data-bind="attr : {title: subject}, text: short_subject")
-        /   .span1
-        /     %i.icon-eye{ticketId: "#{card[:id]}", data: {bind: "click : showInfo"}}
-        /     %i.icon-comment.icon-gray{ticketId: "#{card[:id]}"}
-        .row-fluid
-          .card-id.span6.pull-left
-            %p
-              %a(data-bind="attr: {href : origin}, text: '#' + id" )
-          .card-owner.span6.pull-right
-            %p(data-bind="text: owner")
+    %table.table.table-bordered.table-condensed.kanban
+      %tr.kanban-header
+        %th="Backlog"
+      %tr
+        %td
+          .backlog(data-bind="foreach: backlog")
+            .card-border
+              %div(data-bind="attr: { class : 'card ' + age_class() }")
+                .row-fluid
+                  .span11
+                    %p
+                      %span.card-subject(data-bind="attr : {title: subject}, text: short_subject")
+                /   .span1
+                /     %i.icon-eye{ticketId: "#{card[:id]}", data: {bind: "click : showInfo"}}
+                /     %i.icon-comment.icon-gray{ticketId: "#{card[:id]}"}
+                .row-fluid
+                  .card-id.span6.pull-left
+                    %p
+                      %a(data-bind="attr: {href : origin}, text: '#' + id" )
+                  .card-owner.span6.pull-right
+                    %p(data-bind="text: owner")
 
 
 

@@ -11,7 +11,11 @@ module Dirt
 
       @project = params[:project]
       project = Dirt::Project.where(:identifier => @project).first
-      @tab_spec = Dirt::PageController.new(session).get_tab_spec(@project,"../taskboard")
+      @project_name = project[:name]
+
+      if not session[:user].nil?
+        @tab_spec = Dirt::PageController.new(session).get_tab_spec(@project,"../taskboard")
+      end
 
       if project[:taskboard] == "" || project[:taskboard].nil?
       	@error_msg = "Kanban Board not defined"

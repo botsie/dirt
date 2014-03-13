@@ -8,6 +8,10 @@
 - if not @error_msg.nil?
   =@error_msg
 - else
+  .row-fluid
+    %a.pull-right{href:"/projects/#{@project}/kanbanboard", title: "Copy and share this link"}
+      ="Use this link to share this board"
+    %i.pull-right.icon-share
   %table.table.table-bordered.table-condensed.span12.kanban
     - i=-1
     - @model.grp_seq.each do |row|
