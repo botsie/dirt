@@ -39,6 +39,7 @@ function KanbanBoardViewModel() {
     var self = this;
     self.cards = ko.observableArray([]);
     self.statuses = ko.observableArray([]);
+    self.backlog = ko.observableArray([]);
 
     self.rtStatuses = ko.observableArray([
         new RtStatus({"id" : 1, "name" : "New", "active" : true, "kanbanStatuses" : []}),
@@ -78,7 +79,7 @@ function KanbanBoardViewModel() {
         return [].concat.apply([],res);
     });
 
-    self.column_units = ko.computed(function(){
+    self.columnUnits = ko.computed(function(){
         // Use Euclid's algorithm to compute lcm
         function gcf(a, b) { 
             return ( b == 0 ) ? (a):( gcf(b, a % b) ); 
@@ -89,12 +90,20 @@ function KanbanBoardViewModel() {
         return lcm(self.activeStatuses().length, self.passiveStatuses().length);
     });
 
-    self.active_column_span = ko.computed(function(){
-        return (self.column_units() / self.activeStatuses().length);
+    self.activeColumnSpan = ko.computed(function(){
+        return (self.columnUnits() / self.activeStatuses().length);
     });
 
-    self.passive_column_span = ko.computed(function(){
-        return (self.column_units() / self.passiveStatuses().length);
+    self.passiveColumnSpan = ko.computed(function(){
+        return (self.columnUnits() / self.passiveStatuses().length);
+    });
+
+    self.activeColumnWidth = ko.computed(function(){
+        return (100 / self.activeStatuses().length) + "%";
+    });
+
+    self.passiveColumnWidth = ko.computed(function(){
+        return (100 / self.passiveStatuses().length) + "%";
     });
 
     // Load initial state from server
@@ -103,6 +112,13 @@ function KanbanBoardViewModel() {
         var mappedCards = $.map(allData, function(item) {
             return new Card(item);
         });
+        var backlog = $.map(mappedCards, function(card){
+            if (card.kanban_status() === undefined) {
+                return card;
+            }
+        });
+        p(backlog);
+        self.backlog(backlog);
         self.cards(mappedCards);
     });
 
