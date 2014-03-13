@@ -1,0 +1,63 @@
+%h4=@project
+.tab-bar
+  %ul.nav.nav-tabs
+    - @tab_spec.each do |tab|
+      %li{class: "#{tab[:class]}"}
+        %a{href: "/projects/#{@project}/pages/#{tab[:page]}"}=tab[:caption]
+
+- if not @error_msg.nil?
+  =@error_msg
+- else
+  %h4="Kanban Board"
+
+  %table.table.table-bordered.table-condensed.kanban
+    / %tr(data-bind="foreach: active_rt_statuses")
+    /   %th(data-bind="text: name, attr: { colspan: kanban_statuses.length }")
+    %tr.kanban-header(data-bind="foreach: activeStatuses")
+      %th(data-bind="text: name, attr: { colspan: $root.active_column_span }")
+    %tr(data-bind="foreach: activeStatuses")
+      %td(data-bind="foreach: childCards, attr: { colspan: $root.active_column_span }")
+        .card-border
+          %div(data-bind="attr: { class : 'card ' + age_class() }")
+            .row-fluid
+              .span11
+                %p
+                  %span.card-subject(data-bind="attr : {title: subject}, text: short_subject")
+            /   .span1
+            /     %i.icon-eye{ticketId: "#{card[:id]}", data: {bind: "click : showInfo"}}
+            /     %i.icon-comment.icon-gray{ticketId: "#{card[:id]}"}
+            .row-fluid
+              .card-id.span6.pull-left
+                %p
+                  %a(data-bind="attr: {href : origin}, text: '#' + id" )
+              .card-owner.span6.pull-right
+                %p(data-bind="text: owner")
+    %tr.kanban-header(data-bind="foreach: passiveStatuses")
+      %th(data-bind="text: name, attr: { colspan: $root.passive_column_span }")
+    %tr(data-bind="foreach: passiveStatuses")
+      %td(data-bind="foreach: childCards, attr: { colspan: $root.passive_column_span }")
+        .card-border
+          %div(data-bind="attr: { class : 'card ' + age_class() }")
+            .row-fluid
+              .span11
+                %p
+                  %span.card-subject(data-bind="attr : {title: subject}, text: short_subject")
+            /   .span1
+            /     %i.icon-eye{ticketId: "#{card[:id]}", data: {bind: "click : showInfo"}}
+            /     %i.icon-comment.icon-gray{ticketId: "#{card[:id]}"}
+            .row-fluid
+              .card-id.span6.pull-left
+                %p
+                  %a(data-bind="attr: {href : origin}, text: '#' + id" )
+              .card-owner.span6.pull-right
+                %p(data-bind="text: owner")
+
+
+
+
+
+%script="var project = '#{@project}';"
+%script{src: "/js/knockout-3.1.0.js?version=#{rand(5)}"}
+%script{src: "/js/kanban_board.js?version=#{rand(5)}"}
+
+

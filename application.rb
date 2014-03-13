@@ -139,7 +139,7 @@ module Dirt
     # -----------------------------------------------------------------
 
     get '/projects/:project' do 
-      redirect "/projects/#{params[:project]}/pages/index"
+      redirect "/projects/#{params[:project]}/taskboard"
     end
 
     get '/projects/:project/pages' do 
@@ -172,6 +172,10 @@ module Dirt
     get '/projects/:project/taskboard' do 
       Dirt::TaskboardController.show(params,session)
     end
+
+    get '/projects/:project/kanbanboard' do 
+      Dirt::KanbanBoardController.show(params,session)
+    end
     # run! if app_file == $0
 
     # -----------------------------------------------------------------
@@ -187,6 +191,17 @@ module Dirt
         'Api responds only to ajax request'
       end 
     end
+
+    get '/api/v2.0/projects/:project/:method' do
+      #respond only to ajax request
+      if request.xhr?
+        value = Dirt::ProjectApiController.show(params, session)
+        return value.to_json
+      else
+        'Api responds only to ajax request'
+      end 
+    end
+
 
     # -----------------------------------------------------------------
     # Profile related routes

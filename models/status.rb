@@ -28,12 +28,21 @@ module Dirt
     end
 
     def self.source(project)
-      statuses = self.eager_graph().where()
+      begin
+        statuses = self.ungraphed().where(:project__identifier => project)
+      rescue 
+        return {}
+      end
       return statuses
     end
 
     def self.status(project)
-      return self.source(project)
+      sql = "SELECT statuses.* FROM statuses, projects 
+             WHERE statuses.project_id = projects.id
+             AND projects.identifier = ?
+             and status_name <> ''"
+
+      return Dirt::DIRT_DB[sql, project].all
     end
 
   end 

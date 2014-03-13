@@ -108,6 +108,7 @@ body>.container {
 
 .kanban th {
     text-align: center;
+    background: #EFEFEF;
 }
 
 .kanban .subcat {
