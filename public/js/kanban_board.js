@@ -117,32 +117,32 @@ function KanbanBoardViewModel() {
                 return card;
             }
         });
-        p(backlog);
         self.backlog(backlog);
         self.cards(mappedCards);
+    
+        var url = "/api/v2.0/projects/" + project + "/kanban_statuses";
+        $.getJSON(url, function(allData) {
+            var mappedStatuses = $.map(allData, function(item) {
+                // Add child cards to this status
+                var childCards = $.grep(self.cards(), function(card, index) {
+                    return (card.status_id() == item.id); 
+                });
+                return new Status(item, childCards);
+            });
+
+            $.each(mappedStatuses,function(index, status){
+                // Add this status to it's parent rt status
+                $.each(self.rtStatuses(), function(index, rtStatus){
+                    if (status.rtStatusId == rtStatus.id) {
+                        status.active = rtStatus.active;
+                        rtStatus.kanbanStatuses.push(status);
+                    }
+                });
+            });
+            self.statuses(mappedStatuses);
+        });
     });
 
-    var url = "/api/v2.0/projects/" + project + "/kanban_statuses";
-    $.getJSON(url, function(allData) {
-        var mappedStatuses = $.map(allData, function(item) {
-            // Add child cards to this status
-            var childCards = $.grep(self.cards(), function(card, index) {
-                return (card.status_id() == item.id); 
-            });
-            return new Status(item, childCards);
-        });
-
-        $.each(mappedStatuses,function(index, status){
-            // Add this status to it's parent rt status
-            $.each(self.rtStatuses(), function(index, rtStatus){
-                if (status.rtStatusId == rtStatus.id) {
-                    status.active = rtStatus.active;
-                    rtStatus.kanbanStatuses.push(status);
-                }
-            });
-        });
-        self.statuses(mappedStatuses);
-    });
 }
 
 ko.applyBindings(new KanbanBoardViewModel());
