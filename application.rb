@@ -102,10 +102,6 @@ module Dirt
       haml :login
     end
 
-   # get '/:queue' do
-   #   Dirt::CardWallController.show(params)
-   # end
-    
     # -----------------------------------------------------------------
     # Project Related Routes
     # -----------------------------------------------------------------
