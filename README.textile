@@ -18,7 +18,7 @@ Installation is still pretty clunky:
 * Clone the source
 * Install Ruby 1.9.3 if you don't already have it. Using ["rvm":https://rvm.io] for this is highly recommended.
 * Run @bundle install@ to fetch dependencies. Using rvm's gemsets feature to isolate these dependencies is a good idea.
-* Copy @config/config.yml.sample@ to @config/config.yml@
+* Copy @config/config.yml.sample@ to @config/config.yml@ and edit.
 * Copy @config/database.yml.sample@ to @config/database.yml@ and edit. Note that there are *two* database configurations:
 ** @rt@ : Your existing Request Tracker database. With the current featureset this can be read-only access. This will change with later releases.
 ** @dirt@ : A new empty database that you have created for dirt.
@@ -206,9 +206,7 @@ to tabulate the average age of tickets per user.
 
 h3. Bugs
 
-# When editing a new page, clicking 'Cancel' will return to the edit page.
-# -Ruby Rack support is not working-
-# -Project Tabs aren't working well-
+Check the bug tracker on ["GitHub":https://github.com/botsie/dirt/issues]
 
 h3. TODO List
 
