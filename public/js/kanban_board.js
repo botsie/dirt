@@ -25,6 +25,7 @@ function Card(data){
     var self = this;
     self.id = data.id;
     self.subject = ko.observable(data.Subject) ;
+    self.status = ko.observable(data.Status) ;
     self.cards = ko.observableArray(data.cards);
     self.kanban_status = ko.observable(data.kanban_status);
     self.status_id  = ko.observable(data.status_id);
@@ -109,11 +110,12 @@ function KanbanBoardViewModel() {
     // Load initial state from server
     var url = "/api/v2.0/projects/" + project + "/cards";
     $.getJSON(url, function(allData) {
+        p(allData);
         var mappedCards = $.map(allData, function(item) {
             return new Card(item);
         });
-        var backlog = $.map(mappedCards, function(card){
-            if (card.kanban_status() === undefined) {
+        var backlog = $.map(mappedCards, function(card) {
+            if (((card.kanban_status() === undefined) || (card.kanban_status() === "")) && (card.status() != "resolved")) {
                 return card;
             }
         });
