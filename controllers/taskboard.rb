@@ -18,7 +18,7 @@ module Dirt
       begin
       	@spec = JSON.load(project[:taskboard])
       rescue JSON::ParserError => error
-      	@error_msg = error.message
+      	@error_msg = error.message.force_encoding("utf-8")
       	return haml :taskboard
       end
       @spec[:project_id] = project[:id]
